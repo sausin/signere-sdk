@@ -42,7 +42,7 @@ class Receiver
         $url = $this->makeUrl('GET', $provider, $receiver);
 
         // get the response
-        $response = $this->client->delete($url, [
+        $response = $this->client->get($url, [
             'headers' => $headers
         ]);
 
