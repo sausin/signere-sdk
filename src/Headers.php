@@ -8,17 +8,19 @@ class Headers
 {
     /**
      * Make headers for a request.
-     *
-     * @param  string $reqType
+     * @param  string    $reqType
+     * @param  bool|null $needPrimary
      * @return array
      */
-    public static function make(string $reqType)
+    public static function make(string $reqType, bool $needPrimary = null)
     {
         // generate timestamp in the correct format
         $timestamp = Carbon::now()->toIso8601String();
 
-        // get the primary key
-        $key = Config::get('services.signere.primary_key');
+        // get the primary / secondary key
+        $key = $needPrimary ? 
+            Config::get('services.signere.primary_key') : 
+            Config::get('services.signere.secondary_key');
 
         // set the basic headers
         $headers = [
