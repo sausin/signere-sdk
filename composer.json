@@ -1,0 +1,49 @@
+{
+    "name": "sausin/signere",
+    "description": "Package to work with Signere.no APIs for bankid implementation.",
+    "keywords": ["laravel", "signere", "billing"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/sausin/signere/issues",
+        "source": "https://github.com/sausin/signere"
+    },
+    "authors": [
+        {
+            "name": "Saurabh Singhvi",
+            "email": "saurabh.singhvi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/support": "~5.4",
+        "kitetail/zttp": "^0.2.0",
+        "nesbot/carbon": "~1.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sausin\\Signere\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sausin\\Signere\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sausin\\Signere\\SignereServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

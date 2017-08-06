@@ -1,0 +1,13 @@
+/node_modules
+/public/storage
+/public/hot
+/storage/*.key
+/vendor
+/coverage
+.env
+*.sublime-project
+*.sublime-workspace
+worker.log
+supervisor.sh
+composer.lock
+npm-debug.log
