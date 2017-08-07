@@ -17,6 +17,7 @@
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "~5.4",
+        "illuminate/routing": "~5.4",
         "kitetail/zttp": "^0.2.0",
         "nesbot/carbon": "~1.0"
     },
