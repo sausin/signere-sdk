@@ -29,7 +29,7 @@ class DocumentFile
 
     /**
      * Returns the signed document as a file.
-     * 
+     *
      * @param  string $documentId
      * @return Object
      */
@@ -52,7 +52,7 @@ class DocumentFile
 
     /**
      * Returns the unsigned document as a file.
-     * 
+     *
      * @param  string $documentId
      * @return Object
      */
@@ -75,7 +75,7 @@ class DocumentFile
 
     /**
      * Returns the signed document as a PDF file.
-     * 
+     *
      * @param  string $documentId
      * @return Object
      */
@@ -98,7 +98,7 @@ class DocumentFile
 
     /**
      * Creates a temporary url to a document.
-     * 
+     *
      * @param  string $documentId
      * @param  string $type
      * @param  Carbon $expiring

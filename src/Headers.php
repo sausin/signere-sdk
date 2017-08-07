@@ -18,8 +18,8 @@ class Headers
         $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);
 
         // get the primary / secondary key
-        $key = $needPrimary ? 
-            Config::get('services.signere.primary_key') : 
+        $key = $needPrimary ?
+            Config::get('services.signere.primary_key') :
             Config::get('services.signere.secondary_key');
 
         // set the basic headers

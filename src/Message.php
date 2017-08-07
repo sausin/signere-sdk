@@ -50,9 +50,9 @@ class Message
     }
 
     /**
-     * Retrieves a list of all the messages that 
+     * Retrieves a list of all the messages that
      * are sent for the given document.
-     * 
+     *
      * @param  string $documentId
      * @return Object
      */
@@ -75,7 +75,7 @@ class Message
 
     /**
      * Sends a message to the signees of a given document.
-     * 
+     *
      * @param  array  $body
      * @return Object
      */
@@ -99,7 +99,7 @@ class Message
 
     /**
      * Sends a new message to the Signeeref if the first one failed.
-     * 
+     *
      * @param  array  $body
      * @return Object
      */
@@ -124,7 +124,7 @@ class Message
     /**
      * Sends a message to an external person with a link/URL
      * to view a document.
-     * 
+     *
      * @param  array  $body
      * @return Object
      */

@@ -50,7 +50,7 @@ class Status
 
     /**
      * Returns the status the server.
-     * 
+     *
      * @param  string $request
      * @return Object
      * @todo need to setup the PingToken
