@@ -2,10 +2,15 @@
 
 namespace Sausin\Signere;
 
+use GuzzleHttp\Client;
+
 class Invoice
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Invoice';
@@ -15,9 +20,10 @@ class Invoice
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -28,10 +34,10 @@ class Invoice
      * @param  int    $month
      * @return json
      */
-    public static function get(int $year, int $month)
+    public function get(int $year, int $month)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/%s/%s', self::URI, $year, $month);

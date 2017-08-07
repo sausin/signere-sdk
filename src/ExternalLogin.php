@@ -6,8 +6,11 @@ use GuzzleHttp\Client;
 
 class ExternalLogin
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/ExternalLogin';
@@ -17,9 +20,10 @@ class ExternalLogin
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -28,10 +32,10 @@ class ExternalLogin
      * @param  string $requestId
      * @return json
      */
-    public static function get(string $requestId)
+    public function get(string $requestId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $requestId);
@@ -52,10 +56,10 @@ class ExternalLogin
      * @param  array  $body
      * @return json
      */
-    public static function create(array $body)
+    public function create(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST');
@@ -76,10 +80,10 @@ class ExternalLogin
      * @param  array  $body
      * @return json
      */
-    public static function createMobile(array $body)
+    public function createMobile(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST', null, true);
@@ -101,10 +105,10 @@ class ExternalLogin
      * @param  string|null $requestId
      * @return json
      */
-    public static function startMobile(string $requestId = null)
+    public function startMobile(string $requestId = null)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST', null, true, true);
@@ -126,10 +130,10 @@ class ExternalLogin
      * @param  string $requestId
      * @return json
      */
-    public static function delete(string $requestId)
+    public function delete(string $requestId)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT');
+        $headers = $this->headers->make('PUT');
 
         // make the URL for this request
         $url = $this->makeUrl('PUT');
@@ -150,7 +154,7 @@ class ExternalLogin
      * @param  string $requestId
      * @return json
      */
-    public static function destroy(string $requestId)
+    public function destroy(string $requestId)
     {
         return $this->delete($requestId);
     }

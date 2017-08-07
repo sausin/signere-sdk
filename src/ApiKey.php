@@ -2,10 +2,15 @@
 
 namespace Sausin\Signere;
 
+use GuzzleHttp\Client;
+
 class ApiKey
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/ApiToken';
@@ -15,9 +20,10 @@ class ApiKey
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -26,10 +32,10 @@ class ApiKey
      * @param  string $key
      * @return json
      */
-    public static function renewPrimary(string $key)
+    public function renewPrimary(string $key)
     {
         // get the headers for this request
-        $headers = Headers::make('POST', true);
+        $headers = $this->headers->make('POST', true);
 
         // make the URL for this request
         $url = $this->makeUrl('POST', 1, $key);
@@ -50,10 +56,10 @@ class ApiKey
      * @param  string $key
      * @return json
      */
-    public static function renewSecondary(string $key)
+    public function renewSecondary(string $key)
     {
         // get the headers for this request
-        $headers = Headers::make('POST', true);
+        $headers = $this->headers->make('POST', true);
 
         // make the URL for this request
         $url = $this->makeUrl('POST', 2, $key);
@@ -75,10 +81,10 @@ class ApiKey
      * @param  int    $otpCode
      * @return json
      */
-    public static function createPrimary(string $providerId, int $otpCode)
+    public function createPrimary(string $providerId, int $otpCode)
     {
         // get the headers for this request
-        $headers = Headers::make('POST', false);
+        $headers = $this->headers->make('POST', false);
 
         // make the URL for this request
         $url = $this->makeUrl('POST', null, null, $providerId, $otpCode);
@@ -100,10 +106,10 @@ class ApiKey
      * @param  array  $body
      * @return json
      */
-    public static function recoverPrimary(array $body)
+    public function recoverPrimary(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT', false);
+        $headers = $this->headers->make('PUT', false);
 
         // make the URL for this request
         $url = $this->makeUrl('PUT');

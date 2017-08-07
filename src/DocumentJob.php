@@ -2,10 +2,15 @@
 
 namespace Sausin\Signere;
 
+use GuzzleHttp\Client;
+
 class DocumentJob
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/DocumentJob';
@@ -15,9 +20,10 @@ class DocumentJob
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -27,10 +33,10 @@ class DocumentJob
      * @param  string $jobId
      * @return Object
      */
-    public static function get(string $jobId)
+    public function get(string $jobId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/%s', self::URI, $jobId);
@@ -50,10 +56,10 @@ class DocumentJob
      * @param  array  $body
      * @return Object
      */
-    public static function create(array $body)
+    public function create(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = self::URI;

@@ -2,10 +2,15 @@
 
 namespace Sausin\Signere;
 
+use GuzzleHttp\Client;
+
 class Statistics
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Statistics';
@@ -15,9 +20,10 @@ class Statistics
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -29,10 +35,10 @@ class Statistics
      * @param  string   $status
      * @return Object
      */
-    public static function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
+    public function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf(

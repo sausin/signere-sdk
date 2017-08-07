@@ -6,8 +6,11 @@ use GuzzleHttp\Client;
 
 class RequestId
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/SignereId';
@@ -17,9 +20,10 @@ class RequestId
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -30,10 +34,10 @@ class RequestId
      * @param  bool   $metadata
      * @return json
      */
-    public static function get(string $requestId, bool $metadata)
+    public function get(string $requestId, bool $metadata)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $requestId, $metadata);
@@ -53,10 +57,10 @@ class RequestId
      * @param  string $requestId
      * @return json
      */
-    public static function check(string $requestId)
+    public function check(string $requestId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $requestId);
@@ -76,10 +80,10 @@ class RequestId
      * @param  array  $body
      * @return string
      */
-    public static function create(array $body)
+    public function create(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST');
@@ -100,10 +104,10 @@ class RequestId
      * @param  string $requestId
      * @return json
      */
-    public static function delete(string $requestId)
+    public function delete(string $requestId)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT');
+        $headers = $this->headers->make('PUT');
 
         // make the URL for this request
         $url = $this->makeUrl('PUT');

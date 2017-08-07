@@ -3,11 +3,15 @@
 namespace Sausin\Signere;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class DocumentFile
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/DocumentFile';
@@ -17,9 +21,10 @@ class DocumentFile
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -28,10 +33,10 @@ class DocumentFile
      * @param  string $documentId
      * @return Object
      */
-    public static function getSigned(string $documentId)
+    public function getSigned(string $documentId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/Signed/%s', self::URI, $documentId);
@@ -51,10 +56,10 @@ class DocumentFile
      * @param  string $documentId
      * @return Object
      */
-    public static function getUnSigned(string $documentId)
+    public function getUnSigned(string $documentId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/Unsigned/%s', self::URI, $documentId);
@@ -74,10 +79,10 @@ class DocumentFile
      * @param  string $documentId
      * @return Object
      */
-    public static function getSignedPdf(string $documentId)
+    public function getSignedPdf(string $documentId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/SignedPDF/%s', self::URI, $documentId);
@@ -99,10 +104,10 @@ class DocumentFile
      * @param  Carbon $expiring
      * @return Object
      */
-    public static function temporaryUrl(string $documentId, string $type, Carbon $expiring)
+    public function temporaryUrl(string $documentId, string $type, Carbon $expiring)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = sprintf('%s/TempUrl', self::URI, $documentId);

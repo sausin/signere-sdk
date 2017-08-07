@@ -2,10 +2,15 @@
 
 namespace Sausin\Signere;
 
+use GuzzleHttp\Client;
+
 class DocumentProvider
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/DocumentProvider';
@@ -15,9 +20,10 @@ class DocumentProvider
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -26,10 +32,10 @@ class DocumentProvider
      * @param  string $providerId
      * @return Object
      */
-    public static function getProvider(string $providerId)
+    public function getProvider(string $providerId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/%s', self::URI, $providerId);
@@ -49,10 +55,10 @@ class DocumentProvider
      *
      * @return Object
      */
-    public static function getCertExpiry()
+    public function getCertExpiry()
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf('%s/CertificateExpires', self::URI);
@@ -73,10 +79,10 @@ class DocumentProvider
      * @param  bool|boolean $demo
      * @return Object
      */
-    public static function getUsage(string $providerId, bool $demo = false)
+    public function getUsage(string $providerId, bool $demo = false)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = sprintf(
@@ -101,10 +107,10 @@ class DocumentProvider
      * @param  array  $body
      * @return Object
      */
-    public static function create(array $body)
+    public function create(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = self::URI;
@@ -125,10 +131,10 @@ class DocumentProvider
      * @param  array  $body
      * @return Object
      */
-    public static function update(array $body)
+    public function update(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT');
+        $headers = $this->headers->make('PUT');
 
         // make the URL for this request
         $url = self::URI;

@@ -6,8 +6,11 @@ use GuzzleHttp\Client;
 
 class ExternalSign
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/externalsign';
@@ -17,9 +20,10 @@ class ExternalSign
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -28,10 +32,10 @@ class ExternalSign
      * @param  string $documentId
      * @return json
      */
-    public static function get(string $documentId)
+    public function get(string $documentId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $documentId);
@@ -53,10 +57,10 @@ class ExternalSign
      * @param  array  $params
      * @return json
      */
-    public static function show(string $documentId, array $params)
+    public function show(string $documentId, array $params)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $documentId, $params);
@@ -76,10 +80,10 @@ class ExternalSign
      * @param  string $signeeRefId
      * @return json
      */
-    public static function status(string $signeeRefId)
+    public function status(string $signeeRefId)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', null, null, $signeeRefId);
@@ -100,10 +104,10 @@ class ExternalSign
      * @param  array  $body
      * @return json
      */
-    public static function create(array $body)
+    public function create(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST');
@@ -124,10 +128,10 @@ class ExternalSign
      * @param  array  $body
      * @return json
      */
-    public static function createApp(array $body)
+    public function createApp(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT');
+        $headers = $this->headers->make('PUT');
 
         // make the URL for this request
         $url = $this->makeUrl('PUT');
@@ -149,10 +153,10 @@ class ExternalSign
      * @param  array  $body
      * @return json
      */
-    public static function startMobile(array $body)
+    public function startMobile(array $body)
     {
         // get the headers for this request
-        $headers = Headers::make('PUT');
+        $headers = $this->headers->make('PUT');
 
         // make the URL for this request
         $url = $this->makeUrl('PUT', $body['DocumentId']);

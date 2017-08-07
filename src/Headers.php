@@ -12,7 +12,7 @@ class Headers
      * @param  bool|null $needPrimary
      * @return array
      */
-    public static function make(string $reqType, string $url, array $body = [], bool $needPrimary = null)
+    public function make(string $reqType, string $url, array $body = [], bool $needPrimary = null)
     {
         // generate timestamp in the correct format
         $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);

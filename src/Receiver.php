@@ -6,8 +6,11 @@ use GuzzleHttp\Client;
 
 class Receiver
 {
-    /** @var $client Guzzle Http Client */
+    /** @var \Guzzle\HttpClient */
     protected $client;
+
+    /** @var Headers */
+    protected $headers;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Receiver';
@@ -17,9 +20,10 @@ class Receiver
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Headers $headers)
     {
         $this->client = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -29,10 +33,10 @@ class Receiver
      * @param  string|null $receiver
      * @return json
      */
-    public static function get(string $provider, string $receiver = null)
+    public function get(string $provider, string $receiver = null)
     {
         // get the headers for this request
-        $headers = Headers::make('GET');
+        $headers = $this->headers->make('GET');
 
         // make the URL for this request
         $url = $this->makeUrl('GET', $provider, $receiver);
@@ -53,10 +57,10 @@ class Receiver
      * @param  array  $receiver
      * @return json
      */
-    public static function create(string $provider, array $receiver)
+    public function create(string $provider, array $receiver)
     {
         // get the headers for this request
-        $headers = Headers::make('POST');
+        $headers = $this->headers->make('POST');
 
         // make the URL for this request
         $url = $this->makeUrl('POST', $provider);
@@ -78,7 +82,7 @@ class Receiver
      * @param  array  $receivers
      * @return json
      */
-    public static function createMany(string $provider, array $receivers)
+    public function createMany(string $provider, array $receivers)
     {
         // instantiate empty responses array
         $responses = [];
@@ -99,10 +103,10 @@ class Receiver
      * @param  string $receiver
      * @return json
      */
-    public static function delete(string $provider, string $receiver)
+    public function delete(string $provider, string $receiver)
     {
         // get the headers for this request
-        $headers = Headers::make('DELETE');
+        $headers = $this->headers->make('DELETE');
 
         // make the URL for this request
         $url = $this->makeUrl('DELETE', $provider, $receiver);
@@ -123,7 +127,7 @@ class Receiver
      * @param  array  $receivers
      * @return json
      */
-    public static function deleteMany(string $provider, array $receivers)
+    public function deleteMany(string $provider, array $receivers)
     {
         // instantiate empty responses array
         $responses = [];
@@ -143,10 +147,10 @@ class Receiver
      * @param  string $provider
      * @return json
      */
-    public static function deleteAll(string $provider)
+    public function deleteAll(string $provider)
     {
         // get the headers for this request
-        $headers = Headers::make('DELETE');
+        $headers = $this->headers->make('DELETE');
 
         // make the URL for this request
         $url = $this->makeUrl('DELETE', $provider);
