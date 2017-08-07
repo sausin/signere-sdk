@@ -37,9 +37,6 @@ class Statistics
      */
     public function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf(
             '%s?Year=%s&Month=%s&Day=%s&Status=%s',
@@ -49,6 +46,9 @@ class Statistics
             $day,
             $status
         );
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
