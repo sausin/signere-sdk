@@ -40,8 +40,8 @@ class ApiKey
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -64,8 +64,8 @@ class ApiKey
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -89,8 +89,8 @@ class ApiKey
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**

@@ -43,8 +43,8 @@ class RequestId
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -66,8 +66,8 @@ class RequestId
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -90,8 +90,8 @@ class RequestId
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -114,8 +114,8 @@ class RequestId
             'json' => ['RequestId' => $requestId]
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**

@@ -45,7 +45,7 @@ class Message
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 }

@@ -41,8 +41,8 @@ class ExternalLogin
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -66,8 +66,8 @@ class ExternalLogin
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -90,8 +90,8 @@ class ExternalLogin
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -115,8 +115,8 @@ class ExternalLogin
             'json' => ['RequestId' => $requestId]
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -140,8 +140,8 @@ class ExternalLogin
             'json' => ['RequestId' => $requestId]
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**

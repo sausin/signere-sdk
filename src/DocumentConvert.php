@@ -8,7 +8,7 @@ class DocumentConvert
     protected $client;
 
     /** The URI of the action */
-    const URI = 'https://api.signere.no/api/Invoice';
+    const URI = 'https://api.signere.no/api/DocumentConvert';
 
     /**
      * Instantiate the class.
@@ -22,7 +22,7 @@ class DocumentConvert
 
     /**
      * Convert format of the document to PDF.
-     * 
+     *
      * @param  array  $body
      * @return json
      * @todo fix it for proper setup with file
@@ -41,7 +41,7 @@ class DocumentConvert
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 }

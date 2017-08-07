@@ -46,8 +46,8 @@ class Receiver
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -71,8 +71,8 @@ class Receiver
             'json' => $receiver
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -116,8 +116,8 @@ class Receiver
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -160,8 +160,8 @@ class Receiver
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**

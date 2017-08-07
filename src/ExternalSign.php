@@ -41,8 +41,8 @@ class ExternalSign
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -66,8 +66,8 @@ class ExternalSign
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -89,8 +89,8 @@ class ExternalSign
             'headers' => $headers
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -114,8 +114,8 @@ class ExternalSign
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -138,8 +138,8 @@ class ExternalSign
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
@@ -163,8 +163,8 @@ class ExternalSign
             'json' => $body
         ]);
 
-        // return the json encoded response
-        return $response->getBody()->getContents();
+        // return the response
+        return $response;
     }
 
     /**
