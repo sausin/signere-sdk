@@ -4,10 +4,6 @@ namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
 
-/**
- * Implementation for
- * https://api.signere.no/Home/Details?controllername=Message&actionname=GetMessageForDocument
- */
 class Message
 {
     /** @var $client Guzzle Http Client */

@@ -12,10 +12,10 @@ class Headers
      * @param  bool|null $needPrimary
      * @return array
      */
-    public static function make(string $reqType, bool $needPrimary = null)
+    public static function make(string $reqType, string $url, array $body = [], bool $needPrimary = null)
     {
         // generate timestamp in the correct format
-        $timestamp = Carbon::now()->toIso8601String();
+        $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);
 
         // get the primary / secondary key
         $key = $needPrimary ? 
@@ -26,7 +26,7 @@ class Headers
         $headers = [
             'API-ID' => Config::get('services.signere.id'),
             'API-TIMESTAMP' => $timestamp,
-            'API-USINGSECONDARYTOKEN' => false,
+            'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : $needPrimary,
             'API-ALGORITHM' => 'SHA512',
             'API-RETURNERRORHEADER' => true
         ];
@@ -37,7 +37,7 @@ class Headers
 
             $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
         } else {
-            $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"', $data, $timestamp, $reqType);
+            $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"}', json_encode($body), $timestamp, $reqType);
 
             $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
         }

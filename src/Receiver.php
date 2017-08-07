@@ -4,10 +4,6 @@ namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
 
-/**
- * Implementation for
- * https://api.signere.no/Documentation#Receiver
- */
 class Receiver
 {
     /** @var $client Guzzle Http Client */
