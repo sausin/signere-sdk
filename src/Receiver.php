@@ -35,11 +35,11 @@ class Receiver
      */
     public function get(string $provider, string $receiver = null)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = $this->makeUrl('GET', $provider, $receiver);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -53,17 +53,16 @@ class Receiver
     /**
      * Create a receiver.
      *
-     * @param  string $provider
      * @param  array  $receiver
      * @return json
      */
-    public function create(string $provider, array $receiver)
+    public function create(array $receiver)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
-
         // make the URL for this request
-        $url = $this->makeUrl('POST', $provider);
+        $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $receiver);
 
         // get the response
         $response = $this->client->post($url, [
@@ -78,18 +77,17 @@ class Receiver
     /**
      * Create many receivers.
      *
-     * @param  string $provider
      * @param  array  $receivers
      * @return json
      */
-    public function createMany(string $provider, array $receivers)
+    public function createMany(array $receivers)
     {
         // instantiate empty responses array
         $responses = [];
 
         // loop through the receivers to create them all
         foreach ($receivers as $receiver) {
-            $responses[] = $this->create($provider, $receiver);
+            $responses[] = $this->create($receiver);
         }
 
         // return them all
@@ -105,11 +103,11 @@ class Receiver
      */
     public function delete(string $provider, string $receiver)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('DELETE');
-
         // make the URL for this request
         $url = $this->makeUrl('DELETE', $provider, $receiver);
+
+        // get the headers for this request
+        $headers = $this->headers->make('DELETE', $url);
 
         // get the response
         $response = $this->client->delete($url, [
@@ -149,11 +147,11 @@ class Receiver
      */
     public function deleteAll(string $provider)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('DELETE');
-
         // make the URL for this request
         $url = $this->makeUrl('DELETE', $provider);
+
+        // get the headers for this request
+        $headers = $this->headers->make('DELETE', $url);
 
         // get the response
         $response = $this->client->delete($url, [
