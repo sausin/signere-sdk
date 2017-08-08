@@ -12,7 +12,7 @@ class Headers
 
     /**
      * Make headers for a request.
-     * 
+     *
      * @param  string    $reqType
      * @param  bool|null $needPrimary
      * @return array
@@ -51,7 +51,7 @@ class Headers
             $toEncode = sprintf('%s&Timestamp=%s&Httpverb=%s', $url, $timestamp, $reqType);
 
             $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
-        } elseif($reqType === 'PUT' || $reqType === 'POST') {
+        } elseif ($reqType === 'PUT' || $reqType === 'POST') {
             $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"}', json_encode($body), $timestamp, $reqType);
 
             $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
