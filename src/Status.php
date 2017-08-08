@@ -3,6 +3,7 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Config;
 
 class Status
 {
@@ -53,7 +54,6 @@ class Status
      *
      * @param  string $request
      * @return Object
-     * @todo need to setup the PingToken
      */
     public function getServerStatus(string $request = 'test')
     {
@@ -67,7 +67,7 @@ class Status
         $response = $this->client->get($url, [
             'headers' => array_merge(
                 $headers,
-                ['PingToken' => '']
+                ['PingToken' => Config::get('signere.ping_token')]
             )
         ]);
 

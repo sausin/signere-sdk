@@ -3,11 +3,13 @@
 namespace Sausin\Signere;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class Headers
 {
     /**
      * Make headers for a request.
+     * 
      * @param  string    $reqType
      * @param  bool|null $needPrimary
      * @return array
@@ -19,12 +21,12 @@ class Headers
 
         // get the primary / secondary key
         $key = $needPrimary ?
-            Config::get('services.signere.primary_key') :
-            Config::get('services.signere.secondary_key');
+            Config::get('signere.primary_key') :
+            Config::get('signere.secondary_key');
 
         // set the basic headers
         $headers = [
-            'API-ID' => Config::get('services.signere.id'),
+            'API-ID' => Config::get('signere.id'),
             'API-TIMESTAMP' => $timestamp,
             'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : $needPrimary,
             'API-ALGORITHM' => 'SHA512',
