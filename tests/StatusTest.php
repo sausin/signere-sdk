@@ -1,6 +1,6 @@
 <?php
 
-namespace Sausin\Signere\Tests\Unit;
+namespace Sausin\Signere\Tests;
 
 use Mockery as m;
 use GuzzleHttp\Client;
@@ -10,6 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Handler\MockHandler;
+use Illuminate\Support\Facades\Config;
 
 class StatusTest extends TestCase
 {
@@ -72,6 +73,7 @@ class StatusTest extends TestCase
         $status = new Status($client, $this->headers);
 
         // test
+        Config::shouldReceive('get')->once()->andReturn('');
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
 
         $response = $status->getServerStatus($pingRequest);        

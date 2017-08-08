@@ -1,6 +1,6 @@
 <?php
 
-namespace Sausin\Signere\Tests\Unit;
+namespace Sausin\Signere\Tests;
 
 use Mockery as m;
 use GuzzleHttp\Client;
