@@ -1,7 +1,7 @@
 {
     "name": "sausin/signere",
     "description": "Package to work with Signere.no APIs for bankid implementation.",
-    "keywords": ["laravel", "signere", "billing"],
+    "keywords": ["laravel", "signere", "api"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/sausin/signere/issues",
@@ -18,7 +18,6 @@
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "~5.4",
         "illuminate/routing": "~5.4",
-        "kitetail/zttp": "^0.2.0",
         "nesbot/carbon": "~1.0"
     },
     "require-dev": {
