@@ -34,13 +34,13 @@ class RequestId
      * @param  bool   $metadata
      * @return json
      */
-    public function get(string $requestId, bool $metadata)
+    public function getDetails(string $requestId, bool $metadata)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = $this->makeUrl('GET', $requestId, $metadata);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -59,11 +59,11 @@ class RequestId
      */
     public function check(string $requestId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = $this->makeUrl('GET', $requestId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -82,11 +82,11 @@ class RequestId
      */
     public function create(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
-
         // make the URL for this request
         $url = $this->makeUrl('POST');
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -104,18 +104,20 @@ class RequestId
      * @param  string $requestId
      * @return json
      */
-    public function delete(string $requestId)
+    public function invalidate(string $requestId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
-
         // make the URL for this request
         $url = $this->makeUrl('PUT');
+
+        $body = ['RequestId' => $requestId];
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => ['RequestId' => $requestId]
+            'json' => $body
         ]);
 
         // return the response
@@ -138,7 +140,7 @@ class RequestId
                 return sprintf('%s/Completed/%s', self::URI, $requestId);
             }
 
-            return sprintf('%s/%s?metadata=%s', self::URI, $requestId, $metadata);
+            return sprintf('%s/%s?metadata=%s', self::URI, $requestId, $metadata ? 'true' : 'false');
         }
 
         // POST Requests
@@ -148,7 +150,7 @@ class RequestId
 
         // PUT Requests
         if ($reqType === 'PUT') {
-            return sprintf('%s/Invalidate', self::URI, $provider, $receiver);
+            return sprintf('%s/Invalidate', self::URI);
         }
     }
 }
