@@ -3,17 +3,15 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Status;
 use Sausin\Signere\Headers;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Handler\MockHandler;
 use Illuminate\Support\Facades\Config;
 
 class StatusTest extends TestCase
 {
+    use MakeClient;
+
     public function setUp()
     {
         parent::setUp();
@@ -33,17 +31,8 @@ class StatusTest extends TestCase
         $date = '2017-06-13T21:20:13';
         $url = 'https://api.signere.no/api/Status/ServerTime';
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $date)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new status object
-        $status = new Status($client, $this->headers);
+        $status = new Status($this->makeClient($date), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
@@ -60,17 +49,8 @@ class StatusTest extends TestCase
         $pingRequest = 'return string';
         $url = 'https://api.signere.no/api/Status/Ping/' . $pingRequest;
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $pingRequest)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new status object
-        $status = new Status($client, $this->headers);
+        $status = new Status($this->makeClient($pingRequest), $this->headers);
 
         // test
         Config::shouldReceive('get')->once()->andReturn('');

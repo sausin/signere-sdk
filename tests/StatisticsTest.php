@@ -3,20 +3,16 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Headers;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\Statistics;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Handler\MockHandler;
 
 class StatisticsTest extends TestCase
 {
+    use MakeClient;
+
     public function setUp()
     {
-        parent::setUp();
-
         $this->headers = m::mock(Headers::class);
     }
 
@@ -35,20 +31,8 @@ class StatisticsTest extends TestCase
         $url3 = 'https://api.signere.no/api/Statistics?Year=&Month=12&Day=&Status=All';
         $url4 = 'https://api.signere.no/api/Statistics?Year=&Month=&Day=30&Status=All';
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, ['Content-Type' => 'application/json'], $data),
-            new Response(200, ['Content-Type' => 'application/json'], $data),
-            new Response(200, ['Content-Type' => 'application/json'], $data),
-            new Response(200, ['Content-Type' => 'application/json'], $data)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new status object
-        $status = new Statistics($client, $this->headers);
+        $status = new Statistics($this->makeClient($data, 4), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url1])->andReturn([]);

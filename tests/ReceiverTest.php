@@ -3,17 +3,15 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Headers;
-use GuzzleHttp\HandlerStack;
 use Sausin\Signere\Receiver;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Handler\MockHandler;
 use Illuminate\Support\Facades\Config;
 
 class ReceiverTest extends TestCase
 {
+    use MakeClient;
+
     public function setUp()
     {
         $this->headers = m::mock(Headers::class);
@@ -37,18 +35,8 @@ class ReceiverTest extends TestCase
         $url1 = sprintf('https://api.signere.no/api/Receiver/%s?ProviderId=%s', $receiver, $provider);
         $url2 = sprintf('https://api.signere.no/api/Receiver?ProviderId=%s', $provider);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $r1),
-            new Response(200, [], $r2)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient([$r1, $r2], 2, false), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url1])->andReturn([]);
@@ -70,17 +58,8 @@ class ReceiverTest extends TestCase
         $body = ['FirstName' => 'Kari', 'LastName' => 'Normann', 'Email' => 'kari@normann.no'];
         $url = 'https://api.signere.no/api/Receiver';
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['POST', $url, $body])->andReturn([]);
@@ -99,18 +78,8 @@ class ReceiverTest extends TestCase
         $body = ['FirstName' => 'Kari', 'LastName' => 'Normann', 'Email' => 'kari@normann.no'];
         $url = 'https://api.signere.no/api/Receiver';
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details),
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient($details, 2), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->twice()->withArgs(['POST', $url, $body])->andReturn([]);
@@ -131,17 +100,8 @@ class ReceiverTest extends TestCase
         $receiver = str_random(10);
         $url = sprintf('https://api.signere.no/api/Receiver/%s/%s', $provider, $receiver);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['DELETE', $url])->andReturn([]);
@@ -161,18 +121,8 @@ class ReceiverTest extends TestCase
         $receiver = str_random(10);
         $url = sprintf('https://api.signere.no/api/Receiver/%s/%s', $provider, $receiver);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details),
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient($details, 2), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->twice()->withArgs(['DELETE', $url])->andReturn([]);
@@ -192,17 +142,8 @@ class ReceiverTest extends TestCase
         $provider = str_random(10);
         $url = sprintf('https://api.signere.no/api/Receiver/%s', $provider);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new Receiver object
-        $rObject = new Receiver($client, $this->headers);
+        $rObject = new Receiver($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['DELETE', $url])->andReturn([]);

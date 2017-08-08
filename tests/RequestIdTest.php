@@ -3,17 +3,15 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Headers;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\RequestId;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Handler\MockHandler;
 use Illuminate\Support\Facades\Config;
 
 class RequestIdTest extends TestCase
 {
+    use MakeClient;
+
     public function setUp()
     {
         $this->headers = m::mock(Headers::class);
@@ -34,17 +32,8 @@ class RequestIdTest extends TestCase
         $metadata = 'true';
         $url = sprintf('https://api.signere.no/api/SignereId/%s?metadata=%s', $guid, $metadata);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new RequestId object
-        $requestId = new RequestId($client, $this->headers);
+        $requestId = new RequestId($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
@@ -63,17 +52,8 @@ class RequestIdTest extends TestCase
         $guid = str_random(10);
         $url = sprintf('https://api.signere.no/api/SignereId/Completed/%s', $guid);
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new RequestId object
-        $requestId = new RequestId($client, $this->headers);
+        $requestId = new RequestId($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
@@ -93,17 +73,8 @@ class RequestIdTest extends TestCase
         $body = ['RequestId' => $guid];
         $url = 'https://api.signere.no/api/SignereId/Invalidate';
 
-        // setup a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], $details)
-        ]);
-
-        // setup the client
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
         // create a new RequestId object
-        $requestId = new RequestId($client, $this->headers);
+        $requestId = new RequestId($this->makeClient($details), $this->headers);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['PUT', $url, $body])->andReturn([]);
