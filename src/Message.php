@@ -34,11 +34,11 @@ class Message
      */
     public function get(string $messageId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/%s', self::URI, $messageId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -58,11 +58,11 @@ class Message
      */
     public function all(string $documentId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/Document/%s', self::URI, $documentId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -81,11 +81,11 @@ class Message
      */
     public function sendMessage(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
-
         // make the URL for this request
-        $url = sprintf('%s/Message', self::URI);
+        $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -103,13 +103,13 @@ class Message
      * @param  array  $body
      * @return Object
      */
-    public function sendNewMessage(array $body)
+    public function sendNewDocumentMessage(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
-
         // make the URL for this request
-        $url = sprintf('%s/Message/SendNewDocumentMessage', self::URI);
+        $url = sprintf('%s/SendNewDocumentMessage', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -130,11 +130,11 @@ class Message
      */
     public function sendExternalMessage(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
-
         // make the URL for this request
-        $url = sprintf('%s/Message/SendExternalMessage', self::URI);
+        $url = sprintf('%s/SendExternalMessage', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
