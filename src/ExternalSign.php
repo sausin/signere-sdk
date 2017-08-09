@@ -4,6 +4,7 @@ namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
 use BadMethodCallException;
+use UnexpectedValueException;
 
 class ExternalSign
 {
@@ -139,17 +140,17 @@ class ExternalSign
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
+        if (!array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
                 'Missing fields in input array. Need ' . implode(', ', $needKeys)
             );
         } elseif (!is_array($body['SigneeRefs'])) {
-            throw new BadMethodCallException('SigneeRefs key in input should be an array');
+            throw new UnexpectedValueException('SigneeRefs key in input should be an array');
         } else {
             foreach ($body['SigneeRefs'] as $ref) {
                 if (!is_array($ref)) {
-                    throw new BadMethodCallException('Each item in SigneeRefs should be an array');
-                } elseif (array_intersect(array_keys($ref), $needSubKeys) !== $needSubKeys) {
+                    throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
+                } elseif (!array_has_all_keys($ref, $needSubKeys)) {
                     throw new BadMethodCallException(
                         'Missing fields in SigneeRefs item. Need ' . implode(', ', $needSubKeys)
                     );

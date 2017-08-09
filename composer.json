@@ -25,6 +25,9 @@
         "phpunit/phpunit": "~5.0"
     },
     "autoload": {
+        "files": [
+            "src/Support/helpers.php"
+        ],
         "psr-4": {
             "Sausin\\Signere\\": "src/"
         }
