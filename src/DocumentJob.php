@@ -3,6 +3,7 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use BadMethodCallException;
 
 class DocumentJob
 {
@@ -35,11 +36,11 @@ class DocumentJob
      */
     public function get(string $jobId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/%s', self::URI, $jobId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -58,11 +59,21 @@ class DocumentJob
      */
     public function create(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // keys that are mandatory for this request
+        $needKeys = ['Contact_Email', 'Contact_Phone'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
         $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
