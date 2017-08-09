@@ -86,6 +86,12 @@ class ExternalSignTest extends TestCase
     {
         $detail = '{"DocumentId":"8210132929654b8eb02bd7e33250c069}';
 
+        $subItem = [
+            'UniqueRef' => '8210132929654b8eb02bd7e33250c069', 
+            'FirstName' => 'Kari', 
+            'LastName' => 'Normann', 
+            'Email' => 'kari@normann.no'
+        ];
         $body = [
             'Description' => 'This document is a sales contract',
             'ExternalDocumentId' => '1234',
@@ -94,7 +100,7 @@ class ExternalSignTest extends TestCase
             'ReturnUrlError' => 'https://',
             'ReturnUrlSuccess' => 'https://',
             'ReturnUrlUserAbort' => 'https://',
-            'SigneeRefs' => [['ExternalSigneeId' => '1234'], ['ExternalSigneeId' => '1234']],
+            'SigneeRefs' => [$subItem, $subItem],
             'Title' => 'Sales contract',
         ];
 
