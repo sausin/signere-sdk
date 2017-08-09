@@ -3,6 +3,8 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use BadMethodCallException;
+use UnexpectedValueException;
 
 class DocumentProvider
 {
@@ -32,13 +34,13 @@ class DocumentProvider
      * @param  string $providerId
      * @return Object
      */
-    public function getProvider(string $providerId)
+    public function getProviderAccount(string $providerId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/%s', self::URI, $providerId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -57,11 +59,11 @@ class DocumentProvider
      */
     public function getCertExpiry()
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/CertificateExpires', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -81,9 +83,6 @@ class DocumentProvider
      */
     public function getUsage(string $providerId, bool $demo = false)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf(
             '%s/quota/%s?ProviderId=%s',
@@ -91,6 +90,9 @@ class DocumentProvider
             $demo ? 'demo' : 'prepaid',
             $providerId
         );
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -109,11 +111,38 @@ class DocumentProvider
      */
     public function create(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // keys that are mandatory for this request
+        $needKeys = [
+            'BillingAddress1',
+            'BillingCity',
+            'BillingPostalCode',
+            'CompanyEmail',
+            'CompanyPhone',
+            'DealerId',
+            'LegalContactEmail',
+            'LegalContactName',
+            'LegalContactPhone',
+            'MvaNumber',
+            'Name'
+        ];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        } elseif (isset($body['BillingPlan'])) {
+            $expected = ['Small', 'Medium', 'Large'];
+            if (!in_array($body['BillingPlan'], $expected)) {
+                throw new UnexpectedValueException('BillingPlan should be one of ' . implode(', ', $expected));
+            }
+        }
 
         // make the URL for this request
         $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -133,11 +162,26 @@ class DocumentProvider
      */
     public function update(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
+        // keys that are mandatory for this request
+        $needKeys = ['Mobile', 'ProviderId'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        } elseif (isset($body['BillingPlan'])) {
+            $expected = ['Small', 'Medium', 'Large'];
+            if (!in_array($body['BillingPlan'], $expected)) {
+                throw new UnexpectedValueException('BillingPlan should be one of ' . implode(', ', $expected));
+            }
+        }
 
         // make the URL for this request
         $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->put($url, [
