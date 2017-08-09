@@ -35,11 +35,11 @@ class DocumentConvert
      */
     public function convert(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
-
         // make the URL for this request
         $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
