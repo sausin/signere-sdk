@@ -3,6 +3,7 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use BadMethodCallException;
 
 class ExternalSign
 {
@@ -32,13 +33,13 @@ class ExternalSign
      * @param  string $documentId
      * @return json
      */
-    public function get(string $documentId)
+    public function getUrlForSign(string $documentId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
-        $url = $this->makeUrl('GET', $documentId);
+        $url = sprintf('%s/%s', self::URI, $documentId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -57,13 +58,23 @@ class ExternalSign
      * @param  array  $params
      * @return json
      */
-    public function show(string $documentId, array $params)
+    public function getUrlForApplet(string $documentId, array $params)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
+        if (!isset($params['Domain']) || !isset($params['Language'])) {
+            throw new BadMethodCallException('Params should contain "Domain" and "Language" keys');
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('GET', $documentId, $params);
+        $url = sprintf(
+            '%s/ViewerUrl/%s/%s/%s',
+            self::URI,
+            $documentId,
+            $params['Domain'], 
+            $params['Language']
+        );
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
