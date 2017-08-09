@@ -70,7 +70,7 @@ class ExternalSign
             '%s/ViewerUrl/%s/%s/%s',
             self::URI,
             $documentId,
-            $params['Domain'], 
+            $params['Domain'],
             $params['Language']
         );
 
@@ -95,7 +95,8 @@ class ExternalSign
     public function getSessionStatus(string $signeeRefId)
     {
         // make the URL for this request
-        $url = sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId);;
+        $url = sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId);
+        ;
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
