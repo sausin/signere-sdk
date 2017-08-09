@@ -3,6 +3,8 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use BadMethodCallException;
+use UnexpectedValueException;
 
 class ExternalLogin
 {
@@ -32,13 +34,13 @@ class ExternalLogin
      * @param  string $requestId
      * @return json
      */
-    public function get(string $requestId)
+    public function getLoginInfo(string $requestId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
-        $url = $this->makeUrl('GET', $requestId);
+        $url = sprintf('%s/%s', self::URI, $requestId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -56,13 +58,23 @@ class ExternalLogin
      * @param  array  $body
      * @return json
      */
-    public function create(array $body)
+    public function createAppLaunchUri(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // keys that are mandatory for this request
+        $needKeys = ['ExternalId', 'ReturnUrl'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('POST');
+        $url = sprintf('%s/AppLogin', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -82,11 +94,21 @@ class ExternalLogin
      */
     public function createMobile(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // keys that are mandatory for this request
+        $needKeys = ['DateOfBirth', 'Mobile'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('POST', null, true);
+        $url = sprintf('%s/BankIDMobileLogin/Create', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -102,21 +124,27 @@ class ExternalLogin
      * Starts the BankID mobile session that
      * was created by the 'create' method.
      *
-     * @param  string|null $requestId
-     * @return json
+     * @param  array  $body
+     * @return Object
      */
-    public function startMobile(string $requestId = null)
+    public function startMobileSession(array $body = [])
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // let the user know that if he is sending some data
+        // it should be RequestId. Nothing else goes here.
+        if (!empty($body) && !isset($body['RequestId'])) {
+            throw new UnexpectedValueException("Input should only have RequestId");
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('POST', null, true, true);
+        $url = sprintf('%s/BankIDMobileLogin/Start', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => ['RequestId' => $requestId]
+            'json' => $body
         ]);
 
         // return the response
@@ -127,67 +155,32 @@ class ExternalLogin
      * Invalidate the login request to prevent
      * any replay attacks.
      *
-     * @param  string $requestId
-     * @return json
+     * @param  array  $body
+     * @return Object
      */
-    public function delete(string $requestId)
+    public function invalidateLogin(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
+        // let the user know that if he is sending some data
+        // it should be RequestId. Nothing else goes here.
+        if (!isset($body['RequestId'])) {
+            throw new BadMethodCallException("Input should have RequestId");
+        } elseif (count($body) > 1) {
+            throw new UnexpectedValueException("Input should only have RequestId");
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('PUT');
+        $url = sprintf('%s/InvalidateLogin', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => ['RequestId' => $requestId]
+            'json' => $body
         ]);
 
         // return the response
         return $response;
-    }
-
-    /**
-     * Alias method for delete.
-     *
-     * @param  string $requestId
-     * @return json
-     */
-    public function destroy(string $requestId)
-    {
-        return $this->delete($requestId);
-    }
-
-    /**
-     * Generate the url for different types of requests.
-     *
-     * @param  string|null $requestId
-     * @param  bool|null   $mobile
-     * @param  bool|null   $start
-     * @return string
-     */
-    private function makeUrl(string $requestId = null, bool $mobile = null, bool $start = null)
-    {
-        // GET Requests
-        if ($reqType === 'GET') {
-            return sprintf('%s/%s', self::URI, $requestId);
-        }
-
-        // POST Requests
-        if ($reqType === 'POST') {
-            if ($mobile && $start) {
-                return sprintf('%s/BankIDMobileLogin/Start', self::URI);
-            } elseif ($mobile) {
-                return sprintf('%s/BankIDMobileLogin/Create', self::URI);
-            }
-
-            return sprintf('%s/AppLogin', self::URI);
-        }
-
-        // PUT Requests
-        if ($reqType === 'PUT') {
-            return sprintf('%s/InvalidateLogin', self::URI);
-        }
     }
 }
