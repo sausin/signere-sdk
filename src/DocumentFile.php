@@ -4,6 +4,7 @@ namespace Sausin\Signere;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use UnexpectedValueException;
 
 class DocumentFile
 {
@@ -35,11 +36,11 @@ class DocumentFile
      */
     public function getSigned(string $documentId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/Signed/%s', self::URI, $documentId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -58,11 +59,11 @@ class DocumentFile
      */
     public function getUnSigned(string $documentId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/Unsigned/%s', self::URI, $documentId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -81,11 +82,11 @@ class DocumentFile
      */
     public function getSignedPdf(string $documentId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
         $url = sprintf('%s/SignedPDF/%s', self::URI, $documentId);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -99,27 +100,39 @@ class DocumentFile
     /**
      * Creates a temporary url to a document.
      *
-     * @param  string $documentId
-     * @param  string $type
-     * @param  Carbon $expiring
+     * @param  string      $documentId
+     * @param  string      $type
+     * @param  Carbon|null $expiring
      * @return Object
      */
-    public function temporaryUrl(string $documentId, string $type, Carbon $expiring)
+    public function temporaryUrl(string $documentId, string $type = 'PDF', Carbon $expiring = null)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // the file types that can be accepted
+        $needTypes = ['SDO', 'PDF', 'SIGNED_PDF', 'MOBILE_SDO', 'XML'];
+
+        // check if specified type is correct
+        if (!in_array($type, $needTypes, true)) {
+            throw new UnexpectedValueException('File type should be one of ' . implode(', ', $needTypes));
+        }
 
         // make the URL for this request
         $url = sprintf('%s/TempUrl', self::URI, $documentId);
 
+        // setup body
+        $expiring = $expiring ?: Carbon::now()->addHours(48);
+        $body = [
+            'DocumentId' => $documentId,
+            'DocumentFileType' => $type,
+            'Expires' => substr($expiring->setTimezone('UTC')->toIso8601String(), 0, 19)
+        ];
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
+
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => [
-                'DocumentId' => $documentId,
-                'DocumentFileType' => $type,
-                'Expires' => $expiring->toIso8601String()
-            ]
+            'json' => $body
         ]);
 
         // return the response
