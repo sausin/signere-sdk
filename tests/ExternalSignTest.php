@@ -62,6 +62,101 @@ class ExternalSignTest extends TestCase
         $this->assertEquals($detail, $response->getBody()->getContents());
 
         $this->expectException('BadMethodCallException');
-        $es->getUrlForApplet($documentId, []);
+        $response = $es->getUrlForApplet($documentId, []);
+    }
+
+    /** @test */
+    public function it_can_get_the_session_status()
+    {
+        $detail = '{"UserAborted":true,"ErrorCode":"Unkown","ErrorMessage":"Unkown or blank","Signed":true}';
+
+        $signeeRefId = str_random(10);
+        $url = sprintf('%s/BankIDMobileSign/Status/%s', $this->uri, $signeeRefId);
+
+        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url])->andReturn([]);
+
+        $es = new ExternalSign($this->makeClient($detail), $this->headers);
+        $response = $es->getSessionStatus($signeeRefId);
+
+        $this->assertEquals($detail, $response->getBody()->getContents());
+    }
+
+    /** @test */
+    public function it_can_create_an_external_sign_request()
+    {
+        $detail = '{"DocumentId":"8210132929654b8eb02bd7e33250c069}';
+
+        $body = [
+            'Description' => 'This document is a sales contract',
+            'ExternalDocumentId' => '1234',
+            'FileContent' => 'JVBERi0x....LjYNJeLjz9M',
+            'Filename' => 'contract.pdf',
+            'ReturnUrlError' => 'https://',
+            'ReturnUrlSuccess' => 'https://',
+            'ReturnUrlUserAbort' => 'https://',
+            'SigneeRefs' => [['ExternalSigneeId' => '1234'], ['ExternalSigneeId' => '1234']],
+            'Title' => 'Sales contract',
+        ];
+
+        $url = $this->uri;
+
+        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body])->andReturn([]);
+
+        $es = new ExternalSign($this->makeClient($detail), $this->headers);
+        $response = $es->createRequest($body);
+
+        $this->assertEquals($detail, $response->getBody()->getContents());
+
+        $this->expectException('BadMethodCallException');
+        $es->createRequest(array_slice($body, 2));
+    }
+
+    /** @test */
+    public function it_can_create_an_app_url()
+    {
+        $detail = '';
+
+        $body = [
+            'DocumentId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
+            'SigneeRefId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
+            'UserAgent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X)'
+        ];
+
+        $url = sprintf('%s/BankIDAppUrl', $this->uri);
+
+        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
+
+        $es = new ExternalSign($this->makeClient($detail), $this->headers);
+        $response = $es->createAppUrl($body);
+
+        $this->assertEquals($detail, $response->getBody()->getContents());
+
+        $this->expectException('BadMethodCallException');
+        $es->createRequest(array_slice($body, 2));
+    }
+
+    /** @test */
+    public function it_can_start_a_bankid_mobile_session()
+    {
+        $detail = '';
+
+        $body = [
+            'DateOfBirth' => '071283',
+            'DocumentId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
+            'Mobile' => '+4799716935',
+            'SigneeRefId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4'
+        ];
+
+        $url = sprintf('%s/BankIDMobileSign', $this->uri);
+
+        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
+
+        $es = new ExternalSign($this->makeClient($detail), $this->headers);
+        $response = $es->startMobile($body);
+
+        $this->assertEquals($detail, $response->getBody()->getContents());
+
+        $this->expectException('BadMethodCallException');
+        $es->createRequest(array_slice($body, 2));
     }
 }

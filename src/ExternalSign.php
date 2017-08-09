@@ -91,13 +91,13 @@ class ExternalSign
      * @param  string $signeeRefId
      * @return json
      */
-    public function status(string $signeeRefId)
+    public function getSessionStatus(string $signeeRefId)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
-
         // make the URL for this request
-        $url = $this->makeUrl('GET', null, null, $signeeRefId);
+        $url = sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId);;
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
@@ -115,13 +115,33 @@ class ExternalSign
      * @param  array  $body
      * @return json
      */
-    public function create(array $body)
+    public function createRequest(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST');
+        // keys that are mandatory for this request
+        $needKeys = [
+            'Description',
+            'ExternalDocumentId',
+            'FileContent',
+            'Filename',
+            'ReturnUrlError',
+            'ReturnUrlSuccess',
+            'ReturnUrlUserAbort',
+            'SigneeRefs',
+            'Title'
+        ];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('POST');
+        $url = self::URI;
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, $body);
 
         // get the response
         $response = $this->client->post($url, [
@@ -139,13 +159,23 @@ class ExternalSign
      * @param  array  $body
      * @return json
      */
-    public function createApp(array $body)
+    public function createAppUrl(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
+        // keys that are mandatory for this request
+        $needKeys = ['DocumentId', 'SigneeRefId', 'UserAgent'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('PUT');
+        $url = sprintf('%s/BankIDAppUrl', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->put($url, [
@@ -166,11 +196,21 @@ class ExternalSign
      */
     public function startMobile(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT');
+        // keys that are mandatory for this request
+        $needKeys = ['DateOfBirth', 'DocumentId', 'Mobile', 'SigneeRefId'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('PUT', $body['DocumentId']);
+        $url = sprintf('%s/BankIDMobileSign', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body);
 
         // get the response
         $response = $this->client->put($url, [
@@ -180,47 +220,5 @@ class ExternalSign
 
         // return the response
         return $response;
-    }
-
-    /**
-     * Generate the url for different types of requests.
-     *
-     * @param  string|null $documentId
-     * @param  array       $params
-     * @param  string|null $signeeRefId
-     * @return string
-     */
-    private function makeUrl(string $documentId = null, array $params = [], string $signeeRefId = null)
-    {
-        // GET Requests
-        if ($reqType === 'GET') {
-            if (count($params) > 0) {
-                return sprintf(
-                    '%s/ViewerUrl/%s/%s/%s',
-                    self::URI,
-                    $documentId,
-                    $params['Domain'],
-                    $params['Language']
-                );
-            } elseif (! is_null($signeeRefId)) {
-                return sprintf('%s/BankIDMobileSign/Status/{SigneeRefId}', self::URL, $signeeRefId);
-            }
-
-            return sprintf('%s/%s', self::URI, $documentId);
-        }
-
-        // POST Requests
-        if ($reqType === 'POST') {
-            return self::URI;
-        }
-
-        // PUT Requests
-        if ($reqType === 'PUT') {
-            if (is_null($documentId)) {
-                return sprintf('%s/BankIDAppUrl', self::URI);
-            }
-
-            return sprintf('%s/BankIDMobileSign', self::URI);
-        }
     }
 }
