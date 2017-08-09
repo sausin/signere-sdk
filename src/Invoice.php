@@ -2,7 +2,9 @@
 
 namespace Sausin\Signere;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
+use UnexpectedValueException;
 
 class Invoice
 {
@@ -36,11 +38,15 @@ class Invoice
      */
     public function get(int $year, int $month)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('GET');
+        if ($year < 2015 || $year > Carbon::now()->year || $month < 1 || $month > 12) {
+            throw new UnexpectedValueException('Invalid year or month');
+        }
 
         // make the URL for this request
         $url = sprintf('%s/%s/%s', self::URI, $year, $month);
+
+        // get the headers for this request
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [
