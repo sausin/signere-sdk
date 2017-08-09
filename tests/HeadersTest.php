@@ -42,7 +42,7 @@ class HeadersTest extends TestCase
         $this->assertTrue(isset($result['API-RETURNERRORHEADER']));
         $this->assertTrue(isset($result['API-TOKEN']));
 
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException('BadMethodCallException');
         $result = $this->headers->make('POST', 'https://example.com', []);
     }
 
@@ -60,7 +60,7 @@ class HeadersTest extends TestCase
         $this->assertTrue(isset($result['API-RETURNERRORHEADER']));
         $this->assertTrue(isset($result['API-TOKEN']));
 
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException('BadMethodCallException');
         $result = $this->headers->make('PUT', 'https://example.com', []);
     }
 
