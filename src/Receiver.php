@@ -36,7 +36,11 @@ class Receiver
     public function get(string $provider, string $receiver = null)
     {
         // make the URL for this request
-        $url = $this->makeUrl('GET', $provider, $receiver);
+        if (is_null($receiver)) {
+            $url = sprintf('%s?ProviderId=%s', self::URI, $provider);
+        } else {
+            $url = sprintf('%s/%s?ProviderId=%s', self::URI, $receiver, $provider);
+        }
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -104,7 +108,7 @@ class Receiver
     public function delete(string $provider, string $receiver)
     {
         // make the URL for this request
-        $url = $this->makeUrl('DELETE', $provider, $receiver);
+        $url = sprintf('%s/%s/%s', self::URI, $provider, $receiver);
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);
@@ -148,7 +152,7 @@ class Receiver
     public function deleteAll(string $provider)
     {
         // make the URL for this request
-        $url = $this->makeUrl('DELETE', $provider);
+        $url = sprintf('%s/%s', self::URI, $provider);
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);
@@ -160,39 +164,5 @@ class Receiver
 
         // return the response
         return $response;
-    }
-
-    /**
-     * Generate the url for different types of requests.
-     *
-     * @param  string      $reqType
-     * @param  string      $provider
-     * @param  string|null $receiver
-     * @return string
-     */
-    private function makeUrl(string $reqType, string $provider, string $receiver = null)
-    {
-        // GET Requests
-        if ($reqType === 'GET') {
-            if (is_null($receiver)) {
-                return sprintf('%s?ProviderId=%s', self::URI, $provider);
-            }
-
-            return sprintf('%s/%s?ProviderId=%s', self::URI, $receiver, $provider);
-        }
-
-        // POST Requests
-        if ($reqType === 'POST') {
-            return self::URI;
-        }
-
-        // DELETE Requests
-        if ($reqType === 'DELETE') {
-            if (is_null($receiver)) {
-                return sprintf('%s/%s', self::URI, $provider);
-            }
-
-            return sprintf('%s/%s/%s', self::URI, $provider, $receiver);
-        }
     }
 }

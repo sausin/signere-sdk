@@ -37,7 +37,7 @@ class RequestId
     public function getDetails(string $requestId, bool $metadata)
     {
         // make the URL for this request
-        $url = $this->makeUrl('GET', $requestId, $metadata);
+        $url = sprintf('%s/%s?metadata=%s', self::URI, $requestId, $metadata ? 'true' : 'false');
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -60,7 +60,7 @@ class RequestId
     public function check(string $requestId)
     {
         // make the URL for this request
-        $url = $this->makeUrl('GET', $requestId);
+        $url = sprintf('%s/Completed/%s', self::URI, $requestId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -83,7 +83,7 @@ class RequestId
     public function create(array $body)
     {
         // make the URL for this request
-        $url = $this->makeUrl('POST');
+        $url = self::URI;
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -107,7 +107,7 @@ class RequestId
     public function invalidate(string $requestId)
     {
         // make the URL for this request
-        $url = $this->makeUrl('PUT');
+        $url = sprintf('%s/Invalidate', self::URI);
 
         $body = ['RequestId' => $requestId];
 
@@ -122,35 +122,5 @@ class RequestId
 
         // return the response
         return $response;
-    }
-
-    /**
-     * Generate the url for different types of requests.
-     *
-     * @param  string      $reqType
-     * @param  string|null $requestId
-     * @param  bool|null   $metadata
-     * @return string
-     */
-    private function makeUrl(string $reqType, string $requestId = null, bool $metadata = null)
-    {
-        // GET Requests
-        if ($reqType === 'GET') {
-            if (is_null($metadata)) {
-                return sprintf('%s/Completed/%s', self::URI, $requestId);
-            }
-
-            return sprintf('%s/%s?metadata=%s', self::URI, $requestId, $metadata ? 'true' : 'false');
-        }
-
-        // POST Requests
-        if ($reqType === 'POST') {
-            return self::URI;
-        }
-
-        // PUT Requests
-        if ($reqType === 'PUT') {
-            return sprintf('%s/Invalidate', self::URI);
-        }
     }
 }
