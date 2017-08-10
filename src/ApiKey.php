@@ -3,6 +3,8 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
+use BadMethodCallException;
+use InvalidArgumentException;
 
 class ApiKey
 {
@@ -34,16 +36,16 @@ class ApiKey
      */
     public function renewPrimary(string $key)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST', true);
-
         // make the URL for this request
-        $url = $this->makeUrl('POST', 1, $key);
+        $url = sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, [], true);
 
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => []
         ]);
 
         // return the response
@@ -58,16 +60,16 @@ class ApiKey
      */
     public function renewSecondary(string $key)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST', true);
-
         // make the URL for this request
-        $url = $this->makeUrl('POST', 2, $key);
+        $url = sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key);
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, [], true);
 
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => []
         ]);
 
         // return the response
@@ -83,16 +85,21 @@ class ApiKey
      */
     public function createPrimary(string $providerId, int $otpCode)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('POST', false);
-
         // make the URL for this request
-        $url = $this->makeUrl('POST', null, null, $providerId, $otpCode);
+        $url = sprintf(
+            '%s/OTP/RenewPrimaryKeyStep2/Provider/%s/OTPCode/%s',
+            self::URI,
+            $providerId,
+            $otpCode
+        );
+
+        // get the headers for this request
+        $headers = $this->headers->make('POST', $url, [], null);
 
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => []
         ]);
 
         // return the response
@@ -104,15 +111,29 @@ class ApiKey
      * the given mobile number.
      *
      * @param  array  $body
-     * @return json
+     * @return Object
      */
     public function recoverPrimary(array $body)
     {
-        // get the headers for this request
-        $headers = $this->headers->make('PUT', false);
+        // keys that are mandatory for this request
+        $needKeys = ['MobileNumber', 'ProviderID'];
+
+        // if the body doesn't have needed fields, throw an exception
+        if (!array_has_all_keys($body, $needKeys)) {
+            throw new BadMethodCallException(
+                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+            );
+        } elseif (isset($body['SmsMessage'])) {
+            if (!preg_match('/\{0\}/', $body['SmsMessage'])) {
+                throw new InvalidArgumentException('SmsMessage must contain a {0}');
+            }
+        }
 
         // make the URL for this request
-        $url = $this->makeUrl('PUT');
+        $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI);
+
+        // get the headers for this request
+        $headers = $this->headers->make('PUT', $url, $body, false);
 
         // get the response
         $response = $this->client->put($url, [
@@ -120,38 +141,7 @@ class ApiKey
             'json' => $body
         ]);
 
-        // return the status
-        return $response->getStatusCode();
-    }
-
-    /**
-     * Generate the url for different types of requests.
-     *
-     * @param  int|null    $level
-     * @param  string|null $key
-     * @param  string|null $providerId
-     * @param  int|null    $otp
-     * @return string
-     */
-    private function makeUrl(int $level = null, string $key = null, string $providerId = null, int $otp = null)
-    {
-        // POST Requests
-        if ($reqType === 'POST') {
-            if ($level === 1) {
-                return sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key);
-            } elseif ($level === 2) {
-                return sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key);
-            }
-
-            return sprintf(
-                '%s/OTP/RenewPrimaryKeyStep2/Provider/%s/OTPCode/%s',
-                self::URI,
-                $providerId,
-                $otp
-            );
-        }
-
-        // PUT Requests
-        return sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI);
+        // return the response
+        return $response;
     }
 }
