@@ -3,8 +3,7 @@
 namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Sausin\Signere\Http\Controllers\Controller;
 
 class ReceiverController extends Controller
 {
