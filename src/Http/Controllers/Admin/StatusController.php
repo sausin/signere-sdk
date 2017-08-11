@@ -2,7 +2,6 @@
 
 namespace Sausin\Signere\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use Sausin\Signere\Status;
 use Illuminate\Http\Request;
 use Sausin\Signere\Http\Controllers\Controller;
