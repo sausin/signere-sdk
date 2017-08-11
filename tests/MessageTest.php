@@ -93,7 +93,7 @@ class MessageTest extends TestCase
         $message = new Message($this->makeClient($detail), $this->headers);
 
         $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
-        $response = $message->sendNewDocumentMessage($body);
+        $response = $message->sendNewMessage($body);
 
         $this->assertEquals($detail, $response->getBody()->getContents());
     }

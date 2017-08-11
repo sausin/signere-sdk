@@ -103,7 +103,7 @@ class Message
      * @param  array  $body
      * @return Object
      */
-    public function sendNewDocumentMessage(array $body)
+    public function sendNewMessage(array $body)
     {
         // make the URL for this request
         $url = sprintf('%s/SendNewDocumentMessage', self::URI);
