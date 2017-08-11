@@ -2,9 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('api')->group(function () {
-    // Document Routes
+Route::prefix('admin')->group(function () {
     Route::get();
+});
 
-    // API Key routes
+Route::prefix('user')->group(function () {
+    Route::get();
+});
+
+Route::prefix('guest')->group(function () {
+    Route::get();
+});
+
+Route::prefix('bidder')->group(function () {
+    Route::get();
 });
