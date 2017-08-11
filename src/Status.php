@@ -3,7 +3,7 @@
 namespace Sausin\Signere;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Config\Repository as Config;
 
 class Status
 {
@@ -13,6 +13,9 @@ class Status
     /** @var Headers */
     protected $headers;
 
+    /** @var Illuminate\Contracts\Config\Repository */
+    protected $config;
+
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Status';
 
@@ -21,10 +24,11 @@ class Status
      *
      * @param \GuzzleHttp\Client $client
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, Config $config)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->config = $config;
     }
 
     /**
@@ -67,7 +71,7 @@ class Status
         $response = $this->client->get($url, [
             'headers' => array_merge(
                 $headers,
-                ['PingToken' => Config::get('signere.ping_token')]
+                ['PingToken' => $this->config->get('signere.ping_token')]
             )
         ]);
 

@@ -6,7 +6,7 @@ use Mockery as m;
 use Sausin\Signere\Status;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Config\Repository;
 
 class StatusTest extends TestCase
 {
@@ -17,6 +17,7 @@ class StatusTest extends TestCase
         parent::setUp();
 
         $this->headers = m::mock(Headers::class);
+        $this->config = m::mock(Repository::class);
     }
 
     public function tearDown()
@@ -32,7 +33,7 @@ class StatusTest extends TestCase
         $url = 'https://api.signere.no/api/Status/ServerTime';
 
         // create a new status object
-        $status = new Status($this->makeClient($date), $this->headers);
+        $status = new Status($this->makeClient($date), $this->headers, $this->config);
 
         // test
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
@@ -50,10 +51,10 @@ class StatusTest extends TestCase
         $url = 'https://api.signere.no/api/Status/Ping/' . $pingRequest;
 
         // create a new status object
-        $status = new Status($this->makeClient($pingRequest), $this->headers);
+        $status = new Status($this->makeClient($pingRequest), $this->headers, $this->config);
 
         // test
-        Config::shouldReceive('get')->once()->andReturn('');
+        $this->config->shouldReceive('get')->once()->andReturn('');
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
 
         $response = $status->getServerStatus($pingRequest);        
