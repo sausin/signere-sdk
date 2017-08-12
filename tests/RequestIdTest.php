@@ -67,6 +67,33 @@ class RequestIdTest extends TestCase
     public function it_can_create_a_signere_id_request()
     {
         // set the variables for use
+        $details = '"Url":"https://id.signere.no/NoBankIDMobile/Start?sessionid=3HtyxmFpQ5zXQ5o7aBvTYpbq630jvpNlZe1TNwzSi81v2&providrId=c4ab63ae-81b6-49d2-b75c-a17301071188&iframe=False&webmessaging=False&language=NO&errorUrl=aHR0cHM6Ly9pZHRlc3Quc2lnbmVyZS5uby90ZXN0L2Vycm9yP3N0YXR1cz1bMF0%3D&","RequestId":3HtyxmFpQ5zXQ5o7aBvTYpbq630jvpNlZe1TNwzSi81v2","BankIDMobileReference":"Snill Bank","Status":"UNKNOWN"';
+
+        $guid = str_random(10);
+        $body = [
+            'CancelUrl' => 'https://',
+            'ErrorUrl' => 'https://',
+            'ExternalReference' => str_random(10),
+            'IdentityProvider' => 'NO_BANKID_WEB',
+            'SuccessUrl' => 'https://'
+        ];
+        $url = 'https://api.signere.no/api/SignereId';
+
+        // create a new RequestId object
+        $requestId = new RequestId($this->makeClient($details), $this->headers);
+
+        // test
+        $this->headers->shouldReceive('make')->withArgs(['POST', $url, $body])->andReturn([]);
+
+        $response = $requestId->create($body);
+
+        $this->assertEquals($details, $response->getBody()->getContents());
+    }
+
+    /** @test */
+    public function it_can_invalidate_a_signere_id_request()
+    {
+        // set the variables for use
         $details = '{"RequestId": "3HtyxmFpQ5zXQ5o7aBvTYpbq630jvpNlZe1TNwzSi81v2"}';
 
         $guid = str_random(10);

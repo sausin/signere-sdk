@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\Config;
 
 class RequestIdController extends Controller
 {
+    /** @var \Sausin\Signere\RequestId */
+    protected $signereRequest;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\RequestId $signereRequest
+     * @return void
+     */
+    public function __construct(RequestId $signereRequest)
+    {
+        parent::__construct();
+
+        $this->signereRequest = $signereRequest;
+    }
+
     /**
      * Check if a SignereID session is completed or not.
      *
@@ -50,7 +66,7 @@ class RequestIdController extends Controller
             'UseWebMessaging' => $request->web_messaging
         ];
 
-        return (new RequestId)->create($body)
+        return $this->signereRequest->create($body)
                 ->getBody()
                 ->getContents();
     }

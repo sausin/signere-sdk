@@ -17,7 +17,7 @@ class SignereServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerEvents();
+        // $this->registerEvents();
         $this->registerRoutes();
         $this->defineAssetPublishing();
     }
@@ -48,7 +48,7 @@ class SignereServiceProvider extends ServiceProvider
         Route::group([
             'prefix' => 'signere',
             'namespace' => 'Sausin\Signere\Http\Controllers',
-            'middleware' => 'api'
+            'middleware' => 'web'
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });
