@@ -25,6 +25,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('receivers/{receiver}', 'ReceiverController@show');
     Route::post('receivers', 'ReceiverController@store');
     Route::delete('receivers', 'ReceiverController@destroy');
+
+    // statistics route
+    Route::post('statistics', 'StatisticsController');
 });
 
 Route::prefix('user')->group(function () {

@@ -34,14 +34,15 @@ class StatisticsController extends Controller
     public function __invoke(Request $request)
     {
         $this->validate($request, [
-            'year' => 'sometimes|numeric|min:2015|max:' . Carbon::now()->year,
-            'month' => 'sometimes|numeric|min:1|max:12',
-            'day' => 'sometimes|numeric|min:1|max:30',
+            'year' => 'sometimes|numeric|nullable|min:2015|max:' . Carbon::now()->year,
+            'month' => 'sometimes|numeric|nullable|min:1|max:12',
+            'day' => 'sometimes|numeric|nullable|min:1|max:31',
             'status' => 'sometimes|string|nullable|in:All,Cancled,Signed,Expired,Unsigned,Changed,PartialSigned'
         ]);
 
-        return $this->statistics->get($request->year, $request->month, $request->day, $request->status)
-                ->getBody()
-                ->getContents();
+        $response = $this->statistics->get($request->year, $request->month, $request->day, $request->status);
+
+        return $response->getBody()
+                    ->getContents();
     }
 }
