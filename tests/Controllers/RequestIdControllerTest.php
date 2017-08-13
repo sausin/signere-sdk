@@ -4,7 +4,6 @@ namespace Sausin\Signere\Tests\Controllers;
 
 use Mockery as m;
 use GuzzleHttp\Client;
-use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\RequestId;
 use Illuminate\Support\Facades\Config;
