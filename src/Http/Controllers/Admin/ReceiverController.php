@@ -1,9 +1,11 @@
 <?php
 
-namespace Sausin\Signere\Http\Controllers;
+namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\Receiver;
+use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Http\Controllers\Controller;
 
 class ReceiverController extends Controller
 {
@@ -26,12 +28,11 @@ class ReceiverController extends Controller
     /**
      * Returns all receivers.
      *
-     * @param  string $providerId
      * @return \Illuminate\Http\Response
      */
-    public function index(string $providerId)
+    public function index()
     {
-        return $this->receiver->get($providerId)
+        return $this->receiver->get(Config::get('signere.id'))
                     ->getBody()
                     ->getContents();
     }
@@ -39,13 +40,12 @@ class ReceiverController extends Controller
     /**
      * Returns the given receiver.
      *
-     * @param  string $providerId
      * @param  string $receiverId
      * @return \Illuminate\Http\Response
      */
-    public function show(string $providerId, string $receiverId)
+    public function show(string $receiverId)
     {
-        return $this->receiver->get($providerId, $receiverId)
+        return $this->receiver->get(Config::get('signere.id'), $receiverId)
                 ->getBody()
                 ->getContents();
     }
@@ -100,20 +100,17 @@ class ReceiverController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->validate($request, [
-            'provider_id' => 'required|string',
-            'receiver_id' => 'sometimes|nullable|string'
-        ]);
+        $this->validate($request, ['receiver_id' => 'sometimes|nullable|string']);
 
         // if a specific receiver is to be deleted
-        if ($request->has('provider_id') && $request->has('receiver_id')) {
-            return $this->receiver->delete($request->provider_id, $request->receiver_id)
+        if ($request->has('receiver_id')) {
+            return $this->receiver->delete(Config::get('signere.id'), $request->receiver_id)
                     ->getBody()
                     ->getContents();
         }
 
         // if all receivers are to be deleted
-        return $this->receiver->deleteAll($request->provider_id)
+        return $this->receiver->deleteAll(Config::get('signere.id'))
                 ->getBody()
                 ->getContents();
     }

@@ -19,6 +19,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('keys/primary', 'PrimaryKeyRecoveryController@store');
     Route::post('keys/primary/renew', 'PrimaryKeyRenewalController');
     Route::post('keys/secondary/renew', 'SecondaryKeyRenewalController');
+
+    // receiver routes
+    Route::get('receivers', 'ReceiverController@index');
+    Route::get('receivers/{receiver}', 'ReceiverController@show');
+    Route::post('receivers', 'ReceiverController@store');
+    Route::delete('receivers', 'ReceiverController@destroy');
 });
 
 Route::prefix('user')->group(function () {
