@@ -4,6 +4,7 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\ApiKey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class PrimaryKeyRenewalController extends Controller
@@ -27,14 +28,11 @@ class PrimaryKeyRenewalController extends Controller
     /**
      * Renew the primary key.
      *
-     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        $this->validate($request, ['key' => 'required|string']);
-        
-        return $this->key->renewPrimary($request->key)
+        return $this->key->renewPrimary(Config::get('signere.primary_key'))
                 ->getBody()
                 ->getContents();
     }

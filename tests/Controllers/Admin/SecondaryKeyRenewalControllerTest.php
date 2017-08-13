@@ -4,37 +4,40 @@ namespace Sausin\Signere\Tests\Controllers;
 
 use Mockery as m;
 use GuzzleHttp\Client;
-use Sausin\Signere\Invoice;
+use Sausin\Signere\ApiKey;
+use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
 
-class InvoiceControllerTest extends AbstractControllerTest
+class SecondaryKeyRenewalControllerTest extends AbstractControllerTest
 {
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
-    
+
     /** @test */
-    public function an_admin_can_get_invoice_details()
+    public function an_admin_can_request_for_secondary_key_renewal()
     {
-        $invoice = m::mock(Invoice::class);
+        $key = m::mock(ApiKey::class);
 
         // make a check on the object if the method actually exists
         // this is to be certain that code changes in the original
         // class will not lead to this test passing by mistake
-        $this->assertTrue(method_exists($invoice, 'get'));
+        $this->assertTrue(method_exists($key, 'renewSecondary'));
 
-        $invoice->shouldReceive('get')
+        $body = [];
+
+        $key->shouldReceive('renewSecondary')
                 ->once()
-                ->withArgs([2016, 9])
+                ->with('secondary_key')
                 ->andReturn(new Response(200, [], ''));
 
-        $this->app->instance(Invoice::class, $invoice);
+        $this->app->instance(ApiKey::class, $key);
 
-        $this->json('GET', '/signere/admin/invoice/2016/9')
+        $this->json('POST', '/signere/admin/keys/secondary/renew', $body)
             ->assertStatus(200);
     }
 }

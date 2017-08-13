@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Config;
 
 class MessageControllerTest extends AbstractControllerTest
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+        
+        m::close();
+    }
+    
     /** @test */
     public function an_admin_can_details_for_all_messages()
     {

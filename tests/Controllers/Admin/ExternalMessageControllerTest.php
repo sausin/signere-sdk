@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Config;
 
 class ExternalMessageControllerTest extends AbstractControllerTest
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+        
+        m::close();
+    }
+    
     /** @test */
     public function an_admin_can_create_a_new_message_for_external_person()
     {

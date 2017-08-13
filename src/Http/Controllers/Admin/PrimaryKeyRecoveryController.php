@@ -4,13 +4,14 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\ApiKey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class PrimaryKeyRecoveryController extends Controller
 {
     /** @var \Sausin\Signere\ApiKey */
     protected $key;
-
+    
     /**
      * Create a new controller instance.
      *
@@ -32,12 +33,9 @@ class PrimaryKeyRecoveryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'provider' => 'required|string|size:36',
-            'otp' => 'required|numeric',
-        ]);
+        $this->validate($request, ['otp' => 'required|numeric']);
         
-        return $this->key->createPrimary($request->provider, $request->otp)
+        return $this->key->createPrimary(Config::get('signere.id'), $request->otp)
                 ->getBody()
                 ->getContents();
     }
@@ -56,7 +54,6 @@ class PrimaryKeyRecoveryController extends Controller
                 'string',
                 'regex:/^\+47\d{8}$/i'
             ],
-            'provider' => 'required|string|size:36',
             'message' => [
                 'string',
                 'nullable',
@@ -67,7 +64,7 @@ class PrimaryKeyRecoveryController extends Controller
         // create the body
         $body = [
             'MobileNumber' => $request->phone_number,
-            'ProviderID' => $request->provider,
+            'ProviderID' => Config::get('signere.id'),
             'SmsMessage' => $request->message
         ];
 

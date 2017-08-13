@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/invoice/{year}/{month}', 'InvoiceController');
 
+    // for sending out messages to signeres
     Route::get('/document/{document}/messages', 'MessagesController@index');
     Route::get('messages/{message}', 'MessagesController@show');
     Route::post('messages', 'MessagesController@store');
@@ -12,6 +13,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     // for external messages
     Route::post('externalMessage', 'ExternalMessagesController');
+
+    // for renewal / recovery of keys
+    Route::patch('keys/primary', 'PrimaryKeyRecoveryController@update');
+    Route::post('keys/primary', 'PrimaryKeyRecoveryController@store');
+    Route::post('keys/primary/renew', 'PrimaryKeyRenewalController@store');
+    Route::post('keys/secondary/renew', 'SecondaryKeyRenewalController@store');
 });
 
 Route::prefix('user')->group(function () {
