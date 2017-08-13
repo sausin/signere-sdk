@@ -6,7 +6,7 @@ use Sausin\Signere\Message;
 use Illuminate\Http\Request;
 use Sausin\Signere\Http\Controllers\Controller;
 
-class MessageController extends Controller
+class MessagesController extends Controller
 {
     /** @var \Sausin\Signere\Message */
     protected $message;
@@ -102,7 +102,7 @@ class MessageController extends Controller
         $this->validate($request, [
             'document_id' => 'required|string|size:36',
             'email' => 'nullable|email|max:255',
-            'replace_email' => 'nullable|boolean',
+            'replace_email' => 'nullable|string',
             'signee_ref' => 'required|string|size:36'
         ]);
 

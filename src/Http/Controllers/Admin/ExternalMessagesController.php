@@ -6,7 +6,7 @@ use Sausin\Signere\Message;
 use Illuminate\Http\Request;
 use Sausin\Signere\Http\Controllers\Controller;
 
-class ExternalMessageController extends Controller
+class ExternalMessagesController extends Controller
 {
     /** @var \Sausin\Signere\Message */
     protected $message;
