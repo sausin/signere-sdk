@@ -36,7 +36,8 @@ class MessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('get', '/signere/admin/document/' . $documentId . '/messages')
+        $this->actingAs(new Fakes\User)
+            ->json('get', '/signere/admin/document/' . $documentId . '/messages')
             ->assertStatus(200);
     }
 
@@ -60,7 +61,8 @@ class MessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('get', sprintf('/signere/admin/messages/%s', $messageId))
+        $this->actingAs(new Fakes\User)
+            ->json('get', sprintf('/signere/admin/messages/%s', $messageId))
             ->assertStatus(200);
     }
 
@@ -99,7 +101,8 @@ class MessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('POST', '/signere/admin/messages', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('POST', '/signere/admin/messages', $body1)
             ->assertStatus(200);
     }
 
@@ -136,7 +139,8 @@ class MessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('PATCH', '/signere/admin/messages', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('PATCH', '/signere/admin/messages', $body1)
             ->assertStatus(200);
     }
 
@@ -169,7 +173,8 @@ class MessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('PATCH', '/signere/admin/messages', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('PATCH', '/signere/admin/messages', $body1)
             ->assertStatus(200);
     }
 }

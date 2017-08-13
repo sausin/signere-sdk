@@ -45,7 +45,8 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
 
         $this->app->instance(ApiKey::class, $key);
 
-        $this->json('PATCH', '/signere/admin/keys/primary', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('PATCH', '/signere/admin/keys/primary', $body1)
             ->assertStatus(200);
     }
 
@@ -68,7 +69,8 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
 
         $this->app->instance(ApiKey::class, $key);
 
-        $this->json('POST', '/signere/admin/keys/primary', $body)
+        $this->actingAs(new Fakes\User)
+            ->json('POST', '/signere/admin/keys/primary', $body)
             ->assertStatus(200);
     }
 }

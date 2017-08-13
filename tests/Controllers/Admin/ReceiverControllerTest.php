@@ -35,7 +35,8 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->json('GET', '/signere/admin/receivers')
+        $this->actingAs(new Fakes\User)
+            ->json('GET', '/signere/admin/receivers')
             ->assertStatus(200);
     }
 
@@ -57,7 +58,8 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->json('GET', '/signere/admin/receivers/' . $rId)
+        $this->actingAs(new Fakes\User)
+            ->json('GET', '/signere/admin/receivers/' . $rId)
             ->assertStatus(200);
     }
 
@@ -89,7 +91,8 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->json('POST', '/signere/admin/receivers', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('POST', '/signere/admin/receivers', $body1)
             ->assertStatus(200);
     }
 
@@ -117,10 +120,12 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->json('DELETE', '/signere/admin/receivers', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('DELETE', '/signere/admin/receivers', $body1)
             ->assertStatus(200);
 
-        $this->json('DELETE', '/signere/admin/receivers', $body2)
+        $this->actingAs(new Fakes\User)
+            ->json('DELETE', '/signere/admin/receivers', $body2)
             ->assertStatus(200);
     }
 }

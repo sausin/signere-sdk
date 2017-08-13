@@ -34,7 +34,8 @@ class InvoiceControllerTest extends AbstractControllerTest
 
         $this->app->instance(Invoice::class, $invoice);
 
-        $this->json('GET', '/signere/admin/invoice/2016/9')
+        $this->actingAs(new Fakes\User)
+            ->json('GET', '/signere/admin/invoice/2016/9')
             ->assertStatus(200);
     }
 }

@@ -37,7 +37,8 @@ class SecondaryKeyRenewalControllerTest extends AbstractControllerTest
 
         $this->app->instance(ApiKey::class, $key);
 
-        $this->json('POST', '/signere/admin/keys/secondary/renew', $body)
+        $this->actingAs(new Fakes\User)
+            ->json('POST', '/signere/admin/keys/secondary/renew', $body)
             ->assertStatus(200);
     }
 }

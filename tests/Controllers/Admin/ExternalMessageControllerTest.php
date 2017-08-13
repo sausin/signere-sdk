@@ -52,7 +52,8 @@ class ExternalMessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->json('POST', '/signere/admin/externalMessage', $body1)
+        $this->actingAs(new Fakes\User)
+            ->json('POST', '/signere/admin/externalMessage', $body1)
             ->assertStatus(200);
     }
 }
