@@ -8,6 +8,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class MessageController extends Controller
 {
+    /** @var \Sausin\Signere\Message */
+    protected $message;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\Message $message
+     * @return void
+     */
+    public function __construct(Message $message)
+    {
+        parent::__construct();
+
+        $this->message = $message;
+    }
+    
     /**
      * Retrieves a list of all the messages for
      * the given document id.
@@ -17,7 +33,7 @@ class MessageController extends Controller
      */
     public function index(string $documentId)
     {
-        return (new Message)->all($documentId)
+        return $this->message->all($documentId)
                 ->getBody()
                 ->getContents();
     }
@@ -30,7 +46,7 @@ class MessageController extends Controller
      */
     public function show(string $messageId)
     {
-        return (new Message)->get($messageId)
+        return $this->message->get($messageId)
                 ->getBody()
                 ->getContents();
     }
@@ -70,7 +86,7 @@ class MessageController extends Controller
             $body[$useKeys[$use]] = $request->$use;
         }
 
-        return (new Message)->sendMessage($body)
+        return $this->message->sendMessage($body)
                 ->getBody()
                 ->getContents();
     }
@@ -108,7 +124,7 @@ class MessageController extends Controller
             $body[$useKeys[$use]] = $request->$use;
         }
 
-        return (new Message)->sendNewMessage($body)
+        return $this->message->sendNewMessage($body)
                 ->getBody()
                 ->getContents();
     }

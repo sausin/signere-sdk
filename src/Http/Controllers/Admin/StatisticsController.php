@@ -9,6 +9,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class StatisticsController extends Controller
 {
+    /** @var \Sausin\Signere\Statistics */
+    protected $statistics;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\Statistics $statistics
+     * @return void
+     */
+    public function __construct(Statistics $statistics)
+    {
+        parent::__construct();
+
+        $this->statistics = $statistics;
+    }
+
     /**
      * Get the statistics contrained by the given parameters.
      *
@@ -24,7 +40,7 @@ class StatisticsController extends Controller
             'status' => 'sometimes|string|nullable|in:All,Cancled,Signed,Expired,Unsigned,Changed,PartialSigned'
         ]);
 
-        return (new Statistics)->get($request->year, $request->month, $request->day, $request->status)
+        return $this->statistics->get($request->year, $request->month, $request->day, $request->status)
                 ->getBody()
                 ->getContents();
     }

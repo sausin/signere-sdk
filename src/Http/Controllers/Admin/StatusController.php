@@ -8,6 +8,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class StatusController extends Controller
 {
+    /** @var \Sausin\Signere\Status */
+    protected $status;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\Status $status
+     * @return void
+     */
+    public function __construct(Status $status)
+    {
+        parent::__construct();
+
+        $this->status = $status;
+    }
+
     /**
      * Returns the UTC time of the Signere server.
      *
@@ -15,7 +31,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        return (new Status)->getServerTime()
+        return $this->status->getServerTime()
                 ->getBody()
                 ->getContents();
     }
@@ -28,7 +44,7 @@ class StatusController extends Controller
      */
     public function show(string $string)
     {
-        return (new Status)->getServerStatus($string)
+        return $this->status->getServerStatus($string)
                 ->getBody()
                 ->getContents();
     }

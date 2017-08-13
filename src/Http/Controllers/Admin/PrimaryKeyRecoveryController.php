@@ -8,6 +8,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class PrimaryKeyRecoveryController extends Controller
 {
+    /** @var \Sausin\Signere\ApiKey */
+    protected $key;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\ApiKey $key
+     * @return void
+     */
+    public function __construct(ApiKey $key)
+    {
+        parent::__construct();
+
+        $this->key = $key;
+    }
+
     /**
      * Generates a new primary key and returns it.
      *
@@ -21,7 +37,7 @@ class PrimaryKeyRecoveryController extends Controller
             'otp' => 'required|numeric',
         ]);
         
-        return (new ApiKey)->createPrimary($request->provider, $request->otp)
+        return $this->key->createPrimary($request->provider, $request->otp)
                 ->getBody()
                 ->getContents();
     }
@@ -59,7 +75,7 @@ class PrimaryKeyRecoveryController extends Controller
             unset($body['SmsMessage']);
         }
 
-        return (new ApiKey)->recoverPrimary($body)
+        return $this->key->recoverPrimary($body)
                 ->getBody()
                 ->getContents();
     }

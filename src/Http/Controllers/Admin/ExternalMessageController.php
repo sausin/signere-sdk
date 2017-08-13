@@ -8,6 +8,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class ExternalMessageController extends Controller
 {
+    /** @var \Sausin\Signere\Message */
+    protected $message;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\Message $message
+     * @return void
+     */
+    public function __construct(Message $message)
+    {
+        parent::__construct();
+
+        $this->message = $message;
+    }
+
     /**
      * Sends a message to an external person
      * with a link/URL to view a document.
@@ -47,7 +63,7 @@ class ExternalMessageController extends Controller
             $body[$useKeys[$use]] = $request->$use;
         }
 
-        return (new Message)->sendExternalMessage($body)
+        return $this->message->sendExternalMessage($body)
                 ->getBody()
                 ->getContents();
     }

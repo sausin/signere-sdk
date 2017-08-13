@@ -7,6 +7,22 @@ use Sausin\Signere\Receiver;
 
 class ReceiverController extends Controller
 {
+    /** @var \Sausin\Signere\Receiver */
+    protected $receiver;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\Receiver $receiver
+     * @return void
+     */
+    public function __construct(Receiver $receiver)
+    {
+        parent::__construct();
+
+        $this->receiver = $receiver;
+    }
+
     /**
      * Returns all receivers.
      *
@@ -15,7 +31,7 @@ class ReceiverController extends Controller
      */
     public function index(string $providerId)
     {
-        return (new Receiver)->get($providerId)
+        return $this->receiver->get($providerId)
                     ->getBody()
                     ->getContents();
     }
@@ -29,7 +45,7 @@ class ReceiverController extends Controller
      */
     public function show(string $providerId, string $receiverId)
     {
-        return (new Receiver)->get($providerId, $receiverId)
+        return $this->receiver->get($providerId, $receiverId)
                 ->getBody()
                 ->getContents();
     }
@@ -71,7 +87,7 @@ class ReceiverController extends Controller
             $body[$useKeys[$use]] = $request->$use;
         }
 
-        return (new Receiver)->create($body)
+        return $this->receiver->create($body)
                 ->getBody()
                 ->getContents();
     }
@@ -91,13 +107,13 @@ class ReceiverController extends Controller
 
         // if a specific receiver is to be deleted
         if ($request->has('provider_id') && $request->has('receiver_id')) {
-            return (new Receiver)->delete($request->provider_id, $request->receiver_id)
+            return $this->receiver->delete($request->provider_id, $request->receiver_id)
                     ->getBody()
                     ->getContents();
         }
 
         // if all receivers are to be deleted
-        return (new Receiver)->deleteAll($request->provider_id)
+        return $this->receiver->deleteAll($request->provider_id)
                 ->getBody()
                 ->getContents();
     }

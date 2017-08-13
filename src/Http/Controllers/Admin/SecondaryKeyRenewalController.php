@@ -8,6 +8,22 @@ use Sausin\Signere\Http\Controllers\Controller;
 
 class SecondaryKeyRenewalController extends Controller
 {
+    /** @var \Sausin\Signere\ApiKey */
+    protected $key;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Sausin\Signere\ApiKey $key
+     * @return void
+     */
+    public function __construct(ApiKey $key)
+    {
+        parent::__construct();
+
+        $this->key = $key;
+    }
+    
     /**
      * Renew the secondary key.
      *
@@ -18,7 +34,7 @@ class SecondaryKeyRenewalController extends Controller
     {
         $this->validate($request, ['key' => 'required|string']);
         
-        return (new ApiKey)->renewSecondary($request->key)
+        return $this->key->renewSecondary($request->key)
                 ->getBody()
                 ->getContents();
     }
