@@ -32,7 +32,7 @@ class RequestIdController extends Controller
      */
     public function show(string $requestId)
     {
-        return (new RequestId)->check($requestId)
+        return $this->signereRequest->check($requestId)
                 ->getBody()
                 ->getContents();
     }
@@ -78,11 +78,11 @@ class RequestIdController extends Controller
      * @return \Illuminate\Http\Response
      * @todo this should be accessible only by the bidder / auth user
      */
-    public function update(Request $request)
+    public function destroy(Request $request)
     {
-        $this->validate($request, ['request_id' => 'required|string']);
+        $this->validate($request, ['request_id' => 'required|string|min:100|max:400']);
 
-        return (new RequestId)->invalidate($request->request_id)
+        return $this->signereRequest->invalidate($request->request_id)
                 ->getBody()
                 ->getContents();
     }
