@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
-    // Route::get();
+Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('/invoice/{year}/{month}', 'InvoiceController');
 });
 
 Route::prefix('user')->group(function () {
