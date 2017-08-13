@@ -39,12 +39,12 @@ class StatusController extends Controller
     /**
      * Check if Signere service is operational.
      *
-     * @param  string $string
+     * @param  string $message
      * @return \Illuminate\Http\Response
      */
-    public function show(string $string)
+    public function show(string $message)
     {
-        return $this->status->getServerStatus($string)
+        return $this->status->getServerStatus($message)
                 ->getBody()
                 ->getContents();
     }

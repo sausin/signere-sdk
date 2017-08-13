@@ -28,6 +28,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     // statistics route
     Route::post('statistics', 'StatisticsController');
+
+    // status routes
+    Route::get('status', 'StatusController@index');
+    Route::get('status/{message}', 'StatusController@show');
 });
 
 Route::prefix('user')->group(function () {
