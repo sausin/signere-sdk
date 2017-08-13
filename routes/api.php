@@ -17,8 +17,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // for renewal / recovery of keys
     Route::patch('keys/primary', 'PrimaryKeyRecoveryController@update');
     Route::post('keys/primary', 'PrimaryKeyRecoveryController@store');
-    Route::post('keys/primary/renew', 'PrimaryKeyRenewalController@store');
-    Route::post('keys/secondary/renew', 'SecondaryKeyRenewalController@store');
+    Route::post('keys/primary/renew', 'PrimaryKeyRenewalController');
+    Route::post('keys/secondary/renew', 'SecondaryKeyRenewalController');
 });
 
 Route::prefix('user')->group(function () {

@@ -30,7 +30,7 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
 
         $body1 = [
             'phone_number' => $phone = '+4712345678',
-            'message' => $message = 'Your OTP code is {0}: ',
+            'message' => $message = 'Your OTP code is {0}:',
         ];
         $body2 = [
             'MobileNumber' => $phone,
@@ -63,7 +63,7 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
 
         $key->shouldReceive('createPrimary')
                 ->once()
-                ->withArgs(['id', $otp])
+                ->withArgs(['id', (int) $otp])
                 ->andReturn(new Response(200, [], ''));
 
         $this->app->instance(ApiKey::class, $key);

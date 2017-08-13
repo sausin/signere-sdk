@@ -4,6 +4,7 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\ApiKey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class SecondaryKeyRenewalController extends Controller
@@ -32,9 +33,7 @@ class SecondaryKeyRenewalController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $this->validate($request, ['key' => 'required|string']);
-        
-        return $this->key->renewSecondary($request->key)
+        return $this->key->renewSecondary(Config::get('signere.secondary_key'))
                 ->getBody()
                 ->getContents();
     }

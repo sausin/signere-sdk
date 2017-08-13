@@ -35,7 +35,7 @@ class PrimaryKeyRecoveryController extends Controller
     {
         $this->validate($request, ['otp' => 'required|numeric']);
         
-        return $this->key->createPrimary(Config::get('signere.id'), $request->otp)
+        return $this->key->createPrimary(Config::get('signere.id'), (int) $request->otp)
                 ->getBody()
                 ->getContents();
     }
