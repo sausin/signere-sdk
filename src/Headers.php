@@ -39,11 +39,6 @@ class Headers
             throw new UnexpectedValueException('Incorrect request type ' . $reqType);
         }
 
-        // check if PUT / POST requests have some data assigned to body
-        // if (($reqType === 'PUT' || $reqType === 'POST') && empty($body)) {
-        //     throw new BadMethodCallException('Empty body not allowed with ' . $reqType . ' request');
-        // }
-
         // generate timestamp in the correct format
         $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);
 
