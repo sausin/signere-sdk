@@ -73,7 +73,7 @@ class ExternalSignTest extends TestCase
         $signeeRefId = str_random(10);
         $url = sprintf('%s/BankIDMobileSign/Status/%s', $this->uri, $signeeRefId);
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url, [], true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->getSessionStatus($signeeRefId);
@@ -106,7 +106,7 @@ class ExternalSignTest extends TestCase
 
         $url = $this->uri;
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body, true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->createRequest($body);
@@ -130,7 +130,7 @@ class ExternalSignTest extends TestCase
 
         $url = sprintf('%s/BankIDAppUrl', $this->uri);
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body, true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->createAppUrl($body);
@@ -155,7 +155,7 @@ class ExternalSignTest extends TestCase
 
         $url = sprintf('%s/BankIDMobileSign', $this->uri);
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body, true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->startMobile($body);

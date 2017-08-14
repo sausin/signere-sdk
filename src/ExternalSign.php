@@ -99,7 +99,7 @@ class ExternalSign
         ;
 
         // get the headers for this request
-        $headers = $this->headers->make('GET', $url);
+        $headers = $this->headers->make('GET', $url, [], true);
 
         // get the response
         $response = $this->client->get($url, [
@@ -163,7 +163,7 @@ class ExternalSign
         $url = self::URI;
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $url, $body);
+        $headers = $this->headers->make('POST', $url, $body, true);
 
         // get the response
         $response = $this->client->post($url, [
@@ -197,7 +197,7 @@ class ExternalSign
         $url = sprintf('%s/BankIDAppUrl', self::URI);
 
         // get the headers for this request
-        $headers = $this->headers->make('PUT', $url, $body);
+        $headers = $this->headers->make('PUT', $url, $body, true);
 
         // get the response
         $response = $this->client->put($url, [
@@ -232,7 +232,7 @@ class ExternalSign
         $url = sprintf('%s/BankIDMobileSign', self::URI);
 
         // get the headers for this request
-        $headers = $this->headers->make('PUT', $url, $body);
+        $headers = $this->headers->make('PUT', $url, $body, true);
 
         // get the response
         $response = $this->client->put($url, [
