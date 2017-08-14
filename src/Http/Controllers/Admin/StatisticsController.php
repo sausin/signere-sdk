@@ -42,9 +42,8 @@ class StatisticsController extends Controller
         $allowedStatus = ['All', 'Canceled', 'Signed', 'Expired', 'Unsigned', 'Changed', 'PartialSigned'];
         $status = in_array($request->status, $allowedStatus, true) ? $request->status : 'All';
 
-        $response = $this->statistics->get($request->year, $request->month, $request->day, $status);
-
-        return $response->getBody()
-                    ->getContents();
+        return $this->statistics->get($request->year, $request->month, $request->day, $status)
+                ->getBody()
+                ->getContents();
     }
 }
