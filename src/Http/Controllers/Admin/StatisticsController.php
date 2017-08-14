@@ -36,11 +36,13 @@ class StatisticsController extends Controller
         $this->validate($request, [
             'year' => 'sometimes|numeric|nullable|min:2015|max:' . Carbon::now()->year,
             'month' => 'sometimes|numeric|nullable|min:1|max:12',
-            'day' => 'sometimes|numeric|nullable|min:1|max:31',
-            'status' => 'sometimes|string|nullable|in:All,Cancled,Signed,Expired,Unsigned,Changed,PartialSigned'
+            'day' => 'sometimes|numeric|nullable|min:1|max:31'
         ]);
 
-        $response = $this->statistics->get($request->year, $request->month, $request->day, $request->status);
+        $allowedStatus = ['All', 'Canceled', 'Signed', 'Expired', 'Unsigned', 'Changed', 'PartialSigned'];
+        $status = in_array($request->status, $allowedStatus, true) ? $request->status : 'All';
+
+        $response = $this->statistics->get($request->year, $request->month, $request->day, $status);
 
         return $response->getBody()
                     ->getContents();
