@@ -40,7 +40,7 @@ class ExternalSign
         $url = sprintf('%s/%s', self::URI, $documentId);
 
         // get the headers for this request
-        $headers = $this->headers->make('GET', $url);
+        $headers = $this->headers->make('GET', $url, [], true);
 
         // get the response
         $response = $this->client->get($url, [

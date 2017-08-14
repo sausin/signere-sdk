@@ -31,7 +31,7 @@ class ExternalSignTest extends TestCase
         $documentId = str_random(10);
         $url = sprintf('%s/%s', $this->uri, $documentId);
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url, [], true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->getUrlForSign($documentId);
