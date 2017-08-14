@@ -51,6 +51,31 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
     }
 
     /** @test */
+    public function an_admin_can_request_recover_of_primary_key_without_message_suggestion()
+    {
+        $key = m::mock(ApiKey::class);
+
+        // make a check on the object if the method actually exists
+        // this is to be certain that code changes in the original
+        // class will not lead to this test passing by mistake
+        $this->assertTrue(method_exists($key, 'recoverPrimary'));
+
+        $body1 = ['phone_number' => $phone = '+4712345678'];
+        $body2 = ['MobileNumber' => $phone, 'ProviderID' => 'id'];
+
+        $key->shouldReceive('recoverPrimary')
+                ->once()
+                ->with($body2)
+                ->andReturn(new Response(200, [], ''));
+
+        $this->app->instance(ApiKey::class, $key);
+
+        $this->actingAs(new Fakes\User)
+            ->json('PATCH', '/signere/admin/keys/primary', $body1)
+            ->assertStatus(200);
+    }
+
+    /** @test */
     public function an_admin_can_confirm_request_for_primary_key_recovery()
     {
         $key = m::mock(ApiKey::class);
