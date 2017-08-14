@@ -4,9 +4,9 @@ namespace Sausin\Signere\Tests\Controllers;
 
 use Mockery as m;
 use GuzzleHttp\Client;
+use Sausin\Signere\Status;
 use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
-use Sausin\Signere\Statistics;
 
 class StatusControllerTest extends AbstractControllerTest
 {
@@ -20,7 +20,7 @@ class StatusControllerTest extends AbstractControllerTest
     /** @test */
     public function an_admin_can_request_for_server_timestamp()
     {
-        $stats = m::mock(Statistics::class);
+        $stats = m::mock(Status::class);
 
         // make a check on the object if the method actually exists
         // this is to be certain that code changes in the original
@@ -29,7 +29,7 @@ class StatusControllerTest extends AbstractControllerTest
 
         $stats->shouldReceive('getServerTime')->once()->andReturn(new Response(200, [], ''));
 
-        $this->app->instance(Statistics::class, $stats);
+        $this->app->instance(Status::class, $stats);
 
         $this->actingAs(new Fakes\User)
             ->json('GET', '/signere/admin/status')
@@ -39,7 +39,7 @@ class StatusControllerTest extends AbstractControllerTest
     /** @test */
     public function an_admin_can_request_for_server_status()
     {
-        $stats = m::mock(Statistics::class);
+        $stats = m::mock(Status::class);
 
         // make a check on the object if the method actually exists
         // this is to be certain that code changes in the original
@@ -51,7 +51,7 @@ class StatusControllerTest extends AbstractControllerTest
             ->with($message = str_random(10))
             ->andReturn(new Response(200, [], ''));
 
-        $this->app->instance(Statistics::class, $stats);
+        $this->app->instance(Status::class, $stats);
 
         $this->actingAs(new Fakes\User)
             ->json('GET', '/signere/admin/status/' . $message)
