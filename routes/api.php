@@ -32,6 +32,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // status routes
     Route::get('status', 'StatusController@index');
     Route::get('status/{message}', 'StatusController@show');
+
+    // request id check
+    Route::post('/requestDetails', 'RequestIdController');
 });
 
 Route::prefix('user')->group(function () {
