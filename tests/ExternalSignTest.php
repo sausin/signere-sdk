@@ -54,7 +54,7 @@ class ExternalSignTest extends TestCase
             $params['Language']
         );
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['GET', $url, [], true])->andReturn([]);
 
         $es = new ExternalSign($this->makeClient($detail), $this->headers);
         $response = $es->getUrlForApplet($documentId, $params);
