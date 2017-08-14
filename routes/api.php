@@ -35,14 +35,20 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     // request id check
     Route::post('/requestDetails', 'RequestIdController');
+
+    // external signing related items
+    Route::post('/externalSign/create', 'ExternalSignController@store');
 });
 
 Route::prefix('user')->group(function () {
-    // Route::get();
 });
 
 Route::prefix('guest')->group(function () {
     Route::post('/login', 'RequestIdController@store');
+
+    // mobile signing status
+    Route::get('/mobile/externalSign/status/{signeeRef}', 'MobileExternalSignController@show');
+    Route::post('/mobile/externalSign/start', 'MobileExternalSignController@store');
 });
 
 Route::prefix('bidder')->group(function () {

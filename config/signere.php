@@ -34,6 +34,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Sign Status URLs
+    |--------------------------------------------------------------------------
+    |
+    | The URLs corresponding to the callbacks from Signere based on the
+    | response condition. Details regarding which url is needed for
+    | which case. See:  http://bit.ly/2wU8ihX
+    |
+    */
+   
+    'sign_cancel_url'   => 'https://abc.com/auth/abort?requestid=[1]&externalid=[2]',
+    'sign_error_url'    => 'https://abc.com/auth/error?status=[0]',
+    'sign_success_url'  => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
+
+    /*
+    |--------------------------------------------------------------------------
     | Identity Provider
     |--------------------------------------------------------------------------
     |

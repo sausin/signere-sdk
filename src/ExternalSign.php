@@ -96,7 +96,6 @@ class ExternalSign
     {
         // make the URL for this request
         $url = sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId);
-        ;
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
