@@ -1,12 +1,14 @@
 <?php
 
-namespace Sausin\Signere\Tests\Controllers;
+namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use GuzzleHttp\Client;
 use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\Statistics;
+use Sausin\Signere\Tests\Controllers\Fakes\User;
+use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
 class StatisticsControllerTest extends AbstractControllerTest
 {
@@ -36,7 +38,7 @@ class StatisticsControllerTest extends AbstractControllerTest
 
         $this->app->instance(Statistics::class, $stats);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('POST', '/signere/admin/statistics', $body)
             ->assertStatus(200);
     }
@@ -60,7 +62,7 @@ class StatisticsControllerTest extends AbstractControllerTest
 
         $this->app->instance(Statistics::class, $stats);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('POST', '/signere/admin/statistics', $body)
             ->assertStatus(200);
     }

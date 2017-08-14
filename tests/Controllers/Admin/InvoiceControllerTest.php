@@ -1,12 +1,14 @@
 <?php
 
-namespace Sausin\Signere\Tests\Controllers;
+namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use GuzzleHttp\Client;
 use Sausin\Signere\Invoice;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Tests\Controllers\Fakes\User;
+use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
 class InvoiceControllerTest extends AbstractControllerTest
 {
@@ -34,7 +36,7 @@ class InvoiceControllerTest extends AbstractControllerTest
 
         $this->app->instance(Invoice::class, $invoice);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('GET', '/signere/admin/invoice/2016/9')
             ->assertStatus(200);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sausin\Signere\Tests\Controllers;
+namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use GuzzleHttp\Client;
@@ -8,6 +8,8 @@ use Sausin\Signere\Headers;
 use Sausin\Signere\Receiver;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Tests\Controllers\Fakes\User;
+use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
 class ReceiverControllerTest extends AbstractControllerTest
 {
@@ -35,7 +37,7 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('GET', '/signere/admin/receivers')
             ->assertStatus(200);
     }
@@ -58,7 +60,7 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('GET', '/signere/admin/receivers/' . $rId)
             ->assertStatus(200);
     }
@@ -91,7 +93,7 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('POST', '/signere/admin/receivers', $body1)
             ->assertStatus(200);
     }
@@ -120,11 +122,11 @@ class ReceiverControllerTest extends AbstractControllerTest
 
         $this->app->instance(Receiver::class, $receiver);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('DELETE', '/signere/admin/receivers', $body1)
             ->assertStatus(200);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('DELETE', '/signere/admin/receivers', $body2)
             ->assertStatus(200);
     }

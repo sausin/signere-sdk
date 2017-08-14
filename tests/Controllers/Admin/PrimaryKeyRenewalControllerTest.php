@@ -1,13 +1,15 @@
 <?php
 
-namespace Sausin\Signere\Tests\Controllers;
+namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use GuzzleHttp\Client;
 use Sausin\Signere\ApiKey;
 use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
 class PrimaryKeyRenewalControllerTest extends AbstractControllerTest
 {
@@ -37,7 +39,7 @@ class PrimaryKeyRenewalControllerTest extends AbstractControllerTest
 
         $this->app->instance(ApiKey::class, $key);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('POST', '/signere/admin/keys/primary/renew', $body)
             ->assertStatus(200);
     }

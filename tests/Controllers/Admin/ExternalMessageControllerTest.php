@@ -1,12 +1,14 @@
 <?php
 
-namespace Sausin\Signere\Tests\Controllers;
+namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use GuzzleHttp\Client;
 use Sausin\Signere\Message;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Tests\Controllers\Fakes\User;
+use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
 class ExternalMessageControllerTest extends AbstractControllerTest
 {
@@ -52,7 +54,7 @@ class ExternalMessageControllerTest extends AbstractControllerTest
 
         $this->app->instance(Message::class, $message);
 
-        $this->actingAs(new Fakes\User)
+        $this->actingAs(new User)
             ->json('POST', '/signere/admin/externalMessage', $body1)
             ->assertStatus(200);
     }
