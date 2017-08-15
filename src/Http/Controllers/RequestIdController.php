@@ -70,20 +70,4 @@ class RequestIdController extends Controller
                 ->getBody()
                 ->getContents();
     }
-
-    /**
-     * Invalidates a signere id request.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     * @todo this should be accessible only by the bidder / auth user
-     */
-    public function destroy(Request $request)
-    {
-        $this->validate($request, ['request_id' => 'required|string|min:100|max:400']);
-
-        return $this->signereRequest->invalidate($request->request_id)
-                ->getBody()
-                ->getContents();
-    }
 }
