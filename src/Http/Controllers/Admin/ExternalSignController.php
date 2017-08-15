@@ -47,7 +47,7 @@ class ExternalSignController extends Controller
      */
     public function show(string $documentId, string $domain, string $language)
     {
-        return $this->extSign->getUrlForApplet($documentId, $domain, $language)
+        return $this->extSign->getUrlForApplet($documentId, ['Domain' => $domain, 'Language' => $language])
                 ->getBody()
                 ->getContents();
     }
