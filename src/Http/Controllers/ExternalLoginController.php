@@ -31,11 +31,11 @@ class ExternalLoginController extends Controller
      * @return \Illuminate\Http\Response
      * @todo this should be accessible only by the bidder / auth user
      */
-    public function destroy(Request $request)
+    public function __invoke(Request $request)
     {
         $this->validate($request, ['request_id' => 'required|string|size:36']);
 
-        return $this->extLogin->invalidateLogin($request->request_id)
+        return $this->extLogin->invalidateLogin(['RequestId' => $request->request_id])
                 ->getBody()
                 ->getContents();
     }

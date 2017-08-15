@@ -1,10 +1,11 @@
 <?php
 
-namespace Sausin\Signere\Http\Controllers;
+namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\ExternalSign;
 use Illuminate\Support\Facades\Config;
+use Sausin\Signere\Http\Controllers\Controller;
 
 class MobileExternalSignController extends Controller
 {

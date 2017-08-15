@@ -32,6 +32,9 @@ class ExternalSignController extends Controller
      */
     public function index(string $documentId)
     {
+        return $this->extSign->getUrlForSign($documentId)
+                ->getBody()
+                ->getContents();
     }
 
     /**
@@ -44,6 +47,9 @@ class ExternalSignController extends Controller
      */
     public function show(string $documentId, string $domain, string $language)
     {
+        return $this->extSign->getUrlForApplet($documentId, $domain, $language)
+                ->getBody()
+                ->getContents();
     }
 
     /**
