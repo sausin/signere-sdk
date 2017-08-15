@@ -37,6 +37,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('/requestDetails', 'RequestIdController');
 
     // external signing related items
+    Route::get('/externalSign/{document}', 'ExternalSignController@store');
+    Route::get('/externalSign/{document}/{domain}/{language}', 'ExternalSignController@store');
     Route::post('/externalSign/create', 'ExternalSignController@store');
 });
 
@@ -53,5 +55,5 @@ Route::prefix('guest')->group(function () {
 
 Route::prefix('bidder')->group(function () {
     Route::get('/check/{request}', 'RequestIdController@show')->where(['request' => '[A-Za-z0-9]+']);
-    Route::delete('/logout', 'RequestIdController@destroy');
+    Route::delete('/logout', 'ExternalLoginController');
 });
