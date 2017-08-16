@@ -100,8 +100,6 @@ class ExternalSignController extends Controller
         $body['ReturnUrlSuccess'] = Config::get('signere.sign_success_url');
         $body['ReturnUrlUserAbort'] = Config::get('signere.sign_cancel_url');
 
-        var_dump($body);
-
         return $this->extSign->createRequest($body)
                 ->getBody()
                 ->getContents();
