@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
+    // events
+    Route::get('/events', 'EventsController');
+
+    // invoices
     Route::get('/invoice/{year}/{month}', 'InvoiceController');
 
     // for sending out messages to signeres
