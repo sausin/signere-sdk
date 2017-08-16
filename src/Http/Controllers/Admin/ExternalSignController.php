@@ -4,6 +4,7 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\ExternalSign;
+use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class ExternalSignController extends Controller
@@ -61,7 +62,7 @@ class ExternalSignController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'description' => 'required|string|size:36',
+            'description' => 'required|string|min:1|max:255',
             'ext_doc_id' => 'required|string|min:1|max:255',
             'file_content' => 'required|string',
             'filename' => 'required|string|min:1|max:255',
@@ -81,14 +82,16 @@ class ExternalSignController extends Controller
         $body['Filename'] = $request->filename;
         $body['Title'] = $request->title;
 
+        $body['SigneeRefs'] = [];
+
         // populate the signee references
         foreach ($request->signee_refs as $signee) {
             // append this to the body
             $body['SigneeRefs'][] = [
-                'UniqueRef' => $signee->unique_ref,
-                'FirstName' => $signee->first_name,
-                'LastName' => $signee->last_name,
-                'Email' => $signee->email
+                'UniqueRef' => $signee['unique_ref'],
+                'FirstName' => $signee['first_name'],
+                'LastName' => $signee['last_name'],
+                'Email' => $signee['email']
             ];
         }
 
@@ -96,6 +99,8 @@ class ExternalSignController extends Controller
         $body['ReturnUrlError']  = Config::get('signere.sign_error_url');
         $body['ReturnUrlSuccess'] = Config::get('signere.sign_success_url');
         $body['ReturnUrlUserAbort'] = Config::get('signere.sign_cancel_url');
+
+        var_dump($body);
 
         return $this->extSign->createRequest($body)
                 ->getBody()

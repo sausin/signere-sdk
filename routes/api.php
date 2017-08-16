@@ -39,7 +39,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // external signing related items
     Route::get('/externalSign/{document}', 'ExternalSignController@index');
     Route::get('/externalSign/{document}/{domain}/{language}', 'ExternalSignController@show');
-    Route::post('/externalSign/create', 'ExternalSignController@store');
+    Route::post('/externalSign', 'ExternalSignController@store');
 });
 
 Route::prefix('user')->group(function () {
