@@ -40,10 +40,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // request id check
     Route::post('/requestDetails', 'RequestIdController');
 
-    // external signing related items
+    // external signing related routes
     Route::get('/externalSign/{document}', 'ExternalSignController@index');
     Route::get('/externalSign/{document}/{domain}/{language}', 'ExternalSignController@show');
     Route::post('/externalSign', 'ExternalSignController@store');
+
+    // document provider related routes
+    Route::get('/provider', 'DocumentProviderController@index');
+    Route::get('/provider/usage', 'DocumentProviderController@show');
+    Route::post('/provider', 'DocumentProviderController@store');
+    Route::patch('/provider', 'DocumentProviderController@update');
+
+    Route::get('/provider/certificate', 'DocumentProviderCertificateController');
 });
 
 Route::prefix('user')->group(function () {
