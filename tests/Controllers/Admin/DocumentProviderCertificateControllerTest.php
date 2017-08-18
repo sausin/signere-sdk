@@ -20,7 +20,7 @@ class DocumentProviderCertificateControllerTest extends AbstractControllerTest
     }
     
     /** @test */
-    public function an_admin_can_get_invoice_details()
+    public function an_admin_can_get_certificate_details()
     {
         $dp = m::mock(DocumentProvider::class);
 
