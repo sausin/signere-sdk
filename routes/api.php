@@ -56,6 +56,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // document job related queries
     Route::get('/job/{job}', 'DocumentJobController@show');
     Route::post('/job', 'DocumentJobController@store');
+
+    // document file related queries
+    Route::get('/file/{document}', 'DocumentFileController@show');
+    Route::post('/file', 'DocumentFileController@store');
 });
 
 Route::prefix('user')->group(function () {
