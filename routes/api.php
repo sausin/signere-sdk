@@ -52,6 +52,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::patch('/provider', 'DocumentProviderController@update');
 
     Route::get('/provider/certificate', 'DocumentProviderCertificateController');
+
+    // document job related queries
+    Route::get('/job/{job}', 'DocumentJobController@show');
+    Route::post('/job', 'DocumentJobController@store');
 });
 
 Route::prefix('user')->group(function () {
