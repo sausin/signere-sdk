@@ -2,8 +2,8 @@
 
 namespace Sausin\Signere\Http\Controllers\Admin;
 
-use Sausin\Signere\DocumentProvider;
 use Illuminate\Http\Request;
+use Sausin\Signere\DocumentProvider;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class DocumentProviderCertificateController extends Controller
