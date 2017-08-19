@@ -1,11 +1,11 @@
 {
-    "name": "sausin/signere",
+    "name": "sausin/signere-sdk",
     "description": "Package to work with Signere.no APIs for bankid implementation.",
     "keywords": ["laravel", "signere", "api"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/sausin/signere/issues",
-        "source": "https://github.com/sausin/signere"
+        "issues": "https://github.com/sausin/signere-sdk/issues",
+        "source": "https://github.com/sausin/signere-sdk"
     },
     "authors": [
         {
