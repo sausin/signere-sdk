@@ -38,7 +38,7 @@ class StatusTest extends TestCase
         // test
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
 
-        $response = $status->getServerTime();        
+        $response = $status->getServerTime();
 
         $this->assertEquals($date, $response->getBody()->getContents());
     }
@@ -48,7 +48,7 @@ class StatusTest extends TestCase
     {
         // set the variables for use
         $pingRequest = 'return string';
-        $url = 'https://api.signere.no/api/Status/Ping/' . $pingRequest;
+        $url = 'https://api.signere.no/api/Status/Ping/'.$pingRequest;
 
         // create a new status object
         $status = new Status($this->makeClient($pingRequest), $this->headers, $this->config);
@@ -57,7 +57,7 @@ class StatusTest extends TestCase
         $this->config->shouldReceive('get')->once()->andReturn('');
         $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
 
-        $response = $status->getServerStatus($pingRequest);        
+        $response = $status->getServerStatus($pingRequest);
 
         $this->assertEquals($pingRequest, $response->getBody()->getContents());
     }

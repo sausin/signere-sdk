@@ -23,7 +23,7 @@ class MessagesController extends Controller
 
         $this->message = $message;
     }
-    
+
     /**
      * Retrieves a list of all the messages for
      * the given document id.
@@ -64,7 +64,7 @@ class MessagesController extends Controller
             'message' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'signature' => 'required|string',
-            'signee_ref' => 'required|string|size:36'
+            'signee_ref' => 'required|string|size:36',
         ]);
 
         // this is used to only set the keys which have been sent in
@@ -103,7 +103,7 @@ class MessagesController extends Controller
             'document_id' => 'required|string|size:36',
             'email' => 'nullable|email|max:255',
             'replace_email' => 'nullable|string',
-            'signee_ref' => 'required|string|size:36'
+            'signee_ref' => 'required|string|size:36',
         ]);
 
         // this is used to only set the keys which have been sent in

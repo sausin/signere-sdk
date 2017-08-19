@@ -9,7 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 class Controller extends BaseController
 {
     use ValidatesRequests;
-    
+
     /**
      * Create a new controller instance.
      *

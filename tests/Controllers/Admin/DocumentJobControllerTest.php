@@ -3,10 +3,8 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\DocumentJob;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -15,7 +13,7 @@ class DocumentJobControllerTest extends AbstractControllerTest
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
 
@@ -37,7 +35,7 @@ class DocumentJobControllerTest extends AbstractControllerTest
         $this->app->instance(DocumentJob::class, $dj);
 
         $this->actingAs(new User)
-            ->json('GET', '/signere/admin/job/' . $jobId)
+            ->json('GET', '/signere/admin/job/'.$jobId)
             ->assertStatus(200);
     }
 
@@ -56,7 +54,7 @@ class DocumentJobControllerTest extends AbstractControllerTest
             'mobile' => $mobile = '+4712345678',
             'name' => $name = str_random(10),
             'phone' => $phone = '+4712345678',
-            'url' => $url = 'https://random.pigs'
+            'url' => $url = 'https://random.pigs',
         ];
 
         $body2 = [
@@ -64,7 +62,7 @@ class DocumentJobControllerTest extends AbstractControllerTest
             'Contact_Mobile' => $mobile,
             'Contact_Name' => $name,
             'Contact_Phone' => $phone,
-            'Contact_Url' => $url
+            'Contact_Url' => $url,
         ];
 
         $dj->shouldReceive('create')

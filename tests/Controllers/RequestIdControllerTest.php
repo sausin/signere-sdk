@@ -3,20 +3,18 @@
 namespace Sausin\Signere\Tests\Controllers;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\RequestId;
-use Illuminate\Support\Facades\Config;
 
 class RequestIdControllerTest extends AbstractControllerTest
 {
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
-    
+
     /** @test */
     public function a_guest_can_create_a_login_request()
     {
@@ -37,7 +35,7 @@ class RequestIdControllerTest extends AbstractControllerTest
             'language' => 'EN',
             'page_title' => str_random(10),
             'iframe' => false,
-            'web_messaging' => true
+            'web_messaging' => true,
         ];
 
         $this->json('POST', '/signere/guest/login', $data)
@@ -76,7 +74,7 @@ class RequestIdControllerTest extends AbstractControllerTest
 
         // and now this should go through
         $this->actingAs(new Fakes\Bidder)
-            ->json('GET', '/signere/bidder/check/' . $requestId)
+            ->json('GET', '/signere/bidder/check/'.$requestId)
             ->assertStatus(200);
     }
 }

@@ -3,17 +3,15 @@
 namespace Sausin\Signere\Tests\Controllers;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\ExternalLogin;
-use Illuminate\Support\Facades\Config;
 
 class ExternalLoginControllerTest extends AbstractControllerTest
 {
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
 

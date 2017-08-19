@@ -24,7 +24,7 @@ class SecondaryKeyRenewalController extends Controller
 
         $this->key = $key;
     }
-    
+
     /**
      * Renew the secondary key.
      *

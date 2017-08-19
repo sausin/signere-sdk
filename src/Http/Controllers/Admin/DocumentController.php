@@ -88,7 +88,7 @@ class DocumentController extends Controller
         $this->validate($request, [
             'new_deadline' => 'bail|required|date',
             'notify_email' => 'bail|nullable|boolean',
-            'notify_sms' => 'bail|nullable|boolean'
+            'notify_sms' => 'bail|nullable|boolean',
         ]);
 
         $body = [];
@@ -117,7 +117,7 @@ class DocumentController extends Controller
         $this->validate($request, [
             'canceled_date' => 'bail|required|date',
             'explanation' => 'bail|nullable|string|max:255',
-            'signature' => 'bail|nullable|string|max:150'
+            'signature' => 'bail|nullable|string|max:150',
         ]);
 
         // this is used to only set the keys which have been sent in

@@ -11,7 +11,7 @@ class PrimaryKeyRecoveryController extends Controller
 {
     /** @var \Sausin\Signere\ApiKey */
     protected $key;
-    
+
     /**
      * Create a new controller instance.
      *
@@ -34,7 +34,7 @@ class PrimaryKeyRecoveryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, ['otp' => 'required|numeric']);
-        
+
         return $this->key->createPrimary(Config::get('signere.id'), (int) $request->otp)
                 ->getBody()
                 ->getContents();
@@ -52,20 +52,20 @@ class PrimaryKeyRecoveryController extends Controller
             'phone_number' => [
                 'required',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'message' => [
                 'string',
                 'nullable',
-                'regex:/\{0\}/i'
-            ]
+                'regex:/\{0\}/i',
+            ],
         ]);
 
         // create the body
         $body = [
             'MobileNumber' => $request->phone_number,
             'ProviderID' => Config::get('signere.id'),
-            'SmsMessage' => $request->message
+            'SmsMessage' => $request->message,
         ];
 
         if (empty($request->message)) {

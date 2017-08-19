@@ -3,7 +3,6 @@
 namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\ApiKey;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
@@ -24,7 +23,7 @@ class PrimaryKeyRenewalController extends Controller
 
         $this->key = $key;
     }
-    
+
     /**
      * Renew the primary key.
      *

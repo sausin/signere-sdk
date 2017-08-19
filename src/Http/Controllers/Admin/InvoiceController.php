@@ -3,7 +3,6 @@
 namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\Invoice;
-use Illuminate\Http\Request;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class InvoiceController extends Controller

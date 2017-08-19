@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use Sausin\Signere\RequestId;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class RequestIdTest extends TestCase
 {
@@ -75,7 +74,7 @@ class RequestIdTest extends TestCase
             'ErrorUrl' => 'https://',
             'ExternalReference' => str_random(10),
             'IdentityProvider' => 'NO_BANKID_WEB',
-            'SuccessUrl' => 'https://'
+            'SuccessUrl' => 'https://',
         ];
         $url = 'https://api.signere.no/api/SignereId';
 

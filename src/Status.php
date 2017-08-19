@@ -34,7 +34,7 @@ class Status
     /**
      * Returns the UTC time of the server.
      *
-     * @return Object
+     * @return object
      */
     public function getServerTime()
     {
@@ -46,7 +46,7 @@ class Status
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -57,7 +57,7 @@ class Status
      * Returns the status the server.
      *
      * @param  string $request
-     * @return Object
+     * @return object
      */
     public function getServerStatus(string $request = 'test')
     {
@@ -72,7 +72,7 @@ class Status
             'headers' => array_merge(
                 $headers,
                 ['PingToken' => $this->config->get('signere.ping_token')]
-            )
+            ),
         ]);
 
         // return the response

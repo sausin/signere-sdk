@@ -3,11 +3,9 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use Carbon\Carbon;
 use Sausin\Signere\Headers;
-use PHPUnit\Framework\TestCase;
 use Sausin\Signere\Document;
-use Illuminate\Support\Facades\Config;
+use PHPUnit\Framework\TestCase;
 
 class DocumentTest extends TestCase
 {
@@ -97,7 +95,7 @@ class DocumentTest extends TestCase
                 'status' => $status,
                 'from_date' => $from,
                 'created_after' => $after,
-                'ext_cust_ref' => $extRef
+                'ext_cust_ref' => $extRef,
             ]
         );
 
@@ -112,10 +110,10 @@ class DocumentTest extends TestCase
         $url = $this->uri;
 
         $subItem = [
-            'SigneeRefId' => '8210132929654b8eb02bd7e33250c069', 
-            'FirstName' => 'Kari', 
-            'LastName' => 'Normann', 
-            'Email' => 'kari@normann.no'
+            'SigneeRefId' => '8210132929654b8eb02bd7e33250c069',
+            'FirstName' => 'Kari',
+            'LastName' => 'Normann',
+            'Email' => 'kari@normann.no',
         ];
         $body = [
             'Description' => str_random(150),
@@ -125,7 +123,7 @@ class DocumentTest extends TestCase
             'Language' => str_random(2),
             'SigneeRefs' => [$subItem, $subItem],
             'SignJobId' => str_random(),
-            'Title' => str_random()
+            'Title' => str_random(),
         ];
 
         $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body, true])->andReturn([]);
@@ -146,7 +144,7 @@ class DocumentTest extends TestCase
         $body = [
             'CanceledDate' => '2016-07-19T12:56:12',
             'DocumentID' => str_random(36),
-            'Signature' => str_random(30)
+            'Signature' => str_random(30),
         ];
 
         $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body])->andReturn([]);
@@ -167,7 +165,7 @@ class DocumentTest extends TestCase
         $body = [
             'DocumentID' => str_random(36),
             'NewDeadline' => '2016-07-19T12:56:12',
-            'ProviderID' => str_random(36)
+            'ProviderID' => str_random(36),
         ];
 
         $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);

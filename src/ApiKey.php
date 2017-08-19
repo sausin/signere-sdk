@@ -45,7 +45,7 @@ class ApiKey
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => []
+            'json' => [],
         ]);
 
         // return the response
@@ -69,7 +69,7 @@ class ApiKey
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => []
+            'json' => [],
         ]);
 
         // return the response
@@ -99,7 +99,7 @@ class ApiKey
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => []
+            'json' => [],
         ]);
 
         // return the response
@@ -111,7 +111,7 @@ class ApiKey
      * the given mobile number.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function recoverPrimary(array $body)
     {
@@ -119,12 +119,12 @@ class ApiKey
         $needKeys = ['MobileNumber', 'ProviderID'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         } elseif (isset($body['SmsMessage'])) {
-            if (!preg_match('/\{0\}/', $body['SmsMessage'])) {
+            if (! preg_match('/\{0\}/', $body['SmsMessage'])) {
                 throw new InvalidArgumentException('SmsMessage must contain a {0}');
             }
         }
@@ -138,7 +138,7 @@ class ApiKey
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

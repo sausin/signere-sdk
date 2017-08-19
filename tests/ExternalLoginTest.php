@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
 use Sausin\Signere\ExternalLogin;
-use Illuminate\Support\Facades\Config;
 
 class ExternalLoginTest extends TestCase
 {
@@ -84,7 +83,7 @@ class ExternalLoginTest extends TestCase
         $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body2])->andReturn([]);
 
         $el = new ExternalLogin($this->makeClient($detail, 2), $this->headers);
-        
+
         // empty input means it should create a new session
         $response = $el->startMobileSession();
         $this->assertEquals($detail, $response->getBody()->getContents());

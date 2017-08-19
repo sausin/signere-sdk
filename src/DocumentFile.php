@@ -32,7 +32,7 @@ class DocumentFile
      * Returns the signed document as a file.
      *
      * @param  string $documentId
-     * @return Object
+     * @return object
      */
     public function getSigned(string $documentId)
     {
@@ -44,7 +44,7 @@ class DocumentFile
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -55,7 +55,7 @@ class DocumentFile
      * Returns the unsigned document as a file.
      *
      * @param  string $documentId
-     * @return Object
+     * @return object
      */
     public function getUnSigned(string $documentId)
     {
@@ -67,7 +67,7 @@ class DocumentFile
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -78,7 +78,7 @@ class DocumentFile
      * Returns the signed document as a PDF file.
      *
      * @param  string $documentId
-     * @return Object
+     * @return object
      */
     public function getSignedPdf(string $documentId)
     {
@@ -90,7 +90,7 @@ class DocumentFile
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -103,7 +103,7 @@ class DocumentFile
      * @param  string      $documentId
      * @param  string      $type
      * @param  Carbon|null $expiring
-     * @return Object
+     * @return object
      */
     public function temporaryUrl(string $documentId, string $type = 'PDF', Carbon $expiring = null)
     {
@@ -111,8 +111,8 @@ class DocumentFile
         $needTypes = ['SDO', 'PDF', 'SIGNED_PDF', 'MOBILE_SDO', 'XML'];
 
         // check if specified type is correct
-        if (!in_array($type, $needTypes, true)) {
-            throw new UnexpectedValueException('File type should be one of ' . implode(', ', $needTypes));
+        if (! in_array($type, $needTypes, true)) {
+            throw new UnexpectedValueException('File type should be one of '.implode(', ', $needTypes));
         }
 
         // make the URL for this request
@@ -123,7 +123,7 @@ class DocumentFile
         $body = [
             'DocumentId' => $documentId,
             'DocumentFileType' => $type,
-            'Expires' => substr($expiring->setTimezone('UTC')->toIso8601String(), 0, 19)
+            'Expires' => substr($expiring->setTimezone('UTC')->toIso8601String(), 0, 19),
         ];
 
         // get the headers for this request
@@ -132,7 +132,7 @@ class DocumentFile
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

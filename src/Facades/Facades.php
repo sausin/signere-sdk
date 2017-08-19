@@ -4,9 +4,8 @@ namespace Sausin\Signere;
 
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
-class Facade extends IlluminateFacade
+class Facades extends IlluminateFacade
 {
-
     /**
      * Get the registered name of the component.
      *
@@ -16,9 +15,9 @@ class Facade extends IlluminateFacade
     {
         return 'signere.wrapper';
     }
-    
+
     /**
-     * Resolve a new instance
+     * Resolve a new instance.
      */
     public static function __callStatic($method, $args)
     {
@@ -35,7 +34,7 @@ class Facade extends IlluminateFacade
             case 4:
                 return $instance->$method($args[0], $args[1], $args[2], $args[3]);
             default:
-                return call_user_func_array(array($instance, $method), $args);
+                return call_user_func_array([$instance, $method], $args);
         }
     }
 }

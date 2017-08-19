@@ -29,7 +29,7 @@ class Events
     /**
      * Returns the EventsQueue encryptionKey as a base64 encoded string.
      *
-     * @return Object
+     * @return object
      */
     public function getEncryptionKey()
     {
@@ -41,7 +41,7 @@ class Events
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response

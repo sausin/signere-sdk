@@ -4,10 +4,8 @@ namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\DocumentFile;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -16,7 +14,7 @@ class DocumentFileControllerTest extends AbstractControllerTest
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
 
@@ -38,7 +36,7 @@ class DocumentFileControllerTest extends AbstractControllerTest
         $this->app->instance(DocumentFile::class, $df);
 
         $this->actingAs(new User)
-            ->json('GET', '/signere/admin/file/' . $documentId)
+            ->json('GET', '/signere/admin/file/'.$documentId)
             ->assertStatus(200);
     }
 
@@ -55,7 +53,7 @@ class DocumentFileControllerTest extends AbstractControllerTest
         $body = [
             'doc_id' => $doc_id = str_random(36),
             'file_type' => $file_type = 'PDF',
-            'expires' => $expires = '2016-07-26T17:29:30'
+            'expires' => $expires = '2016-07-26T17:29:30',
         ];
 
         $df->shouldReceive('temporaryUrl')

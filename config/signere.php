@@ -11,7 +11,7 @@ return [
     | provide the functionality corresponding to the various paths.
     |
     */
-   
+
     'id'                => env('SIGNERE_API_ID', 'id'),
     'primary_key'       => env('SIGNERE_KEY_PRIMARY', 'primary_key'),
     'secondary_key'     => env('SIGNERE_KEY_SECONDARY', 'secondary_key'),
@@ -27,7 +27,7 @@ return [
     | which case. See:  http://bit.ly/2wU8ihX
     |
     */
-   
+
     'cancel_url'        => 'https://abc.com/auth/abort?requestid=[1]&externalid=[2]',
     'error_url'         => 'https://abc.com/auth/error?status=[0]',
     'success_url'       => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
@@ -42,7 +42,7 @@ return [
     | which case. See:  http://bit.ly/2wU8ihX
     |
     */
-   
+
     'sign_cancel_url'   => 'https://abc.com/auth/abort?requestid=[1]&externalid=[2]',
     'sign_error_url'    => 'https://abc.com/auth/error?status=[0]',
     'sign_success_url'  => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
@@ -56,6 +56,6 @@ return [
     | value below is the provider in Norway. See: http://bit.ly/2wU8ihX
     |
     */
-   
+
     'identity_provider' => 'NO_BANKID_WEB',
 ];

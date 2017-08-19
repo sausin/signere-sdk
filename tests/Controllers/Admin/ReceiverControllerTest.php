@@ -3,11 +3,8 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
-use Sausin\Signere\Headers;
 use Sausin\Signere\Receiver;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -61,7 +58,7 @@ class ReceiverControllerTest extends AbstractControllerTest
         $this->app->instance(Receiver::class, $receiver);
 
         $this->actingAs(new User)
-            ->json('GET', '/signere/admin/receivers/' . $rId)
+            ->json('GET', '/signere/admin/receivers/'.$rId)
             ->assertStatus(200);
     }
 
@@ -78,7 +75,7 @@ class ReceiverControllerTest extends AbstractControllerTest
         $body1 = [
             'first_name' => $first = str_random(10),
             'last_name' => $last = str_random(10),
-            'email' => $email = 'hey@you.run'
+            'email' => $email = 'hey@you.run',
         ];
         $body2 = [
             'FirstName' => $first,

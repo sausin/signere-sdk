@@ -3,11 +3,9 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use Carbon\Carbon;
 use Sausin\Signere\ApiKey;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class ApiKeyTest extends TestCase
 {
@@ -86,7 +84,7 @@ class ApiKeyTest extends TestCase
         $body = [
             'MobileNumber' => '+4799775533',
             'ProviderID' => 'EA522127D971420595EFA08A00D4D3AE',
-            'SmsMessage' => 'One time code for new API key is: {0}'
+            'SmsMessage' => 'One time code for new API key is: {0}',
         ];
         $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', $this->uri);
 

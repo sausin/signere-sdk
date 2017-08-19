@@ -42,7 +42,7 @@ class Message
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -54,7 +54,7 @@ class Message
      * are sent for the given document.
      *
      * @param  string $documentId
-     * @return Object
+     * @return object
      */
     public function all(string $documentId)
     {
@@ -66,7 +66,7 @@ class Message
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -77,7 +77,7 @@ class Message
      * Sends a message to the signees of a given document.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function sendMessage(array $body)
     {
@@ -90,7 +90,7 @@ class Message
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -101,7 +101,7 @@ class Message
      * Sends a new message to the Signeeref if the first one failed.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function sendNewMessage(array $body)
     {
@@ -114,7 +114,7 @@ class Message
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -126,7 +126,7 @@ class Message
      * to view a document.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function sendExternalMessage(array $body)
     {
@@ -139,7 +139,7 @@ class Message
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

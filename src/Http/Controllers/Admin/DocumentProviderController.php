@@ -67,14 +67,14 @@ class DocumentProviderController extends Controller
             'postcode' => [
                 'bail',
                 'required',
-                'regex:/^\d{4}$/i'
+                'regex:/^\d{4}$/i',
             ],
             'company_email' => 'bail|required|email|max:255',
             'company_phone' => [
                 'bail',
                 'required',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'dealer_id' => 'bail|required|string|size:36',
             'legal_contact_email' => 'bail|required|email|max:255',
@@ -83,10 +83,10 @@ class DocumentProviderController extends Controller
                 'bail',
                 'required',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'mva_number' => 'bail|required|numeric|min:800000000|max:999999999',
-            'name' => 'bail|required|string|min:1|max:255'
+            'name' => 'bail|required|string|min:1|max:255',
         ]);
 
         // this is used to only set the keys which have been sent in
@@ -140,14 +140,14 @@ class DocumentProviderController extends Controller
             'postcode' => [
                 'bail',
                 'sometimes',
-                'regex:/^\d{4}$/i'
+                'regex:/^\d{4}$/i',
             ],
             'company_email' => 'bail|sometimes|email|max:255',
             'company_phone' => [
                 'bail',
                 'sometimes',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'dealer_id' => 'bail|sometimes|string|size:36',
             'legal_contact_email' => 'bail|sometimes|email|max:255',
@@ -156,10 +156,10 @@ class DocumentProviderController extends Controller
                 'bail',
                 'sometimes',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'mva_number' => 'bail|sometimes|numeric|min:800000000|max:999999999',
-            'name' => 'bail|sometimes|string|min:1|max:255'
+            'name' => 'bail|sometimes|string|min:1|max:255',
         ]);
 
         // this is used to only set the keys which have been sent in

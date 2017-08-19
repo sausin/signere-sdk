@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Events;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class EventsTest extends TestCase
 {

@@ -30,7 +30,7 @@ class Form
     /**
      * Gets all forms to the authenticated documentprovider.
      *
-     * @return Object
+     * @return object
      */
     public function get()
     {
@@ -42,7 +42,7 @@ class Form
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -56,7 +56,7 @@ class Form
      * @param  string|null $formId
      * @param  Carbon|null $from
      * @param  Carbon|null $to
-     * @return Object
+     * @return object
      */
     public function getAllSigned(string $formId = null, Carbon $from = null, Carbon $to = null)
     {
@@ -65,7 +65,7 @@ class Form
             '%s/GetSignedForms?formId=%s&fromDate=%s&toDate=%s',
             self::URI,
             $formId,
-            $from ? $from->toDateString(): null,
+            $from ? $from->toDateString() : null,
             $to ? $to->toDateString() : null
         );
 
@@ -74,7 +74,7 @@ class Form
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -87,7 +87,7 @@ class Form
      * @param  string $formId
      * @param  string $formSignId
      * @param  string $attachReference
-     * @return Object
+     * @return object
      */
     public function getAttachments(string $formId, string $formSignId, string $attachReference)
     {
@@ -105,7 +105,7 @@ class Form
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -116,7 +116,7 @@ class Form
      * Gets a signed form from DocumentID.
      *
      * @param  string $documentId
-     * @return Object
+     * @return object
      */
     public function getSignedByDocId(string $documentId)
     {
@@ -128,7 +128,7 @@ class Form
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -140,7 +140,7 @@ class Form
      *
      * @param  string $formId
      * @param  string $formSessionId
-     * @return Object
+     * @return object
      */
     public function getSignedBySessionId(string $formId, string $formSessionId)
     {
@@ -157,7 +157,7 @@ class Form
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -168,7 +168,7 @@ class Form
      * Enables the form.
      *
      * @param  string $formId
-     * @return Object
+     * @return object
      */
     public function enable(string $formId)
     {
@@ -181,7 +181,7 @@ class Form
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => []
+            'json' => [],
         ]);
 
         // return the response
@@ -192,7 +192,7 @@ class Form
      * Disables the form.
      *
      * @param  string $formId
-     * @return Object
+     * @return object
      */
     public function disable(string $formId)
     {
@@ -205,7 +205,7 @@ class Form
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => []
+            'json' => [],
         ]);
 
         // return the response

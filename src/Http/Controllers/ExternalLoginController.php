@@ -4,7 +4,6 @@ namespace Sausin\Signere\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\ExternalLogin;
-use Illuminate\Support\Facades\Config;
 
 class ExternalLoginController extends Controller
 {

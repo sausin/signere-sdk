@@ -3,10 +3,8 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Message;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -15,10 +13,10 @@ class ExternalMessageControllerTest extends AbstractControllerTest
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
-    
+
     /** @test */
     public function an_admin_can_create_a_new_message_for_external_person()
     {
