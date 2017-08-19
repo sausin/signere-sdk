@@ -4,7 +4,6 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\RequestId;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class RequestIdController extends Controller
@@ -35,7 +34,7 @@ class RequestIdController extends Controller
     {
         $this->validate($request, [
             'request_id' => 'required|string',
-            'metadata' => 'required|boolean'
+            'metadata' => 'required|boolean',
         ]);
 
         return $this->signereRequest->getDetails($request->request_id, $request->metadata)

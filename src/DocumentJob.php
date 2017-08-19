@@ -32,7 +32,7 @@ class DocumentJob
      * object containing the document job parameters.
      *
      * @param  string $jobId
-     * @return Object
+     * @return object
      */
     public function get(string $jobId)
     {
@@ -44,7 +44,7 @@ class DocumentJob
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -55,7 +55,7 @@ class DocumentJob
      * Creates a document job.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function create(array $body)
     {
@@ -63,9 +63,9 @@ class DocumentJob
         $needKeys = ['Contact_Email', 'Contact_Phone'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         }
 
@@ -78,7 +78,7 @@ class DocumentJob
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

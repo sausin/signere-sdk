@@ -19,7 +19,7 @@ class HeadersTest extends TestCase
     {
         m::close();
     }
-    
+
     /** @test */
     public function it_can_make_an_array_of_headers_for_get_requests()
     {

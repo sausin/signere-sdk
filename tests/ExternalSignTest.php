@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
 use Sausin\Signere\ExternalSign;
-use Illuminate\Support\Facades\Config;
 
 class ExternalSignTest extends TestCase
 {
@@ -50,7 +49,7 @@ class ExternalSignTest extends TestCase
             '%s/ViewerUrl/%s/%s/%s',
             $this->uri,
             $documentId,
-            $params['Domain'], 
+            $params['Domain'],
             $params['Language']
         );
 
@@ -87,10 +86,10 @@ class ExternalSignTest extends TestCase
         $detail = '{"DocumentId":"8210132929654b8eb02bd7e33250c069}';
 
         $subItem = [
-            'UniqueRef' => '8210132929654b8eb02bd7e33250c069', 
-            'FirstName' => 'Kari', 
-            'LastName' => 'Normann', 
-            'Email' => 'kari@normann.no'
+            'UniqueRef' => '8210132929654b8eb02bd7e33250c069',
+            'FirstName' => 'Kari',
+            'LastName' => 'Normann',
+            'Email' => 'kari@normann.no',
         ];
         $body = [
             'Description' => 'This document is a sales contract',
@@ -125,7 +124,7 @@ class ExternalSignTest extends TestCase
         $body = [
             'DocumentId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
             'SigneeRefId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
-            'UserAgent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X)'
+            'UserAgent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X)',
         ];
 
         $url = sprintf('%s/BankIDAppUrl', $this->uri);
@@ -150,7 +149,7 @@ class ExternalSignTest extends TestCase
             'DateOfBirth' => '071283',
             'DocumentId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
             'Mobile' => '+4799716935',
-            'SigneeRefId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4'
+            'SigneeRefId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4',
         ];
 
         $url = sprintf('%s/BankIDMobileSign', $this->uri);

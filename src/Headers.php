@@ -3,7 +3,6 @@
 namespace Sausin\Signere;
 
 use Carbon\Carbon;
-use BadMethodCallException;
 use UnexpectedValueException;
 use Illuminate\Contracts\Config\Repository as Config;
 
@@ -36,13 +35,13 @@ class Headers
     {
         // check if the request type is valid
         if (! in_array($reqType, self::VALID_REQUESTS)) {
-            throw new UnexpectedValueException('Incorrect request type ' . $reqType);
+            throw new UnexpectedValueException('Incorrect request type '.$reqType);
         }
 
         // generate timestamp in the correct format
         $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);
 
-        if (is_bool($needPrimary) && !$needPrimary) {
+        if (is_bool($needPrimary) && ! $needPrimary) {
             // this is for the case when new key
             // is needed to be generated
             $key = '';
@@ -59,7 +58,7 @@ class Headers
             'API-TIMESTAMP' => $timestamp,
             'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : $needPrimary,
             'API-ALGORITHM' => 'SHA512',
-            'API-RETURNERRORHEADER' => true
+            'API-RETURNERRORHEADER' => true,
         ];
 
         // make request type specific headers

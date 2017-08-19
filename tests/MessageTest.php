@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use Sausin\Signere\Message;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class MessageTest extends TestCase
 {
@@ -27,7 +26,7 @@ class MessageTest extends TestCase
     public function it_can_get_a_particular_message()
     {
         $messageId = str_random(10);
-        $url = 'https://api.signere.no/api/Message/' . $messageId;
+        $url = 'https://api.signere.no/api/Message/'.$messageId;
 
         $message = new Message($this->makeClient($this->detail), $this->headers);
 
@@ -43,7 +42,7 @@ class MessageTest extends TestCase
         $detail = sprintf('[%s,%s]', $this->detail, $this->detail);
 
         $documentId = str_random(10);
-        $url = 'https://api.signere.no/api/Message/Document/' . $documentId;
+        $url = 'https://api.signere.no/api/Message/Document/'.$documentId;
 
         $message = new Message($this->makeClient($detail), $this->headers);
 
@@ -63,7 +62,7 @@ class MessageTest extends TestCase
             'EmailMessage' => 'Hey hey hey!',
             'RecipientEmailAddress' => 'customer1@hotmail.com',
             'SenderSignature' => 'Ola Nordmann',
-            'SigneeRef' => '459E946A2C154B3490A1A0B300FD3753'
+            'SigneeRef' => '459E946A2C154B3490A1A0B300FD3753',
         ];
 
         $url = 'https://api.signere.no/api/Message';
@@ -85,7 +84,7 @@ class MessageTest extends TestCase
             'DocumentID' => 'EA522127D971420595EFA08A00D4D3AE',
             'RecipientEmailAddress' => 'customer1@hotmail.com',
             'ReplaceEmail' => 'true',
-            'SigneeRef' => '459E946A2C154B3490A1A0B300FD3753'
+            'SigneeRef' => '459E946A2C154B3490A1A0B300FD3753',
         ];
 
         $url = 'https://api.signere.no/api/Message/SendNewDocumentMessage';
@@ -108,7 +107,7 @@ class MessageTest extends TestCase
             'EmailMessage' => 'Hey hey hey!',
             'EmailTopic' => 'My topic',
             'MobileNumber' => '12345678',
-            'SenderSignature' => 'Ola Nordmann'
+            'SenderSignature' => 'Ola Nordmann',
         ];
 
         $documentId = str_random(10);

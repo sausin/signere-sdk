@@ -3,11 +3,8 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\ApiKey;
-use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -37,7 +34,7 @@ class PrimaryKeyRecoveryControllerTest extends AbstractControllerTest
         $body2 = [
             'MobileNumber' => $phone,
             'ProviderID' => 'id',
-            'SmsMessage' => $message
+            'SmsMessage' => $message,
         ];
 
         $key->shouldReceive('recoverPrimary')

@@ -35,6 +35,7 @@ class Signere
     public static function auth(Closure $callback)
     {
         static::$authUsing = $callback;
+
         return new static;
     }
 }

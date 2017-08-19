@@ -12,17 +12,17 @@ trait MakeClient
 {
     /**
      * Create and return the guzzle mock client.
-     * 
+     *
      * @param  string|array $content
      * @param  int          $number
-     * @param  bool|boolean $reuse
+     * @param  bool|bool $reuse
      * @return \GuzzleHttp\Client
      */
     protected function makeClient($content, int $number = 1, bool $reuse = true)
     {
         // if not going to reuse, then the setup should match
         if ($reuse === false && $number !== count($content) && $number > 1) {
-            throw new BadMethodCallException("Invalid data", 1);
+            throw new BadMethodCallException('Invalid data', 1);
         }
 
         $responses = [];
@@ -36,6 +36,7 @@ trait MakeClient
 
         // setup the client
         $handler = HandlerStack::create($mock);
+
         return new Client(['handler' => $handler]);
     }
 }

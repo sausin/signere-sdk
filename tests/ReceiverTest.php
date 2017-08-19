@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use Sausin\Signere\Receiver;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class ReceiverTest extends TestCase
 {

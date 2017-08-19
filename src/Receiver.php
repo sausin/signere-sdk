@@ -47,7 +47,7 @@ class Receiver
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -71,7 +71,7 @@ class Receiver
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $receiver
+            'json' => $receiver,
         ]);
 
         // return the response
@@ -115,7 +115,7 @@ class Receiver
 
         // get the response
         $response = $this->client->delete($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -159,7 +159,7 @@ class Receiver
 
         // get the response
         $response = $this->client->delete($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response

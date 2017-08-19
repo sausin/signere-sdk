@@ -53,16 +53,16 @@ class DocumentJobController extends Controller
                 'bail',
                 'nullable',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'name' => 'bail|nullable|string|min:1|max:255',
             'phone' => [
                 'bail',
                 'required',
                 'string',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
-            'url' => 'bail|nullable|url'
+            'url' => 'bail|nullable|url',
         ]);
 
         // this is used to only set the keys which have been sent in
@@ -71,7 +71,7 @@ class DocumentJobController extends Controller
             'mobile' => 'Contact_Mobile',
             'name' => 'Contact_Name',
             'phone' => 'Contact_Phone',
-            'url' => 'Contact_Url'
+            'url' => 'Contact_Url',
         ];
 
         // check which keys are available in the request

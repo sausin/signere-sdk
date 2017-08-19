@@ -4,7 +4,6 @@ namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Sausin\Signere\ExternalSign;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class MobileExternalSignController extends Controller
@@ -51,14 +50,14 @@ class MobileExternalSignController extends Controller
                 'required',
                 'string',
                 'size:6',
-                'regex:/^\d{6}$/i'
+                'regex:/^\d{6}$/i',
             ],
             'document_id' => 'required|string|size:36',
             'phone_number' => [
                 'required',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
-            'signee_ref' => 'required|string|size:36'
+            'signee_ref' => 'required|string|size:36',
         ]);
 
         // this is used to only set the keys which have been sent in

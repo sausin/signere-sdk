@@ -39,7 +39,7 @@ class ExternalMessagesController extends Controller
             'email' => 'required|email|max:255',
             'phone_number' => [
                 'required',
-                'regex:/^\+47\d{8}$/i'
+                'regex:/^\+47\d{8}$/i',
             ],
             'signature' => 'required|string',
         ]);

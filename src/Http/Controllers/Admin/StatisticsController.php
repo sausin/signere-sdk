@@ -34,9 +34,9 @@ class StatisticsController extends Controller
     public function __invoke(Request $request)
     {
         $this->validate($request, [
-            'year' => 'sometimes|numeric|nullable|min:2015|max:' . Carbon::now()->year,
+            'year' => 'sometimes|numeric|nullable|min:2015|max:'.Carbon::now()->year,
             'month' => 'sometimes|numeric|nullable|min:1|max:12',
-            'day' => 'sometimes|numeric|nullable|min:1|max:31'
+            'day' => 'sometimes|numeric|nullable|min:1|max:31',
         ]);
 
         $allowedStatus = ['All', 'Canceled', 'Signed', 'Expired', 'Unsigned', 'Changed', 'PartialSigned'];

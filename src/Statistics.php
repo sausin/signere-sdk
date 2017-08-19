@@ -33,7 +33,7 @@ class Statistics
      * @param  int|null $month
      * @param  int|null $day
      * @param  string   $status
-     * @return Object
+     * @return object
      */
     public function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
     {
@@ -52,7 +52,7 @@ class Statistics
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response

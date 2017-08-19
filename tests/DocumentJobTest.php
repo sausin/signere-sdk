@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
 use Sausin\Signere\DocumentJob;
-use Illuminate\Support\Facades\Config;
 
 class DocumentJobTest extends TestCase
 {

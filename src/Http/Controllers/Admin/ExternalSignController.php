@@ -91,12 +91,12 @@ class ExternalSignController extends Controller
                 'UniqueRef' => $signee['unique_ref'],
                 'FirstName' => $signee['first_name'],
                 'LastName' => $signee['last_name'],
-                'Email' => $signee['email']
+                'Email' => $signee['email'],
             ];
         }
 
         // populate the callback URLs
-        $body['ReturnUrlError']  = Config::get('signere.sign_error_url');
+        $body['ReturnUrlError'] = Config::get('signere.sign_error_url');
         $body['ReturnUrlSuccess'] = Config::get('signere.sign_success_url');
         $body['ReturnUrlUserAbort'] = Config::get('signere.sign_cancel_url');
 

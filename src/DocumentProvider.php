@@ -32,7 +32,7 @@ class DocumentProvider
      * Retrieves a document provider account.
      *
      * @param  string $providerId
-     * @return Object
+     * @return object
      */
     public function getProviderAccount(string $providerId)
     {
@@ -44,7 +44,7 @@ class DocumentProvider
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -55,7 +55,7 @@ class DocumentProvider
      * Gets the expires date for your BankID certificate. If you don't
      * have your own BankID certificate it will return Bad request.
      *
-     * @return Object
+     * @return object
      */
     public function getCertExpiry()
     {
@@ -67,7 +67,7 @@ class DocumentProvider
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -78,8 +78,8 @@ class DocumentProvider
      * Get the usage when using prepaid or demo account.
      *
      * @param  string       $providerId
-     * @param  bool|boolean $demo
-     * @return Object
+     * @param  bool|bool $demo
+     * @return object
      */
     public function getUsage(string $providerId, bool $demo = false)
     {
@@ -96,7 +96,7 @@ class DocumentProvider
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -107,7 +107,7 @@ class DocumentProvider
      * Creates a new document provider.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function create(array $body)
     {
@@ -123,18 +123,18 @@ class DocumentProvider
             'LegalContactName',
             'LegalContactPhone',
             'MvaNumber',
-            'Name'
+            'Name',
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         } elseif (isset($body['BillingPlan'])) {
             $expected = ['Small', 'Medium', 'Large'];
-            if (!in_array($body['BillingPlan'], $expected)) {
-                throw new UnexpectedValueException('BillingPlan should be one of ' . implode(', ', $expected));
+            if (! in_array($body['BillingPlan'], $expected)) {
+                throw new UnexpectedValueException('BillingPlan should be one of '.implode(', ', $expected));
             }
         }
 
@@ -147,7 +147,7 @@ class DocumentProvider
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -158,7 +158,7 @@ class DocumentProvider
      * Updates a new document provider.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function update(array $body)
     {
@@ -166,14 +166,14 @@ class DocumentProvider
         $needKeys = ['Mobile', 'ProviderId'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         } elseif (isset($body['BillingPlan'])) {
             $expected = ['Small', 'Medium', 'Large'];
-            if (!in_array($body['BillingPlan'], $expected)) {
-                throw new UnexpectedValueException('BillingPlan should be one of ' . implode(', ', $expected));
+            if (! in_array($body['BillingPlan'], $expected)) {
+                throw new UnexpectedValueException('BillingPlan should be one of '.implode(', ', $expected));
             }
         }
 
@@ -186,7 +186,7 @@ class DocumentProvider
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

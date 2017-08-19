@@ -3,8 +3,6 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
-use Sausin\Signere\Headers;
 use GuzzleHttp\Psr7\Response;
 use Sausin\Signere\Statistics;
 use Sausin\Signere\Tests\Controllers\Fakes\User;

@@ -64,7 +64,7 @@ class ReceiverController extends Controller
             'email' => 'sometimes|email|nullable',
             'company_name' => 'sometimes|string|nullable',
             'org_no' => 'sometimes|string|nullable',
-            'phone_number' => 'sometimes|string|nullable'
+            'phone_number' => 'sometimes|string|nullable',
         ]);
 
         // this is used to only set the keys which have been sent in
@@ -74,7 +74,7 @@ class ReceiverController extends Controller
             'email' => 'Email',
             'company_name' => 'CompanyName',
             'org_no' => 'OrgNo',
-            'phone_number' => 'Mobile'
+            'phone_number' => 'Mobile',
         ];
 
         // check which keys are available in the request

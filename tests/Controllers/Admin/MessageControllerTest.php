@@ -3,10 +3,8 @@
 namespace Sausin\Signere\Tests\Controllers\Admin;
 
 use Mockery as m;
-use GuzzleHttp\Client;
 use Sausin\Signere\Message;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Facades\Config;
 use Sausin\Signere\Tests\Controllers\Fakes\User;
 use Sausin\Signere\Tests\Controllers\AbstractControllerTest;
 
@@ -15,10 +13,10 @@ class MessageControllerTest extends AbstractControllerTest
     public function tearDown()
     {
         parent::tearDown();
-        
+
         m::close();
     }
-    
+
     /** @test */
     public function an_admin_can_details_for_all_messages()
     {
@@ -39,7 +37,7 @@ class MessageControllerTest extends AbstractControllerTest
         $this->app->instance(Message::class, $message);
 
         $this->actingAs(new User)
-            ->json('get', '/signere/admin/document/' . $documentId . '/messages')
+            ->json('get', '/signere/admin/document/'.$documentId.'/messages')
             ->assertStatus(200);
     }
 
@@ -86,14 +84,14 @@ class MessageControllerTest extends AbstractControllerTest
             'message' => 'dkjfslkjfsk',
             'email' => 'hey@stupid.guy',
             'signature' => 'why',
-            'signee_ref' => $signeeRef
+            'signee_ref' => $signeeRef,
         ];
         $body2 = [
             'DocumentID' => $documentId,
             'EmailMessage' => 'dkjfslkjfsk',
             'RecipientEmailAddress' => 'hey@stupid.guy',
             'SenderSignature' => 'why',
-            'SigneeRef' => $signeeRef
+            'SigneeRef' => $signeeRef,
         ];
 
         $message->shouldReceive('sendMessage')
@@ -125,13 +123,13 @@ class MessageControllerTest extends AbstractControllerTest
             'document_id' => $documentId,
             'email' => 'hey@stupid.guy',
             'replace_email' => 'true',
-            'signee_ref' => $signeeRef
+            'signee_ref' => $signeeRef,
         ];
         $body2 = [
             'DocumentID' => $documentId,
             'RecipientEmailAddress' => 'hey@stupid.guy',
             'ReplaceEmail' => 'true',
-            'SigneeRef' => $signeeRef
+            'SigneeRef' => $signeeRef,
         ];
 
         $message->shouldReceive('sendNewMessage')
@@ -161,11 +159,11 @@ class MessageControllerTest extends AbstractControllerTest
 
         $body1 = [
             'document_id' => $documentId,
-            'signee_ref' => $signeeRef
+            'signee_ref' => $signeeRef,
         ];
         $body2 = [
             'DocumentID' => $documentId,
-            'SigneeRef' => $signeeRef
+            'SigneeRef' => $signeeRef,
         ];
 
         $message->shouldReceive('sendNewMessage')

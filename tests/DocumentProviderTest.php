@@ -4,9 +4,8 @@ namespace Sausin\Signere\Tests;
 
 use Mockery as m;
 use Sausin\Signere\Headers;
-use Sausin\Signere\DocumentProvider;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
+use Sausin\Signere\DocumentProvider;
 
 class DocumentProviderTest extends TestCase
 {
@@ -41,7 +40,7 @@ class DocumentProviderTest extends TestCase
 
     /** @test */
     public function it_can_get_certificate_expiry()
-    {   
+    {
         $detail = '{"Expires": "2013-01-01T00:00:00.0000000"}';
 
         $url = sprintf('%s/CertificateExpires', $this->uri);
@@ -103,7 +102,7 @@ class DocumentProviderTest extends TestCase
             'BillingPostalCode' => '0020',
             'BillingCity' => 'Oslo',
             'DealerId' => '5515acea4896460c875fa08a00d4d3a9',
-            'BillingPlan' => 'Large'
+            'BillingPlan' => 'Large',
         ];
         $url = $this->uri;
 
@@ -144,7 +143,7 @@ class DocumentProviderTest extends TestCase
 
         // test that it works without billing plan
         unset($body['Mobile']);
-        
+
         $this->expectException('BadMethodCallException');
         $dp->update($body);
     }

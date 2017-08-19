@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Sausin\Signere\Form;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class FormTest extends TestCase
 {

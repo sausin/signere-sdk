@@ -32,7 +32,7 @@ class Document
      *
      * @param  string      $documentId
      * @param  string|null $signeeRefId
-     * @return Object
+     * @return object
      */
     public function getSignUrl(string $documentId, string $signeeRefId = null)
     {
@@ -44,7 +44,7 @@ class Document
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -55,7 +55,7 @@ class Document
      * Retrieves the document with the given ID.
      *
      * @param  string      $documentId
-     * @return Object
+     * @return object
      */
     public function get(string $documentId)
     {
@@ -67,7 +67,7 @@ class Document
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -79,7 +79,7 @@ class Document
      * document in the BankID applet.
      *
      * @param  string      $documentId
-     * @return Object
+     * @return object
      */
     public function getTemporaryUrl(string $documentId)
     {
@@ -91,7 +91,7 @@ class Document
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -103,7 +103,7 @@ class Document
      *
      * @param  string|null $jobId
      * @param  array       $params
-     * @return Object
+     * @return object
      */
     public function getList(string $jobId = null, array $params = [])
     {
@@ -123,7 +123,7 @@ class Document
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -135,7 +135,7 @@ class Document
      * a document response object.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function create(array $body)
     {
@@ -148,7 +148,7 @@ class Document
             'Language',
             'SigneeRefs',
             'SignJobId',
-            'Title'
+            'Title',
         ];
 
         // keys that need to be present in each signeeref
@@ -156,23 +156,23 @@ class Document
             'SigneeRefId',
             'FirstName',
             'LastName',
-            'Email'
+            'Email',
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
-        } elseif (!is_array($body['SigneeRefs'])) {
+        } elseif (! is_array($body['SigneeRefs'])) {
             throw new UnexpectedValueException('SigneeRefs key in input should be an array');
         } else {
             foreach ($body['SigneeRefs'] as $ref) {
-                if (!is_array($ref)) {
+                if (! is_array($ref)) {
                     throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
-                } elseif (!array_has_all_keys($ref, $needSubKeys)) {
+                } elseif (! array_has_all_keys($ref, $needSubKeys)) {
                     throw new BadMethodCallException(
-                        'Missing fields in SigneeRefs item. Need ' . implode(', ', $needSubKeys)
+                        'Missing fields in SigneeRefs item. Need '.implode(', ', $needSubKeys)
                     );
                 }
             }
@@ -187,7 +187,7 @@ class Document
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -199,7 +199,7 @@ class Document
      * a document response object.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function cancel(array $body)
     {
@@ -207,9 +207,9 @@ class Document
         $needKeys = ['CanceledDate', 'DocumentID', 'Signature'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         }
 
@@ -222,7 +222,7 @@ class Document
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -234,7 +234,7 @@ class Document
      * a document response object.
      *
      * @param  array  $body
-     * @return Object
+     * @return object
      */
     public function changeDeadline(array $body)
     {
@@ -242,9 +242,9 @@ class Document
         $needKeys = ['DocumentID', 'NewDeadline', 'ProviderID'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         }
 
@@ -257,7 +257,7 @@ class Document
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

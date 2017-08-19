@@ -6,7 +6,6 @@ use Mockery as m;
 use Sausin\Signere\Headers;
 use Sausin\Signere\Invoice;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Config;
 
 class InvoiceTest extends TestCase
 {

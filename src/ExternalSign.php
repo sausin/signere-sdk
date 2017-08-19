@@ -44,7 +44,7 @@ class ExternalSign
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -61,7 +61,7 @@ class ExternalSign
      */
     public function getUrlForApplet(string $documentId, array $params)
     {
-        if (!isset($params['Domain']) || !isset($params['Language'])) {
+        if (! isset($params['Domain']) || ! isset($params['Language'])) {
             throw new BadMethodCallException('Params should contain "Domain" and "Language" keys');
         }
 
@@ -79,7 +79,7 @@ class ExternalSign
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -102,7 +102,7 @@ class ExternalSign
 
         // get the response
         $response = $this->client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
         ]);
 
         // return the response
@@ -128,7 +128,7 @@ class ExternalSign
             'ReturnUrlSuccess',
             'ReturnUrlUserAbort',
             'SigneeRefs',
-            'Title'
+            'Title',
         ];
 
         // keys that need to be present in each signeeref
@@ -136,23 +136,23 @@ class ExternalSign
             'UniqueRef',
             'FirstName',
             'LastName',
-            'Email'
+            'Email',
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (!array_has_all_keys($body, $needKeys)) {
+        if (! array_has_all_keys($body, $needKeys)) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
-        } elseif (!is_array($body['SigneeRefs'])) {
+        } elseif (! is_array($body['SigneeRefs'])) {
             throw new UnexpectedValueException('SigneeRefs key in input should be an array');
         } else {
             foreach ($body['SigneeRefs'] as $ref) {
-                if (!is_array($ref)) {
+                if (! is_array($ref)) {
                     throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
-                } elseif (!array_has_all_keys($ref, $needSubKeys)) {
+                } elseif (! array_has_all_keys($ref, $needSubKeys)) {
                     throw new BadMethodCallException(
-                        'Missing fields in SigneeRefs item. Need ' . implode(', ', $needSubKeys)
+                        'Missing fields in SigneeRefs item. Need '.implode(', ', $needSubKeys)
                     );
                 }
             }
@@ -167,7 +167,7 @@ class ExternalSign
         // get the response
         $response = $this->client->post($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -188,7 +188,7 @@ class ExternalSign
         // if the body doesn't have needed fields, throw an exception
         if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         }
 
@@ -201,7 +201,7 @@ class ExternalSign
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response
@@ -223,7 +223,7 @@ class ExternalSign
         // if the body doesn't have needed fields, throw an exception
         if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
             throw new BadMethodCallException(
-                'Missing fields in input array. Need ' . implode(', ', $needKeys)
+                'Missing fields in input array. Need '.implode(', ', $needKeys)
             );
         }
 
@@ -236,7 +236,7 @@ class ExternalSign
         // get the response
         $response = $this->client->put($url, [
             'headers' => $headers,
-            'json' => $body
+            'json' => $body,
         ]);
 
         // return the response

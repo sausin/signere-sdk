@@ -3,11 +3,9 @@
 namespace Sausin\Signere\Tests;
 
 use Mockery as m;
-use Carbon\Carbon;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
 use Sausin\Signere\DocumentConvert;
-use Illuminate\Support\Facades\Config;
 
 class DocumentConvertTest extends TestCase
 {

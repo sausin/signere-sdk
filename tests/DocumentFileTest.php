@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Sausin\Signere\Headers;
 use PHPUnit\Framework\TestCase;
 use Sausin\Signere\DocumentFile;
-use Illuminate\Support\Facades\Config;
 
 class DocumentFileTest extends TestCase
 {
@@ -81,7 +80,7 @@ class DocumentFileTest extends TestCase
         $body = [
             'DocumentId' => str_random(10),
             'DocumentFileType' => 'PDF',
-            'Expires' => substr($date->toIso8601String(), 0, 19)
+            'Expires' => substr($date->toIso8601String(), 0, 19),
         ];
         $url = sprintf('%s/TempUrl', $this->uri);
 

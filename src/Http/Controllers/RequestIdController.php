@@ -51,7 +51,7 @@ class RequestIdController extends Controller
             'language' => 'required|string|size:2|in:EN,NO,SV,DA,FI',
             'page_title' => 'sometimes|string',
             'iframe' => 'required|boolean',
-            'web_messaging' => 'required|boolean'
+            'web_messaging' => 'required|boolean',
         ]);
 
         $body = [
@@ -63,7 +63,7 @@ class RequestIdController extends Controller
             'Language' => $request->language,
             'PageTitle' => $request->page_title,
             'UseIframe' => $request->iframe,
-            'UseWebMessaging' => $request->web_messaging
+            'UseWebMessaging' => $request->web_messaging,
         ];
 
         return $this->signereRequest->create($body)
