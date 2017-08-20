@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class Statistics
 {
-    /** @var \Guzzle\HttpClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */

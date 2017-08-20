@@ -7,7 +7,7 @@ use Illuminate\Contracts\Config\Repository as Config;
 
 class Status
 {
-    /** @var \Guzzle\HttpClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */

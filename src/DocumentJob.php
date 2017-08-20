@@ -7,7 +7,7 @@ use BadMethodCallException;
 
 class DocumentJob
 {
-    /** @var \Guzzle\HttpClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */

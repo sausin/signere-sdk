@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class ApiKey
 {
-    /** @var \Guzzle\HttpClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */

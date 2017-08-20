@@ -8,7 +8,7 @@ use UnexpectedValueException;
 
 class Invoice
 {
-    /** @var \Guzzle\HttpClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
