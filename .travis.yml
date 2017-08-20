@@ -8,8 +8,8 @@ install:
   - travis_retry composer update
 
 script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover coverage.xml
+  - vendor/bin/phpunit --coverage-text --coverage-clover coverage.clover
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
