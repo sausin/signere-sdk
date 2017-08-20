@@ -31,7 +31,7 @@ class Receiver
      *
      * @param  string      $provider
      * @param  string|null $receiver
-     * @return json
+     * @return object
      */
     public function get(string $provider, string $receiver = null)
     {
@@ -58,7 +58,7 @@ class Receiver
      * Create a receiver.
      *
      * @param  array  $receiver
-     * @return json
+     * @return object
      */
     public function create(array $receiver)
     {
@@ -82,7 +82,7 @@ class Receiver
      * Create many receivers.
      *
      * @param  array  $receivers
-     * @return json
+     * @return object
      */
     public function createMany(array $receivers)
     {
@@ -103,7 +103,7 @@ class Receiver
      *
      * @param  string $provider
      * @param  string $receiver
-     * @return json
+     * @return object
      */
     public function delete(string $provider, string $receiver)
     {
@@ -127,7 +127,7 @@ class Receiver
      *
      * @param  string $provider
      * @param  array  $receivers
-     * @return json
+     * @return object
      */
     public function deleteMany(string $provider, array $receivers)
     {
@@ -147,7 +147,7 @@ class Receiver
      * Delete all receivers.
      *
      * @param  string $provider
-     * @return json
+     * @return object
      */
     public function deleteAll(string $provider)
     {

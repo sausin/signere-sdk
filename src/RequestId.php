@@ -32,7 +32,7 @@ class RequestId
      *
      * @param  string $requestId
      * @param  bool   $metadata
-     * @return json
+     * @return object
      */
     public function getDetails(string $requestId, bool $metadata)
     {
@@ -55,7 +55,7 @@ class RequestId
      * Check if a SignereID session is completed or not.
      *
      * @param  string $requestId
-     * @return json
+     * @return object
      */
     public function check(string $requestId)
     {
@@ -102,7 +102,7 @@ class RequestId
      * Invalidates a SignereID request.
      *
      * @param  string $requestId
-     * @return json
+     * @return object
      */
     public function invalidate(string $requestId)
     {

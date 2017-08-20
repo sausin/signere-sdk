@@ -32,7 +32,7 @@ class ExternalSign
      * Return the login information from the login.
      *
      * @param  string $documentId
-     * @return json
+     * @return object
      */
     public function getUrlForSign(string $documentId)
     {
@@ -57,7 +57,7 @@ class ExternalSign
      *
      * @param  string $documentId
      * @param  array  $params
-     * @return json
+     * @return object
      */
     public function getUrlForApplet(string $documentId, array $params)
     {
@@ -90,7 +90,7 @@ class ExternalSign
      * Get status of BankId mobile sign session.
      *
      * @param  string $signeeRefId
-     * @return json
+     * @return object
      */
     public function getSessionStatus(string $signeeRefId)
     {
@@ -114,7 +114,7 @@ class ExternalSign
      * signing of documents in a website.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      */
     public function createRequest(array $body)
     {
@@ -178,7 +178,7 @@ class ExternalSign
      * Creates a app launch uri for the BankID app.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      */
     public function createAppUrl(array $body)
     {
@@ -213,7 +213,7 @@ class ExternalSign
      * with given mobilenumber and date of birth.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      */
     public function startMobile(array $body)
     {

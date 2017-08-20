@@ -30,7 +30,7 @@ class Message
      * Get a list of messages sent for the given document ID.
      *
      * @param  string $messageId
-     * @return json
+     * @return object
      */
     public function get(string $messageId)
     {

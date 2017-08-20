@@ -32,7 +32,7 @@ class ExternalLogin
      * Return the login information from the login.
      *
      * @param  string $requestId
-     * @return json
+     * @return object
      */
     public function getLoginInfo(string $requestId)
     {
@@ -56,7 +56,7 @@ class ExternalLogin
      * the launchuri to launch the BankID app.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      */
     public function createAppLaunchUri(array $body)
     {
@@ -90,7 +90,7 @@ class ExternalLogin
      * Creates a BankID mobile login response.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      */
     public function createMobile(array $body)
     {

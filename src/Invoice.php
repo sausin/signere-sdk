@@ -34,7 +34,7 @@ class Invoice
      *
      * @param  int    $year
      * @param  int    $month
-     * @return json
+     * @return object
      */
     public function get(int $year, int $month)
     {

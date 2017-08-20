@@ -30,7 +30,7 @@ class DocumentConvert
      * Convert format of the document to PDF.
      *
      * @param  array  $body
-     * @return json
+     * @return object
      * @todo fix it for proper setup with file
      */
     public function convert(array $body)

@@ -32,7 +32,7 @@ class ApiKey
      * Renews the primary API key.
      *
      * @param  string $key
-     * @return json
+     * @return object
      */
     public function renewPrimary(string $key)
     {
@@ -56,7 +56,7 @@ class ApiKey
      * Renews the secondary API key.
      *
      * @param  string $key
-     * @return json
+     * @return object
      */
     public function renewSecondary(string $key)
     {
@@ -81,7 +81,7 @@ class ApiKey
      *
      * @param  string $providerId
      * @param  int    $otpCode
-     * @return json
+     * @return object
      */
     public function createPrimary(string $providerId, int $otpCode)
     {
