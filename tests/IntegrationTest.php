@@ -36,4 +36,17 @@ abstract class IntegrationTest extends TestCase
     {
         return ['Sausin\Signere\SignereServiceProvider'];
     }
+
+    /**
+     * Load package aliases.
+     * 
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return array
+     */
+    protected function getPackageAliases($app)
+    {
+        return [
+            'HeadersFacade' => 'Signere\Facades\HeadersFacade'
+        ];
+    }
 }

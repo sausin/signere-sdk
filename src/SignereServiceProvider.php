@@ -77,8 +77,22 @@ class SignereServiceProvider extends ServiceProvider
             define('SIGNERE_PATH', realpath(__DIR__.'/../'));
         }
 
+        $this->registerFacades();
         $this->configure();
         $this->offerPublishing();
+    }
+
+    protected function registerFacades()
+    {
+        $this->app->singleton('signere-headers', function () {
+            return new Headers(config());
+        });
+        $this->app->bind('signere-status', function ($app) {
+            return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config());
+        });
+
+        $this->app->alias('signere-headers', Facades\HeadersFacade::class);
+        $this->app->alias('signere-status', Facades\StatusFacade::class);
     }
 
     /**
