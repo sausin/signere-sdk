@@ -39,14 +39,14 @@ abstract class IntegrationTest extends TestCase
 
     /**
      * Load package aliases.
-     * 
+     *
      * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageAliases($app)
     {
         return [
-            'HeadersFacade' => 'Signere\Facades\HeadersFacade'
+            'HeadersFacade' => 'Signere\Facades\HeadersFacade',
         ];
     }
 }
