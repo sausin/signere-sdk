@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sausin/signere-sdk.svg?style=flat-square)](https://packagist.org/packages/sausin/signere-sdk)
 [![Build Status](https://img.shields.io/travis/sausin/signere-sdk/master.svg?style=flat-square)](https://travis-ci.org/sausin/signere-sdk)
 [![Quality Score](https://img.shields.io/scrutinizer/g/sausin/signere-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sausin/signere-sdk)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/sausin/signere-sdk?style=flat-square)](https://scrutinizer-ci.com/g/sausin/signere-sdk)
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/sausin/signere-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/sausin/signere-sdk)
 [![StyleCI](https://styleci.io/repos/100803677/shield?branch=master)](https://styleci.io/repos/100803677)
 [![Total Downloads](https://img.shields.io/packagist/dt/sausin/signere-sdk.svg?style=flat-square)](https://packagist.org/packages/sausin/signere-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
