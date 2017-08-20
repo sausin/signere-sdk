@@ -40,7 +40,8 @@ class DocumentController extends Controller
     }
 
     /**
-     * Retrieves the document with the given ID.
+     * Returns the url to sign the document for the given Signeeref
+     * or the first Signeeref if not SigneerefId is specified.
      *
      * @param  string $documentId
      * @param  string $signeeRefId
@@ -63,13 +64,59 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'doc_id' => 'bail|required|string|size:36',
-            'file_type' => 'bail|nullable|string|in:SDO,PDF,SIGNED_PDF,MOBILE_SDO,XML',
-            'expires' => 'bail|nullable|date',
+            'description' => 'required|string|min:1|max:255',
+            'file_content' => 'required|string',
+            'file_md5' => 'required|string|size:32',
+            'filename' => 'required|string|min:1|max:255',
+            'language' => 'required|string|in:EN,NO,SV,DA,FI',
+            'sender_email' => 'sometimes|nullable|email',
+            'sign_deadline' => 'sometimes|nullable|date',
+            'job_id' => 'required|string|size:36',
+            'title' => 'required|string|min:1|max:255',
+            // unique ref is nothing but the signee ref returned
+            // by signere when a receiver is created
+            'signee_refs.*.unique_ref' => 'required|string|size:36',
+            'signee_refs.*.first_name' => 'required|string|min:1|max:255',
+            'signee_refs.*.last_name' => 'required|string|min:1|max:255',
+            'signee_refs.*.email' => 'required|email|min:1|max:255',
         ]);
 
-        $type = $request->has('file_type') ? $request->file_type : 'PDF';
-        $expires = $request->has('expires') ? Carbon::parse($request->expires) : null;
+        // this is used to only set the keys which have been sent in
+        $useKeys = [
+            'ext_doc_id' => 'ExternalDocumentId',
+            'description' => 'Description',
+            'file_content' => 'FileContent',
+            'file_md5' => 'FileMD5CheckSum',
+            'filename' => 'FileName',
+            'language' => 'Language',
+            'sender_email' => 'SenderEmail',
+            'sign_deadline' => 'SignDeadline',
+            'job_id' => 'SignJobId',
+            'title' => 'Title',
+        ];
+
+        // check which keys are available in the request
+        $available = array_intersect(array_keys($useKeys), array_keys($request->all()));
+
+        $body = [];
+
+        // set the body up
+        foreach ($available as $use) {
+            $body[$useKeys[$use]] = $request->$use;
+        }
+
+        $body['SigneeRefs'] = [];
+
+        // populate the signee references
+        foreach ($request->signee_refs as $signee) {
+            // append this to the body
+            $body['SigneeRefs'][] = [
+                'SigneeRefId' => $signee['unique_ref'],
+                'FirstName' => $signee['first_name'],
+                'LastName' => $signee['last_name'],
+                'Email' => $signee['email'],
+            ];
+        }
 
         return $this->d->create($body)
                 ->getBody()

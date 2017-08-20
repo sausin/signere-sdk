@@ -53,13 +53,20 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     Route::get('/provider/certificate', 'DocumentProviderCertificateController');
 
-    // document job related queries
+    // document job related routes
     Route::get('/job/{job}', 'DocumentJobController@show');
     Route::post('/job', 'DocumentJobController@store');
 
-    // document file related queries
+    // document file related routes
     Route::get('/file/{document}', 'DocumentFileController@show');
     Route::post('/file', 'DocumentFileController@store');
+
+    // document related routes
+    Route::get('/document/{job}', 'DocumentController@index');
+    Route::get('/document/{document}/{signeeRef}', 'DocumentController@show');
+    Route::post('/document', 'DocumentController@store');
+    Route::patch('/document/{document}', 'DocumentController@update');
+    Route::delete('/document/{document}', 'DocumentController@destroy');
 });
 
 Route::prefix('user')->group(function () {
