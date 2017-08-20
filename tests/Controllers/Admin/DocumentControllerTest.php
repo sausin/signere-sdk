@@ -95,7 +95,7 @@ class DocumentControllerTest extends AbstractControllerTest
                     'last_name' => $ln2 = str_random(10),
                     'email' => $e2 = 'u@three.com',
                 ],
-            ]
+            ],
         ];
 
         $body2 = [
@@ -149,7 +149,7 @@ class DocumentControllerTest extends AbstractControllerTest
         $body1 = [
             'new_deadline' => $nd = '2016-11-23T23:34:12',
             'notify_email' => $nemail = rand(0, 1),
-            'notify_sms' => $nesms = rand(0, 1)
+            'notify_sms' => $nesms = rand(0, 1),
         ];
 
         $body2 = [
@@ -157,7 +157,7 @@ class DocumentControllerTest extends AbstractControllerTest
             'NotifyEmail' => $nemail,
             'NotifySMS' => $nesms,
             'DocumentID' => $docId = str_random(36),
-            'ProviderID' => 'id'
+            'ProviderID' => 'id',
         ];
 
         $d->shouldReceive('changeDeadline')
@@ -185,14 +185,14 @@ class DocumentControllerTest extends AbstractControllerTest
         $body1 = [
             'canceled_date' => $cd = '2016-11-23T23:34:12',
             'explanation' => $exp = str_random(30),
-            'signature' => $sig = str_random(30)
+            'signature' => $sig = str_random(30),
         ];
 
         $body2 = [
             'Explanation' => $exp,
             'Signature' => $sig,
             'CanceledDate' => substr(Carbon::parse($cd)->setTimezone('UTC')->toIso8601String(), 0, 19),
-            'DocumentID' => $docId = str_random(36)
+            'DocumentID' => $docId = str_random(36),
         ];
 
         $d->shouldReceive('cancel')
