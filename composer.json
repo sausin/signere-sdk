@@ -45,7 +45,12 @@
         "laravel": {
             "providers": [
                 "Sausin\\Signere\\SignereServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "EventsFacade": "Sausin\\Signere\\Facades\\EventsFacade",
+                "HeadersFacade": "Sausin\\Signere\\Facades\\HeadersFacade",
+                "StatusFacade": "Sausin\\Signere\\Facades\\StatusFacade"
+            }
         }
     },
     "config": {
