@@ -2,7 +2,6 @@
 
 namespace Sausin\Signere;
 
-use Carbon\Carbon;
 use UnexpectedValueException;
 use Illuminate\Contracts\Config\Repository as Config;
 
@@ -39,25 +38,21 @@ class Headers
         }
 
         // generate timestamp in the correct format
-        $timestamp = substr(Carbon::now()->setTimezone('UTC')->toIso8601String(), 0, 19);
+        $timestamp = explode('+', gmdate('c'))[0];
+        // get the algorithm
+        $algorithm = $this->config->get('signere.hash_algorithm');
 
-        if (is_bool($needPrimary) && ! $needPrimary) {
-            // this is for the case when new key
-            // is needed to be generated
-            $key = '';
-        } else {
-            // get the primary / secondary key
-            $key = $needPrimary ?
-                $this->config->get('signere.primary_key') :
-                $this->config->get('signere.secondary_key');
-        }
+        // get the primary / secondary key
+        $key = $needPrimary ?
+            $this->config->get('signere.primary_key') :
+            $this->config->get('signere.secondary_key');
 
         // set the basic headers
         $headers = [
             'API-ID' => $this->config->get('signere.id'),
             'API-TIMESTAMP' => $timestamp,
-            'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : $needPrimary,
-            'API-ALGORITHM' => 'SHA512',
+            'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : ! $needPrimary,
+            'API-ALGORITHM' => strtoupper($algorithm),
             'API-RETURNERRORHEADER' => true,
         ];
 
@@ -65,13 +60,15 @@ class Headers
         if ($reqType === 'GET' || $reqType === 'DELETE') {
             $toEncode = sprintf('%s&Timestamp=%s&Httpverb=%s', $url, $timestamp, $reqType);
 
-            $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
-        } elseif ($reqType === 'PUT' || $reqType === 'POST') {
-            $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"}', json_encode($body), $timestamp, $reqType);
-
-            $headers['API-TOKEN'] = hash_hmac('sha512', $toEncode, $key);
+            $headers['API-TOKEN'] = strtoupper(hash_hmac($algorithm, $toEncode, $key));
+            
+            return $headers;
         }
 
+        $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"}', json_encode($body), $timestamp, $reqType);
+
+        $headers['API-TOKEN'] = strtoupper(hash_hmac($algorithm, $toEncode, $key));
+        
         return $headers;
     }
 }

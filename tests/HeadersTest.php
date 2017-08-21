@@ -25,6 +25,7 @@ class HeadersTest extends TestCase
     {
         $this->config->shouldReceive('get')->once()->with('signere.secondary_key')->andReturn('');
         $this->config->shouldReceive('get')->once()->with('signere.id')->andReturn('');
+        $this->config->shouldReceive('get')->once()->with('signere.hash_algorithm')->andReturn('sha256');
 
         $result = $this->headers->make('GET', 'https://example.com');
 
@@ -41,6 +42,7 @@ class HeadersTest extends TestCase
     {
         $this->config->shouldReceive('get')->once()->with('signere.secondary_key')->andReturn('');
         $this->config->shouldReceive('get')->once()->with('signere.id')->andReturn('');
+        $this->config->shouldReceive('get')->once()->with('signere.hash_algorithm')->andReturn('sha256');
 
         $result = $this->headers->make('POST', 'https://example.com', ['sample' => 'data']);
 
@@ -60,6 +62,7 @@ class HeadersTest extends TestCase
     {
         $this->config->shouldReceive('get')->once()->with('signere.secondary_key')->andReturn('');
         $this->config->shouldReceive('get')->once()->with('signere.id')->andReturn('');
+        $this->config->shouldReceive('get')->once()->with('signere.hash_algorithm')->andReturn('sha256');
 
         $result = $this->headers->make('PUT', 'https://example.com', ['sample' => 'data']);
 
@@ -79,6 +82,7 @@ class HeadersTest extends TestCase
     {
         $this->config->shouldReceive('get')->once()->with('signere.secondary_key')->andReturn('');
         $this->config->shouldReceive('get')->once()->with('signere.id')->andReturn('');
+        $this->config->shouldReceive('get')->once()->with('signere.hash_algorithm')->andReturn('sha256');
 
         $result = $this->headers->make('DELETE', 'https://example.com');
 
@@ -95,6 +99,7 @@ class HeadersTest extends TestCase
     {
         $this->config->shouldReceive('get')->once()->with('signere.primary_key')->andReturn('');
         $this->config->shouldReceive('get')->once()->with('signere.id')->andReturn('');
+        $this->config->shouldReceive('get')->once()->with('signere.hash_algorithm')->andReturn('sha256');
 
         $result = $this->headers->make('POST', 'https://example.com', ['some' => 'data'], true);
 

@@ -41,13 +41,8 @@ class Status
         // make the URL for this request
         $url = sprintf('%s/ServerTime', self::URI);
 
-        // get the headers for this request
-        $headers = $this->headers->make('GET', $url);
-
         // get the response
-        $response = $this->client->get($url, [
-            'headers' => $headers,
-        ]);
+        $response = $this->client->get($url);
 
         // return the response
         return $response;

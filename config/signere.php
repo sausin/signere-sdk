@@ -58,4 +58,17 @@ return [
     */
 
     'identity_provider' => 'NO_BANKID_WEB',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hashing Algorithm
+    |--------------------------------------------------------------------------
+    |
+    | The value below is used when generating the headers. This should either
+    | be sha256 (default) or sha512. There is normally no need to change
+    | this but can be done if required.
+    |
+    */
+
+    'hash_algorithm'    => 'sha256',
 ];
