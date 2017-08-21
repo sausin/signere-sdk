@@ -51,9 +51,9 @@ class Headers
         $headers = [
             'API-ID' => $this->config->get('signere.id'),
             'API-TIMESTAMP' => $timestamp,
-            'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? true : ! $needPrimary,
+            'API-USINGSECONDARYTOKEN' => is_null($needPrimary) ? 'TRUE' : ! $needPrimary,
             'API-ALGORITHM' => strtoupper($algorithm),
-            'API-RETURNERRORHEADER' => true,
+            'API-RETURNERRORHEADER' => 'TRUE',
         ];
 
         // make request type specific headers
