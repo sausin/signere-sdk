@@ -61,14 +61,14 @@ class Headers
             $toEncode = sprintf('%s&Timestamp=%s&Httpverb=%s', $url, $timestamp, $reqType);
 
             $headers['API-TOKEN'] = strtoupper(hash_hmac($algorithm, $toEncode, $key));
-            
+
             return $headers;
         }
 
         $toEncode = sprintf('%s{Timestamp:"%s",Httpverb:"%s"}', json_encode($body), $timestamp, $reqType);
 
         $headers['API-TOKEN'] = strtoupper(hash_hmac($algorithm, $toEncode, $key));
-        
+
         return $headers;
     }
 }
