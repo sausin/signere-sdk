@@ -14,7 +14,6 @@ class StatusController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Status $status
-     * @return void
      */
     public function __construct(Status $status)
     {

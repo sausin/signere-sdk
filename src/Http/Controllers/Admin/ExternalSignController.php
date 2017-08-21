@@ -16,7 +16,6 @@ class ExternalSignController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\ExternalSign $extSign
-     * @return void
      */
     public function __construct(ExternalSign $extSign)
     {
@@ -74,6 +73,8 @@ class ExternalSignController extends Controller
             'signee_refs.*.email' => 'required|email|min:1|max:255',
             'title' => 'required|string|min:1|max:255',
         ]);
+
+        $body = [];
 
         // this is used to only set the keys which have been sent in
         $body['Description'] = $request->description;

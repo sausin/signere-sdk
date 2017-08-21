@@ -15,7 +15,6 @@ class EventsController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Events $events
-     * @return void
      */
     public function __construct(Events $events)
     {

@@ -16,7 +16,6 @@ class SecondaryKeyRenewalController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\ApiKey $key
-     * @return void
      */
     public function __construct(ApiKey $key)
     {

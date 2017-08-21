@@ -14,7 +14,6 @@ class InvoiceController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Invoice $invoice
-     * @return void
      */
     public function __construct(Invoice $invoice)
     {

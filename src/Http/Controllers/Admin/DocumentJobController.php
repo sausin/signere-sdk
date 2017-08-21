@@ -15,7 +15,6 @@ class DocumentJobController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\DocumentJob $dj
-     * @return void
      */
     public function __construct(DocumentJob $dj)
     {

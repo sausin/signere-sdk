@@ -13,7 +13,7 @@ class Status
     /** @var Headers */
     protected $headers;
 
-    /** @var Illuminate\Contracts\Config\Repository */
+    /** @var \Illuminate\Contracts\Config\Repository */
     protected $config;
 
     /** The URI of the action */

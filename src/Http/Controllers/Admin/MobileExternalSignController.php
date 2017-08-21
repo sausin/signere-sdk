@@ -15,7 +15,6 @@ class MobileExternalSignController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\ExternalSign $extSign
-     * @return void
      */
     public function __construct(ExternalSign $extSign)
     {

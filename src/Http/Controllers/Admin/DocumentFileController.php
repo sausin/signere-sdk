@@ -16,7 +16,6 @@ class DocumentFileController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\DocumentFile $df
-     * @return void
      */
     public function __construct(DocumentFile $df)
     {

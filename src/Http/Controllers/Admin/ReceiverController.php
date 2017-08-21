@@ -16,7 +16,6 @@ class ReceiverController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Receiver $receiver
-     * @return void
      */
     public function __construct(Receiver $receiver)
     {

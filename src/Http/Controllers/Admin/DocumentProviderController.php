@@ -16,7 +16,6 @@ class DocumentProviderController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\DocumentProvider $dp
-     * @return void
      */
     public function __construct(DocumentProvider $dp)
     {

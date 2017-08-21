@@ -15,7 +15,6 @@ class RequestIdController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\RequestId $signereRequest
-     * @return void
      */
     public function __construct(RequestId $signereRequest)
     {

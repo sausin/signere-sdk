@@ -14,7 +14,6 @@ class ExternalLoginController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\ExternalLogin $extLogin
-     * @return void
      */
     public function __construct(ExternalLogin $extLogin)
     {

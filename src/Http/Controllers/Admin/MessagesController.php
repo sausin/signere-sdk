@@ -15,7 +15,6 @@ class MessagesController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Message $message
-     * @return void
      */
     public function __construct(Message $message)
     {

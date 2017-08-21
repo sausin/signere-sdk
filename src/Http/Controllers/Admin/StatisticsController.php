@@ -16,7 +16,6 @@ class StatisticsController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Statistics $statistics
-     * @return void
      */
     public function __construct(Statistics $statistics)
     {

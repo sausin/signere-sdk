@@ -17,7 +17,6 @@ class DocumentController extends Controller
      * Create a new controller instance.
      *
      * @param  \Sausin\Signere\Document $d
-     * @return void
      */
     public function __construct(Document $d)
     {
