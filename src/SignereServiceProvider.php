@@ -84,15 +84,19 @@ class SignereServiceProvider extends ServiceProvider
 
     protected function registerFacades()
     {
-        $this->app->singleton('signere-headers', function () {
+        $this->app->bind('signere-headers', function () {
             return new Headers(config());
         });
         $this->app->bind('signere-status', function ($app) {
             return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config());
         });
+        $this->app->bind('signere-events', function ($app) {
+            return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class));
+        });
 
         $this->app->alias('signere-headers', Facades\HeadersFacade::class);
         $this->app->alias('signere-status', Facades\StatusFacade::class);
+        $this->app->alias('signere-events', Facades\StatusFacade::class);
     }
 
     /**

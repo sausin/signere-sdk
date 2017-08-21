@@ -47,6 +47,8 @@ abstract class IntegrationTest extends TestCase
     {
         return [
             'HeadersFacade' => 'Signere\Facades\HeadersFacade',
+            'StatusFacade'  => 'Signere\Facades\StatusFacade',
+            'EventsFacade'  => 'Signere\Facades\EventsFacade',
         ];
     }
 }
