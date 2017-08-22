@@ -91,49 +91,49 @@ class SignereServiceProvider extends ServiceProvider
         // get the environment of the application
         $env = is_null(config('signere.mode')) ? $this->app->environment() : config('signere.mode');
 
-        $this->app->bind('signere-api-key', function ($app, $env) {
+        $this->app->bind('signere-api-key', function ($app) use ($env) {
             return new ApiKey($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         });
-        // $this->app->bind('signere-document', function ($app, $env) {
+        // $this->app->bind('signere-document', function ($app) use ($env) {
         //     return new Document($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-document-convert', function ($app, $env) {
+        // $this->app->bind('signere-document-convert', function ($app) use ($env) {
         //     return new DocumentConvert($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-document-file', function ($app, $env) {
+        // $this->app->bind('signere-document-file', function ($app) use ($env) {
         //     return new DocumentFile($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-document-job', function ($app, $env) {
+        // $this->app->bind('signere-document-job', function ($app) use ($env) {
         //     return new DocumentJob($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-document-provider', function ($app, $env) {
+        // $this->app->bind('signere-document-provider', function ($app) use ($env) {
         //     return new DocumentProvider($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-events', function ($app, $env) {
+        // $this->app->bind('signere-events', function ($app) use ($env) {
         //     return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-external-login', function ($app, $env) {
+        // $this->app->bind('signere-external-login', function ($app) use ($env) {
         //     return new ExternalLogin($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-external-sign', function ($app, $env) {
+        // $this->app->bind('signere-external-sign', function ($app) use ($env) {
         //     return new ExternalSign($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-form', function ($app, $env) {
+        // $this->app->bind('signere-form', function ($app) use ($env) {
         //     return new Form($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-invoice', function ($app, $env) {
+        // $this->app->bind('signere-invoice', function ($app) use ($env) {
         //     return new Invoice($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-message', function ($app, $env) {
+        // $this->app->bind('signere-message', function ($app) use ($env) {
         //     return new Message($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-receiver', function ($app, $env) {
+        // $this->app->bind('signere-receiver', function ($app) use ($env) {
         //     return new Receiver($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        // $this->app->bind('signere-statistics', function ($app, $env) {
+        // $this->app->bind('signere-statistics', function ($app) use ($env) {
         //     return new Statistics($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         // });
-        $this->app->bind('signere-status', function ($app, $env) {
+        $this->app->bind('signere-status', function ($app) use ($env) {
             return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config(), $env);
         });
 
