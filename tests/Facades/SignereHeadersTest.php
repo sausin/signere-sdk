@@ -2,8 +2,8 @@
 
 namespace Sausin\Signere\Tests\Facades;
 
-use Sausin\Signere\Facades\SignereHeaders;
 use Sausin\Signere\Tests\IntegrationTest;
+use Sausin\Signere\Facades\SignereHeaders;
 
 class SignereHeadersTest extends IntegrationTest
 {
