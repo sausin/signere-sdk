@@ -4,7 +4,7 @@ namespace Sausin\Signere\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class StatusFacade extends Facade
+class SignereStatus extends Facade
 {
     /**
      * Get the registered name of the component.

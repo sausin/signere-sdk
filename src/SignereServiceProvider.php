@@ -94,9 +94,9 @@ class SignereServiceProvider extends ServiceProvider
             return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class));
         });
 
-        $this->app->alias('signere-headers', Facades\HeadersFacade::class);
-        $this->app->alias('signere-status', Facades\StatusFacade::class);
-        $this->app->alias('signere-events', Facades\StatusFacade::class);
+        $this->app->alias('signere-headers', Facades\SignereHeaders::class);
+        $this->app->alias('signere-status', Facades\SignereStatus::class);
+        $this->app->alias('signere-events', Facades\SignereStatus::class);
     }
 
     /**
