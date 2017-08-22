@@ -48,9 +48,9 @@
                 "Sausin\\Signere\\SignereServiceProvider"
             ],
             "aliases": {
-                "EventsFacade": "Sausin\\Signere\\Facades\\EventsFacade",
-                "HeadersFacade": "Sausin\\Signere\\Facades\\HeadersFacade",
-                "StatusFacade": "Sausin\\Signere\\Facades\\StatusFacade"
+                "SignereHeaders": "Sausin\\Signere\\Facades\\SignereHeaders",
+                "SignereApiKey": "Sausin\\Signere\\Facades\\SignereApiKey",
+                "SignereStatus": "Sausin\\Signere\\Facades\\SignereStatus"
             }
         }
     },

@@ -46,9 +46,22 @@ abstract class IntegrationTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'HeadersFacade' => 'Signere\Facades\HeadersFacade',
-            'StatusFacade'  => 'Signere\Facades\StatusFacade',
-            'EventsFacade'  => 'Signere\Facades\EventsFacade',
+            'SignereHeaders' => 'Sausin\Signere\Facades\SignereHeaders',
+            'SignereApiKey' => 'Sausin\Signere\Facades\SignereApiKey',
+            // 'SignereDocument' => 'Sausin\Signere\Facades\SignereDocument',
+            // 'SignereDocumentConvert' => 'Sausin\Signere\Facades\SignereDocumentConvert',
+            // 'SignereDocumentFile' => 'Sausin\Signere\Facades\SignereDocumentFile',
+            // 'SignereDocumentJob' => 'Sausin\Signere\Facades\SignereDocumentJob',
+            // 'SignereDocumentProvider' => 'Sausin\Signere\Facades\SignereDocumentProvider',
+            // 'SignereEvents' => 'Sausin\Signere\Facades\SignereEvents',
+            // 'SignereExternalLogin' => 'Sausin\Signere\Facades\SignereExternalLogin',
+            // 'SignereExternalSign' => 'Sausin\Signere\Facades\SignereExternalSign',
+            // 'SignereForm' => 'Sausin\Signere\Facades\SignereForm',
+            // 'SignereInvoice' => 'Sausin\Signere\Facades\SignereInvoice',
+            // 'SignereMessage' => 'Sausin\Signere\Facades\SignereMessage',
+            // 'SignereReceiver' => 'Sausin\Signere\Facades\SignereReceiver',
+            // 'SignereStatistics' => 'Sausin\Signere\Facades\SignereStatistics',
+            'SignereStatus' => 'Sausin\Signere\Facades\SignereStatus',
         ];
     }
 }

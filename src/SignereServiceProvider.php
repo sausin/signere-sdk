@@ -87,20 +87,72 @@ class SignereServiceProvider extends ServiceProvider
         $this->app->bind('signere-headers', function () {
             return new Headers(config());
         });
-        $this->app->bind('signere-status', function ($app) {
-            return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config());
+
+        // get the environment of the application
+        $env = is_null(config('signere.mode')) ? $this->app->environment() : config('signere.mode');
+
+        $this->app->bind('signere-api-key', function ($app, $env) {
+            return new ApiKey($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
         });
-        $this->app->bind('signere-events', function ($app) {
-            return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $app->environment());
-        });
-        $this->app->bind('signere-api-key', function ($app) {
-            return new ApiKey($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $app->environment());
+        // $this->app->bind('signere-document', function ($app, $env) {
+        //     return new Document($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-document-convert', function ($app, $env) {
+        //     return new DocumentConvert($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-document-file', function ($app, $env) {
+        //     return new DocumentFile($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-document-job', function ($app, $env) {
+        //     return new DocumentJob($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-document-provider', function ($app, $env) {
+        //     return new DocumentProvider($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-events', function ($app, $env) {
+        //     return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-external-login', function ($app, $env) {
+        //     return new ExternalLogin($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-external-sign', function ($app, $env) {
+        //     return new ExternalSign($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-form', function ($app, $env) {
+        //     return new Form($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-invoice', function ($app, $env) {
+        //     return new Invoice($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-message', function ($app, $env) {
+        //     return new Message($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-receiver', function ($app, $env) {
+        //     return new Receiver($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        // $this->app->bind('signere-statistics', function ($app, $env) {
+        //     return new Statistics($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $env);
+        // });
+        $this->app->bind('signere-status', function ($app, $env) {
+            return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config(), $env);
         });
 
         $this->app->alias('signere-headers', Facades\SignereHeaders::class);
-        $this->app->alias('signere-status', Facades\SignereStatus::class);
-        $this->app->alias('signere-events', Facades\SignereStatus::class);
         $this->app->alias('signere-api-key', Facades\SignereApiKey::class);
+        // $this->app->alias('signere-document', Facades\SignereDocument::class);
+        // $this->app->alias('signere-document-convert', Facades\SignereDocumentConvert::class);
+        // $this->app->alias('signere-document-file', Facades\SignereDocumentFile::class);
+        // $this->app->alias('signere-document-job', Facades\SignereDocumentJob::class);
+        // $this->app->alias('signere-document-provider', Facades\SignereDocumentProvider::class);
+        // $this->app->alias('signere-events', Facades\SignereEvents::class);
+        // $this->app->alias('signere-external-login', Facades\SignereExternalLogin::class);
+        // $this->app->alias('signere-external-sign', Facades\SignereExternalSign::class);
+        // $this->app->alias('signere-form', Facades\SignereForm::class);
+        // $this->app->alias('signere-invoice', Facades\SignereInvoice::class);
+        // $this->app->alias('signere-message', Facades\SignereMessage::class);
+        // $this->app->alias('signere-receiver', Facades\SignereReceiver::class);
+        // $this->app->alias('signere-statistics', Facades\SignereStatistics::class);
+        $this->app->alias('signere-status', Facades\SignereStatus::class);
     }
 
     /**

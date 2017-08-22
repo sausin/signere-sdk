@@ -2,7 +2,7 @@
 
 namespace Sausin\Signere\Tests\Facades;
 
-use Sausin\Signere\Facades\SignereApiKey;
+use SignereApiKey;
 use Sausin\Signere\Tests\IntegrationTest;
 
 class SignereApiKeyTest extends IntegrationTest

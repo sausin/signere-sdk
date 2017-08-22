@@ -2,7 +2,7 @@
 
 namespace Sausin\Signere\Tests\Facades;
 
-use Sausin\Signere\Facades\SignereStatus;
+use SignereStatus;
 use Sausin\Signere\Tests\IntegrationTest;
 
 class SignereStatusTest extends IntegrationTest
