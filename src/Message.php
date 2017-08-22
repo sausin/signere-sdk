@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class Message
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

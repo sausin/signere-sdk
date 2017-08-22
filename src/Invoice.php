@@ -9,7 +9,7 @@ use UnexpectedValueException;
 class Invoice
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

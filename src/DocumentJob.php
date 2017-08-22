@@ -8,7 +8,7 @@ use BadMethodCallException;
 class DocumentJob
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 
