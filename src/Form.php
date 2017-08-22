@@ -7,11 +7,16 @@ use GuzzleHttp\Client;
 
 class Form
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Form';
@@ -19,12 +24,15 @@ class Form
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -35,7 +43,7 @@ class Form
     public function get()
     {
         // make the URL for this request
-        $url = sprintf('%s/GetForms', self::URI);
+        $url = $this->transformUrl(sprintf('%s/GetForms', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -61,13 +69,13 @@ class Form
     public function getAllSigned(string $formId = null, Carbon $from = null, Carbon $to = null)
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/GetSignedForms?formId=%s&fromDate=%s&toDate=%s',
             self::URI,
             $formId,
             $from ? $from->toDateString() : null,
             $to ? $to->toDateString() : null
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -92,13 +100,13 @@ class Form
     public function getAttachments(string $formId, string $formSignId, string $attachReference)
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/GetFormAttachment?formId=%s&FormSignatureId=%s&AttatchmentReference=%s',
             self::URI,
             $formId,
             $formSignId,
             $attachReference
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -121,7 +129,7 @@ class Form
     public function getSignedByDocId(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/GetSignedForm?documentid=%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/GetSignedForm?documentid=%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -145,12 +153,12 @@ class Form
     public function getSignedBySessionId(string $formId, string $formSessionId)
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/GetSignedFormByFormSessionId?formId=%s&formSessionId=%s',
             self::URI,
             $formId,
             $formSessionId
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -173,7 +181,7 @@ class Form
     public function enable(string $formId)
     {
         // make the URL for this request
-        $url = sprintf('%s/EnableForm?formId=%s', self::URI, $formId);
+        $url = $this->transformUrl(sprintf('%s/EnableForm?formId=%s', self::URI, $formId));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, []);
@@ -197,7 +205,7 @@ class Form
     public function disable(string $formId)
     {
         // make the URL for this request
-        $url = sprintf('%s/DisableForm?formId=%s', self::URI, $formId);
+        $url = $this->transformUrl(sprintf('%s/DisableForm?formId=%s', self::URI, $formId));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, []);

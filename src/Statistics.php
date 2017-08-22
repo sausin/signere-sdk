@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 class Statistics
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Statistics';
@@ -18,12 +23,15 @@ class Statistics
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -38,14 +46,14 @@ class Statistics
     public function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s?Year=%s&Month=%s&Day=%s&Status=%s',
             self::URI,
             $year,
             $month,
             $day,
             $status
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);

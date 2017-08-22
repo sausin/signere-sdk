@@ -23,7 +23,9 @@ class Events
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
     public function __construct(Client $client, Headers $headers, $environment = null)
     {
@@ -40,10 +42,10 @@ class Events
     public function getEncryptionKey()
     {
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
-        $headers = $this->headers->make('GET', $this->transformUrl($url));
+        $headers = $this->headers->make('GET', $url);
 
         // get the response
         $response = $this->client->get($url, [

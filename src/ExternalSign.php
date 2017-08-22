@@ -8,11 +8,16 @@ use UnexpectedValueException;
 
 class ExternalSign
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/externalsign';
@@ -20,12 +25,15 @@ class ExternalSign
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,7 @@ class ExternalSign
     public function getUrlForSign(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -66,13 +74,13 @@ class ExternalSign
         }
 
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/ViewerUrl/%s/%s/%s',
             self::URI,
             $documentId,
             $params['Domain'],
             $params['Language']
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -95,7 +103,7 @@ class ExternalSign
     public function getSessionStatus(string $signeeRefId)
     {
         // make the URL for this request
-        $url = sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId);
+        $url = $this->transformUrl(sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -159,7 +167,7 @@ class ExternalSign
         }
 
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body, true);
@@ -193,7 +201,7 @@ class ExternalSign
         }
 
         // make the URL for this request
-        $url = sprintf('%s/BankIDAppUrl', self::URI);
+        $url = $this->transformUrl(sprintf('%s/BankIDAppUrl', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body, true);
@@ -228,7 +236,7 @@ class ExternalSign
         }
 
         // make the URL for this request
-        $url = sprintf('%s/BankIDMobileSign', self::URI);
+        $url = $this->transformUrl(sprintf('%s/BankIDMobileSign', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body, true);

@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 class Receiver
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Receiver';
@@ -18,12 +23,15 @@ class Receiver
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,9 +45,9 @@ class Receiver
     {
         // make the URL for this request
         if (is_null($receiver)) {
-            $url = sprintf('%s?ProviderId=%s', self::URI, $provider);
+            $url = $this->transformUrl(sprintf('%s?ProviderId=%s', self::URI, $provider));
         } else {
-            $url = sprintf('%s/%s?ProviderId=%s', self::URI, $receiver, $provider);
+            $url = $this->transformUrl(sprintf('%s/%s?ProviderId=%s', self::URI, $receiver, $provider));
         }
 
         // get the headers for this request
@@ -63,7 +71,7 @@ class Receiver
     public function create(array $receiver)
     {
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $receiver);
@@ -108,7 +116,7 @@ class Receiver
     public function delete(string $provider, string $receiver)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s/%s', self::URI, $provider, $receiver);
+        $url = $this->transformUrl(sprintf('%s/%s/%s', self::URI, $provider, $receiver));
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);
@@ -152,7 +160,7 @@ class Receiver
     public function deleteAll(string $provider)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $provider);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $provider));
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);

@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 class Message
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Message';
@@ -18,12 +23,15 @@ class Message
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -35,7 +43,7 @@ class Message
     public function get(string $messageId)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $messageId);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $messageId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -59,7 +67,7 @@ class Message
     public function all(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/Document/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/Document/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -82,7 +90,7 @@ class Message
     public function sendMessage(array $body)
     {
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -106,7 +114,7 @@ class Message
     public function sendNewMessage(array $body)
     {
         // make the URL for this request
-        $url = sprintf('%s/SendNewDocumentMessage', self::URI);
+        $url = $this->transformUrl(sprintf('%s/SendNewDocumentMessage', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);
@@ -131,7 +139,7 @@ class Message
     public function sendExternalMessage(array $body)
     {
         // make the URL for this request
-        $url = sprintf('%s/SendExternalMessage', self::URI);
+        $url = $this->transformUrl(sprintf('%s/SendExternalMessage', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);

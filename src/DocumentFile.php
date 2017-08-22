@@ -8,11 +8,16 @@ use UnexpectedValueException;
 
 class DocumentFile
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/DocumentFile';
@@ -20,12 +25,15 @@ class DocumentFile
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,7 @@ class DocumentFile
     public function getSigned(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/Signed/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/Signed/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -60,7 +68,7 @@ class DocumentFile
     public function getUnSigned(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/Unsigned/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/Unsigned/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -83,7 +91,7 @@ class DocumentFile
     public function getSignedPdf(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/SignedPDF/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/SignedPDF/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -116,7 +124,7 @@ class DocumentFile
         }
 
         // make the URL for this request
-        $url = sprintf('%s/TempUrl', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/TempUrl', self::URI, $documentId));
 
         // setup body
         $expiring = $expiring ?: Carbon::now()->addHours(48);

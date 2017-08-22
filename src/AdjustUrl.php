@@ -14,7 +14,7 @@ trait AdjustUrl
     protected function transformUrl(string $url, string $prefix = 'test')
     {
         if ($this->environment === 'test' || $this->environment === 'local') {
-            return http_build_url($exploded, $prefix.parse_url($url)['host']);
+            return http_build_url($url, $prefix.parse_url($url)['host']);
         }
 
         return $url;

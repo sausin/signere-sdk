@@ -8,11 +8,16 @@ use UnexpectedValueException;
 
 class ExternalLogin
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/ExternalLogin';
@@ -20,12 +25,15 @@ class ExternalLogin
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,7 @@ class ExternalLogin
     public function getLoginInfo(string $requestId)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $requestId);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $requestId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -71,7 +79,7 @@ class ExternalLogin
         }
 
         // make the URL for this request
-        $url = sprintf('%s/AppLogin', self::URI);
+        $url = $this->transformUrl(sprintf('%s/AppLogin', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -105,7 +113,7 @@ class ExternalLogin
         }
 
         // make the URL for this request
-        $url = sprintf('%s/BankIDMobileLogin/Create', self::URI);
+        $url = $this->transformUrl(sprintf('%s/BankIDMobileLogin/Create', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -136,7 +144,7 @@ class ExternalLogin
         }
 
         // make the URL for this request
-        $url = sprintf('%s/BankIDMobileLogin/Start', self::URI);
+        $url = $this->transformUrl(sprintf('%s/BankIDMobileLogin/Start', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -169,7 +177,7 @@ class ExternalLogin
         }
 
         // make the URL for this request
-        $url = sprintf('%s/InvalidateLogin', self::URI);
+        $url = $this->transformUrl(sprintf('%s/InvalidateLogin', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

@@ -8,11 +8,16 @@ use UnexpectedValueException;
 
 class DocumentProvider
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/DocumentProvider';
@@ -20,12 +25,15 @@ class DocumentProvider
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,7 @@ class DocumentProvider
     public function getProviderAccount(string $providerId)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $providerId);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $providerId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -60,7 +68,7 @@ class DocumentProvider
     public function getCertExpiry()
     {
         // make the URL for this request
-        $url = sprintf('%s/CertificateExpires', self::URI);
+        $url = $this->transformUrl(sprintf('%s/CertificateExpires', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -84,12 +92,12 @@ class DocumentProvider
     public function getUsage(string $providerId, bool $demo = false)
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/quota/%s?ProviderId=%s',
             self::URI,
             $demo ? 'demo' : 'prepaid',
             $providerId
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -139,7 +147,7 @@ class DocumentProvider
         }
 
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -178,7 +186,7 @@ class DocumentProvider
         }
 
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

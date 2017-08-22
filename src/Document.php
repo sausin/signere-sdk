@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 class Document
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Document';
@@ -18,12 +23,15 @@ class Document
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,9 @@ class Document
     public function getSignUrl(string $documentId, string $signeeRefId = null)
     {
         // make the URL for this request
-        $url = sprintf('%s/SignUrl?documentId=%s&signeeRefId=%s', self::URI, $documentId, $signeeRefId);
+        $url = $this->transformUrl(sprintf(
+            '%s/SignUrl?documentId=%s&signeeRefId=%s', self::URI, $documentId, $signeeRefId
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -60,7 +70,7 @@ class Document
     public function get(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $documentId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -84,7 +94,9 @@ class Document
     public function getTemporaryUrl(string $documentId)
     {
         // make the URL for this request
-        $url = sprintf('%s/SignedDocument/TemporaryViewerUrl/%s', self::URI, $documentId);
+        $url = $this->transformUrl(sprintf(
+            '%s/SignedDocument/TemporaryViewerUrl/%s', self::URI, $documentId
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -108,7 +120,7 @@ class Document
     public function getList(string $jobId = null, array $params = [])
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/?Status=%s&Fromdate=%s&JobId=%s&CreatedAfter=%s&ExternalCustomerRef=%s',
             self::URI,
             isset($params['status']) ? $params['status'] : 'All',
@@ -116,7 +128,7 @@ class Document
             $jobId,
             isset($params['created_after']) ? $params['created_after'] : null,
             isset($params['ext_cust_ref']) ? $params['ext_cust_ref'] : null
-        );
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -179,7 +191,7 @@ class Document
         }
 
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body, true);
@@ -214,7 +226,7 @@ class Document
         }
 
         // make the URL for this request
-        $url = sprintf('%s/CancelDocument', self::URI);
+        $url = $this->transformUrl(sprintf('%s/CancelDocument', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -249,7 +261,7 @@ class Document
         }
 
         // make the URL for this request
-        $url = sprintf('%s/ChangeDeadline', self::URI);
+        $url = $this->transformUrl(sprintf('%s/ChangeDeadline', self::URI));
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

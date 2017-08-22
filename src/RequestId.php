@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 class RequestId
 {
+    use AdjustUrl;
+    
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/SignereId';
@@ -18,12 +23,15 @@ class RequestId
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,7 +45,9 @@ class RequestId
     public function getDetails(string $requestId, bool $metadata)
     {
         // make the URL for this request
-        $url = sprintf('%s/%s?metadata=%s', self::URI, $requestId, $metadata ? 'true' : 'false');
+        $url = $this->transformUrl(sprintf(
+            '%s/%s?metadata=%s', self::URI, $requestId, $metadata ? 'true' : 'false'
+        ));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -60,7 +70,7 @@ class RequestId
     public function check(string $requestId)
     {
         // make the URL for this request
-        $url = sprintf('%s/Completed/%s', self::URI, $requestId);
+        $url = $this->transformUrl(sprintf('%s/Completed/%s', self::URI, $requestId));
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -83,7 +93,7 @@ class RequestId
     public function create(array $body)
     {
         // make the URL for this request
-        $url = self::URI;
+        $url = $this->transformUrl(self::URI);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -107,7 +117,7 @@ class RequestId
     public function invalidate(string $requestId)
     {
         // make the URL for this request
-        $url = sprintf('%s/Invalidate', self::URI);
+        $url = $this->transformUrl(sprintf('%s/Invalidate', self::URI));
 
         $body = ['RequestId' => $requestId];
 

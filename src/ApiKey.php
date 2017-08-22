@@ -45,10 +45,10 @@ class ApiKey
     public function renewPrimary(string $key)
     {
         // make the URL for this request
-        $url = sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key);
+        $url = $this->transformUrl(sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key));
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $this->transformUrl($url), [], true);
+        $headers = $this->headers->make('POST', $url, [], true);
 
         // get the response
         $response = $this->client->post($url, [
@@ -69,10 +69,10 @@ class ApiKey
     public function renewSecondary(string $key)
     {
         // make the URL for this request
-        $url = sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key);
+        $url = $this->transformUrl(sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key));
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $this->transformUrl($url), [], true);
+        $headers = $this->headers->make('POST', $url, [], true);
 
         // get the response
         $response = $this->client->post($url, [
@@ -94,15 +94,15 @@ class ApiKey
     public function createPrimary(string $providerId, int $otpCode)
     {
         // make the URL for this request
-        $url = sprintf(
+        $url = $this->transformUrl(sprintf(
             '%s/OTP/RenewPrimaryKeyStep2/Provider/%s/OTPCode/%s',
             self::URI,
             $providerId,
             $otpCode
-        );
+        ));
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $this->transformUrl($url), [], null);
+        $headers = $this->headers->make('POST', $url, [], null);
 
         // get the response
         $response = $this->client->post($url, [
@@ -138,10 +138,10 @@ class ApiKey
         }
 
         // make the URL for this request
-        $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI);
+        $url = $this->transformUrl(sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI));
 
         // get the headers for this request
-        $headers = $this->headers->make('PUT', $this->transformUrl($url), $body, false);
+        $headers = $this->headers->make('PUT', $url, $body, false);
 
         // get the response
         $response = $this->client->put($url, [
