@@ -13,7 +13,7 @@ class Events
 
     /** @var Headers */
     protected $headers;
-    
+
     /** @var string The environment this is being run in */
     protected $environment;
 
