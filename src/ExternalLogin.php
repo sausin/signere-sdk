@@ -9,7 +9,7 @@ use UnexpectedValueException;
 class ExternalLogin
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

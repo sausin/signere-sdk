@@ -8,7 +8,7 @@ use Illuminate\Contracts\Config\Repository as Config;
 class Status
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

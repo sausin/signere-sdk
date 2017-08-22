@@ -9,7 +9,7 @@ use UnexpectedValueException;
 class DocumentFile
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

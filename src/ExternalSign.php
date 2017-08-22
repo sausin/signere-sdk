@@ -9,7 +9,7 @@ use UnexpectedValueException;
 class ExternalSign
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

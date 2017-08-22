@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class Statistics
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

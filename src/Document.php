@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class Document
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 

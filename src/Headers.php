@@ -8,7 +8,7 @@ use Illuminate\Contracts\Config\Repository as Config;
 class Headers
 {
     use AdjustUrl;
-    
+
     /** @var \Illuminate\Contracts\Config\Repository */
     protected $config;
 

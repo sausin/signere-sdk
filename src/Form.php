@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 class Form
 {
     use AdjustUrl;
-    
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 
