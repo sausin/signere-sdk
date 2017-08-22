@@ -91,7 +91,7 @@ class SignereServiceProvider extends ServiceProvider
             return new Status($app->make('GuzzleHttp\Client'), $app->make(Headers::class), config());
         });
         $this->app->bind('signere-events', function ($app) {
-            return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class));
+            return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $app->environment());
         });
         $this->app->bind('signere-api-key', function ($app) {
             return new ApiKey($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $app->environment());
