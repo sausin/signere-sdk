@@ -8,11 +8,16 @@ use InvalidArgumentException;
 
 class ApiKey
 {
+    use AdjustUrl;
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var Headers */
     protected $headers;
+
+    /** @var string The environment this is being run in */
+    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/ApiToken';
@@ -20,12 +25,15 @@ class ApiKey
     /**
      * Instantiate the class.
      *
-     * @param \GuzzleHttp\Client $client
+     * @param Client  $client
+     * @param Headers $headers
+     * @param string  $environment
      */
-    public function __construct(Client $client, Headers $headers)
+    public function __construct(Client $client, Headers $headers, $environment = null)
     {
         $this->client = $client;
         $this->headers = $headers;
+        $this->environment = $environment;
     }
 
     /**
@@ -40,7 +48,7 @@ class ApiKey
         $url = sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key);
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $url, [], true);
+        $headers = $this->headers->make('POST', $this->transformUrl($url), [], true);
 
         // get the response
         $response = $this->client->post($url, [
@@ -64,7 +72,7 @@ class ApiKey
         $url = sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key);
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $url, [], true);
+        $headers = $this->headers->make('POST', $this->transformUrl($url), [], true);
 
         // get the response
         $response = $this->client->post($url, [
@@ -94,7 +102,7 @@ class ApiKey
         );
 
         // get the headers for this request
-        $headers = $this->headers->make('POST', $url, [], null);
+        $headers = $this->headers->make('POST', $this->transformUrl($url), [], null);
 
         // get the response
         $response = $this->client->post($url, [
@@ -133,7 +141,7 @@ class ApiKey
         $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI);
 
         // get the headers for this request
-        $headers = $this->headers->make('PUT', $url, $body, false);
+        $headers = $this->headers->make('PUT', $this->transformUrl($url), $body, false);
 
         // get the response
         $response = $this->client->put($url, [

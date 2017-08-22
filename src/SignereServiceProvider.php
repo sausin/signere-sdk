@@ -93,10 +93,14 @@ class SignereServiceProvider extends ServiceProvider
         $this->app->bind('signere-events', function ($app) {
             return new Events($app->make('GuzzleHttp\Client'), $app->make(Headers::class));
         });
+        $this->app->bind('signere-api-key', function ($app) {
+            return new ApiKey($app->make('GuzzleHttp\Client'), $app->make(Headers::class), $app->environment());
+        });
 
         $this->app->alias('signere-headers', Facades\SignereHeaders::class);
         $this->app->alias('signere-status', Facades\SignereStatus::class);
         $this->app->alias('signere-events', Facades\SignereStatus::class);
+        $this->app->alias('signere-api-key', Facades\SignereApiKey::class);
     }
 
     /**

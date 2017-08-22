@@ -17,9 +17,10 @@
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/contracts": "~5.4",
-        "illuminate/support": "~5.4",
         "illuminate/routing": "~5.4",
+        "illuminate/support": "~5.4",
         "illuminate/validation": "~5.4",
+        "jakeasmith/http_build_url": "^1.0",
         "nesbot/carbon": "~1.0"
     },
     "require-dev": {
