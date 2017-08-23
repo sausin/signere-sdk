@@ -14,7 +14,7 @@ trait UrlTransformer
     protected function transformUrl(string $url, string $prefix = 'test')
     {
         $check = $this->environment;
-        
+
         if ($check === 'test' || $check === 'local' || $check === 'testing') {
             return http_build_url($url, ['host' => $prefix.parse_url($url)['host']]);
         }
