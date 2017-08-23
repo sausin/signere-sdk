@@ -2,7 +2,7 @@
 
 namespace Sausin\Signere;
 
-trait AdjustUrl
+trait UrlTransformer
 {
     /**
      * Adjust the URL to production or test environment.

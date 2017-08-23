@@ -2,37 +2,10 @@
 
 namespace Sausin\Signere;
 
-use GuzzleHttp\Client;
-
-class Events
+class Events extends BaseClass
 {
-    use AdjustUrl;
-
-    /** @var \GuzzleHttp\Client */
-    protected $client;
-
-    /** @var Headers */
-    protected $headers;
-
-    /** @var string The environment this is being run in */
-    protected $environment;
-
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/events/encryptionkey';
-
-    /**
-     * Instantiate the class.
-     *
-     * @param Client  $client
-     * @param Headers $headers
-     * @param string  $environment
-     */
-    public function __construct(Client $client, Headers $headers, $environment = null)
-    {
-        $this->client = $client;
-        $this->headers = $headers;
-        $this->environment = $environment;
-    }
 
     /**
      * Returns the EventsQueue encryptionKey as a base64 encoded string.

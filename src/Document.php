@@ -2,37 +2,10 @@
 
 namespace Sausin\Signere;
 
-use GuzzleHttp\Client;
-
-class Document
+class Document extends BaseClass
 {
-    use AdjustUrl;
-
-    /** @var \GuzzleHttp\Client */
-    protected $client;
-
-    /** @var Headers */
-    protected $headers;
-
-    /** @var string The environment this is being run in */
-    protected $environment;
-
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Document';
-
-    /**
-     * Instantiate the class.
-     *
-     * @param Client  $client
-     * @param Headers $headers
-     * @param string  $environment
-     */
-    public function __construct(Client $client, Headers $headers, $environment = null)
-    {
-        $this->client = $client;
-        $this->headers = $headers;
-        $this->environment = $environment;
-    }
 
     /**
      * Returns the url to sign the document for the given Signeeref
@@ -46,7 +19,10 @@ class Document
     {
         // make the URL for this request
         $url = $this->transformUrl(sprintf(
-            '%s/SignUrl?documentId=%s&signeeRefId=%s', self::URI, $documentId, $signeeRefId
+            '%s/SignUrl?documentId=%s&signeeRefId=%s',
+            self::URI,
+            $documentId,
+            $signeeRefId
         ));
 
         // get the headers for this request
@@ -95,7 +71,9 @@ class Document
     {
         // make the URL for this request
         $url = $this->transformUrl(sprintf(
-            '%s/SignedDocument/TemporaryViewerUrl/%s', self::URI, $documentId
+            '%s/SignedDocument/TemporaryViewerUrl/%s',
+            self::URI,
+            $documentId
         ));
 
         // get the headers for this request

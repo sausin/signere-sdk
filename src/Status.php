@@ -5,21 +5,10 @@ namespace Sausin\Signere;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Config\Repository as Config;
 
-class Status
+class Status extends BaseClass
 {
-    use AdjustUrl;
-
-    /** @var \GuzzleHttp\Client */
-    protected $client;
-
-    /** @var Headers */
-    protected $headers;
-
     /** @var \Illuminate\Contracts\Config\Repository */
     protected $config;
-
-    /** @var string The environment this is being run in */
-    protected $environment;
 
     /** The URI of the action */
     const URI = 'https://api.signere.no/api/Status';
