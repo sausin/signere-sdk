@@ -13,8 +13,10 @@ trait UrlTransformer
      */
     protected function transformUrl(string $url, string $prefix = 'test')
     {
-        if ($this->environment === 'test' || $this->environment === 'local') {
-            return http_build_url($url, $prefix.parse_url($url)['host']);
+        $check = $this->environment;
+        
+        if ($check === 'test' || $check === 'local' || $check === 'testing') {
+            return http_build_url($url, ['host' => $prefix.parse_url($url)['host']]);
         }
 
         return $url;

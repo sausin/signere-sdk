@@ -17,7 +17,7 @@ class Form extends BaseClass
     public function get()
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/GetForms', self::URI));
+        $url = sprintf('%s/GetForms', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -43,13 +43,13 @@ class Form extends BaseClass
     public function getAllSigned(string $formId = null, Carbon $from = null, Carbon $to = null)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/GetSignedForms?formId=%s&fromDate=%s&toDate=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $formId,
             $from ? $from->toDateString() : null,
             $to ? $to->toDateString() : null
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -74,13 +74,13 @@ class Form extends BaseClass
     public function getAttachments(string $formId, string $formSignId, string $attachReference)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/GetFormAttachment?formId=%s&FormSignatureId=%s&AttatchmentReference=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $formId,
             $formSignId,
             $attachReference
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -103,7 +103,7 @@ class Form extends BaseClass
     public function getSignedByDocId(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/GetSignedForm?documentid=%s', self::URI, $documentId));
+        $url = sprintf('%s/GetSignedForm?documentid=%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -127,12 +127,12 @@ class Form extends BaseClass
     public function getSignedBySessionId(string $formId, string $formSessionId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/GetSignedFormByFormSessionId?formId=%s&formSessionId=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $formId,
             $formSessionId
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -155,7 +155,7 @@ class Form extends BaseClass
     public function enable(string $formId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/EnableForm?formId=%s', self::URI, $formId));
+        $url = sprintf('%s/EnableForm?formId=%s', $this->getBaseUrl(), $formId);
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, []);
@@ -179,7 +179,7 @@ class Form extends BaseClass
     public function disable(string $formId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/DisableForm?formId=%s', self::URI, $formId));
+        $url = sprintf('%s/DisableForm?formId=%s', $this->getBaseUrl(), $formId);
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, []);

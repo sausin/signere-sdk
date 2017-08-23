@@ -18,12 +18,12 @@ class Document extends BaseClass
     public function getSignUrl(string $documentId, string $signeeRefId = null)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/SignUrl?documentId=%s&signeeRefId=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $documentId,
             $signeeRefId
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -46,7 +46,7 @@ class Document extends BaseClass
     public function get(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $documentId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -70,11 +70,11 @@ class Document extends BaseClass
     public function getTemporaryUrl(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/SignedDocument/TemporaryViewerUrl/%s',
-            self::URI,
+            $this->getBaseUrl(),
             $documentId
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -98,15 +98,15 @@ class Document extends BaseClass
     public function getList(string $jobId = null, array $params = [])
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/?Status=%s&Fromdate=%s&JobId=%s&CreatedAfter=%s&ExternalCustomerRef=%s',
-            self::URI,
+            $this->getBaseUrl(),
             isset($params['status']) ? $params['status'] : 'All',
             isset($params['from_date']) ? $params['from_date'] : null,
             $jobId,
             isset($params['created_after']) ? $params['created_after'] : null,
             isset($params['ext_cust_ref']) ? $params['ext_cust_ref'] : null
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -169,7 +169,7 @@ class Document extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body, true);
@@ -204,7 +204,7 @@ class Document extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/CancelDocument', self::URI));
+        $url = sprintf('%s/CancelDocument', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -239,7 +239,7 @@ class Document extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/ChangeDeadline', self::URI));
+        $url = sprintf('%s/ChangeDeadline', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

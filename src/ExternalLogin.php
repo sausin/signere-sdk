@@ -19,7 +19,7 @@ class ExternalLogin extends BaseClass
     public function getLoginInfo(string $requestId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $requestId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $requestId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -53,7 +53,7 @@ class ExternalLogin extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/AppLogin', self::URI));
+        $url = sprintf('%s/AppLogin', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -87,7 +87,7 @@ class ExternalLogin extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/BankIDMobileLogin/Create', self::URI));
+        $url = sprintf('%s/BankIDMobileLogin/Create', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -118,7 +118,7 @@ class ExternalLogin extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/BankIDMobileLogin/Start', self::URI));
+        $url = sprintf('%s/BankIDMobileLogin/Start', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -151,7 +151,7 @@ class ExternalLogin extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/InvalidateLogin', self::URI));
+        $url = sprintf('%s/InvalidateLogin', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

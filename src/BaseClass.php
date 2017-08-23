@@ -30,4 +30,16 @@ abstract class BaseClass
         $this->headers = $headers;
         $this->environment = $environment;
     }
+
+    /**
+     * Get the base URL. This handles the correct
+     * url generation based on production and
+     * test environment.
+     * 
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->transformUrl(static::URI);
+    }
 }

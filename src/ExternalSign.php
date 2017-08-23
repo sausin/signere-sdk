@@ -19,7 +19,7 @@ class ExternalSign extends BaseClass
     public function getUrlForSign(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $documentId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -48,13 +48,13 @@ class ExternalSign extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/ViewerUrl/%s/%s/%s',
-            self::URI,
+            $this->getBaseUrl(),
             $documentId,
             $params['Domain'],
             $params['Language']
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -77,7 +77,7 @@ class ExternalSign extends BaseClass
     public function getSessionStatus(string $signeeRefId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/BankIDMobileSign/Status/%s', self::URI, $signeeRefId));
+        $url = sprintf('%s/BankIDMobileSign/Status/%s', $this->getBaseUrl(), $signeeRefId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url, [], true);
@@ -141,7 +141,7 @@ class ExternalSign extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body, true);
@@ -175,7 +175,7 @@ class ExternalSign extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/BankIDAppUrl', self::URI));
+        $url = sprintf('%s/BankIDAppUrl', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body, true);
@@ -210,7 +210,7 @@ class ExternalSign extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/BankIDMobileSign', self::URI));
+        $url = sprintf('%s/BankIDMobileSign', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body, true);

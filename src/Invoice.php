@@ -25,7 +25,7 @@ class Invoice extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s/%s', self::URI, $year, $month));
+        $url = sprintf('%s/%s/%s', $this->getBaseUrl(), $year, $month);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);

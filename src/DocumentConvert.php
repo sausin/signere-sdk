@@ -17,7 +17,7 @@ class DocumentConvert extends BaseClass
     public function convert(array $body)
     {
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);

@@ -19,7 +19,7 @@ class DocumentProvider extends BaseClass
     public function getProviderAccount(string $providerId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $providerId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $providerId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -42,7 +42,7 @@ class DocumentProvider extends BaseClass
     public function getCertExpiry()
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/CertificateExpires', self::URI));
+        $url = sprintf('%s/CertificateExpires', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -66,12 +66,12 @@ class DocumentProvider extends BaseClass
     public function getUsage(string $providerId, bool $demo = false)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/quota/%s?ProviderId=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $demo ? 'demo' : 'prepaid',
             $providerId
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -121,7 +121,7 @@ class DocumentProvider extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -160,7 +160,7 @@ class DocumentProvider extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);

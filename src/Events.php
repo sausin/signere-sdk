@@ -15,7 +15,7 @@ class Events extends BaseClass
     public function getEncryptionKey()
     {
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);

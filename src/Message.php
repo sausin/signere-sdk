@@ -16,7 +16,7 @@ class Message extends BaseClass
     public function get(string $messageId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $messageId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $messageId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -40,7 +40,7 @@ class Message extends BaseClass
     public function all(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Document/%s', self::URI, $documentId));
+        $url = sprintf('%s/Document/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -63,7 +63,7 @@ class Message extends BaseClass
     public function sendMessage(array $body)
     {
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -87,7 +87,7 @@ class Message extends BaseClass
     public function sendNewMessage(array $body)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/SendNewDocumentMessage', self::URI));
+        $url = sprintf('%s/SendNewDocumentMessage', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body);
@@ -112,7 +112,7 @@ class Message extends BaseClass
     public function sendExternalMessage(array $body)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/SendExternalMessage', self::URI));
+        $url = sprintf('%s/SendExternalMessage', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);

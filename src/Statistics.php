@@ -19,14 +19,14 @@ class Statistics extends BaseClass
     public function get(int $year = null, int $month = null, int $day = null, string $status = 'All')
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s?Year=%s&Month=%s&Day=%s&Status=%s',
             self::URI,
             $year,
             $month,
             $day,
             $status
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);

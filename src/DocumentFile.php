@@ -19,7 +19,7 @@ class DocumentFile extends BaseClass
     public function getSigned(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Signed/%s', self::URI, $documentId));
+        $url = sprintf('%s/Signed/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -42,7 +42,7 @@ class DocumentFile extends BaseClass
     public function getUnSigned(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Unsigned/%s', self::URI, $documentId));
+        $url = sprintf('%s/Unsigned/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -65,7 +65,7 @@ class DocumentFile extends BaseClass
     public function getSignedPdf(string $documentId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/SignedPDF/%s', self::URI, $documentId));
+        $url = sprintf('%s/SignedPDF/%s', $this->getBaseUrl(), $documentId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -98,7 +98,7 @@ class DocumentFile extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/TempUrl', self::URI, $documentId));
+        $url = sprintf('%s/TempUrl', $this->getBaseUrl(), $documentId);
 
         // setup body
         $expiring = $expiring ?: Carbon::now()->addHours(48);

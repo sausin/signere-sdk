@@ -19,7 +19,7 @@ class DocumentJob extends BaseClass
     public function get(string $jobId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $jobId));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $jobId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -52,7 +52,7 @@ class DocumentJob extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);

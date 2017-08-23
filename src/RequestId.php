@@ -18,12 +18,12 @@ class RequestId extends BaseClass
     public function getDetails(string $requestId, bool $metadata)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/%s?metadata=%s',
-            self::URI,
+            $this->getBaseUrl(),
             $requestId,
             $metadata ? 'true' : 'false'
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -46,7 +46,7 @@ class RequestId extends BaseClass
     public function check(string $requestId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Completed/%s', self::URI, $requestId));
+        $url = sprintf('%s/Completed/%s', $this->getBaseUrl(), $requestId);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);
@@ -69,7 +69,7 @@ class RequestId extends BaseClass
     public function create(array $body)
     {
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $body);
@@ -93,7 +93,7 @@ class RequestId extends BaseClass
     public function invalidate(string $requestId)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Invalidate', self::URI));
+        $url = sprintf('%s/Invalidate', $this->getBaseUrl());
 
         $body = ['RequestId' => $requestId];
 

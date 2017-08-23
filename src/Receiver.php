@@ -18,9 +18,9 @@ class Receiver extends BaseClass
     {
         // make the URL for this request
         if (is_null($receiver)) {
-            $url = $this->transformUrl(sprintf('%s?ProviderId=%s', self::URI, $provider));
+            $url = sprintf('%s?ProviderId=%s', $this->getBaseUrl(), $provider);
         } else {
-            $url = $this->transformUrl(sprintf('%s/%s?ProviderId=%s', self::URI, $receiver, $provider));
+            $url = sprintf('%s/%s?ProviderId=%s', $this->getBaseUrl(), $receiver, $provider);
         }
 
         // get the headers for this request
@@ -44,7 +44,7 @@ class Receiver extends BaseClass
     public function create(array $receiver)
     {
         // make the URL for this request
-        $url = $this->transformUrl(self::URI);
+        $url = $this->getBaseUrl();
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, $receiver);
@@ -89,7 +89,7 @@ class Receiver extends BaseClass
     public function delete(string $provider, string $receiver)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s/%s', self::URI, $provider, $receiver));
+        $url = sprintf('%s/%s/%s', $this->getBaseUrl(), $provider, $receiver);
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);
@@ -133,7 +133,7 @@ class Receiver extends BaseClass
     public function deleteAll(string $provider)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/%s', self::URI, $provider));
+        $url = sprintf('%s/%s', $this->getBaseUrl(), $provider);
 
         // get the headers for this request
         $headers = $this->headers->make('DELETE', $url);

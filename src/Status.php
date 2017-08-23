@@ -37,7 +37,7 @@ class Status extends BaseClass
     public function getServerTime()
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/ServerTime', self::URI));
+        $url = sprintf('%s/ServerTime', $this->getBaseUrl());
 
         // get the response
         $response = $this->client->get($url);
@@ -55,7 +55,7 @@ class Status extends BaseClass
     public function getServerStatus(string $request = 'test')
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/Ping/%s', self::URI, $request));
+        $url = sprintf('%s/Ping/%s', $this->getBaseUrl(), $request);
 
         // get the headers for this request
         $headers = $this->headers->make('GET', $url);

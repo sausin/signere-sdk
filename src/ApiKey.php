@@ -19,7 +19,7 @@ class ApiKey extends BaseClass
     public function renewPrimary(string $key)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', self::URI, $key));
+        $url = sprintf('%s/RenewPrimaryKey?OldPrimaryKey=%s', $this->getBaseUrl(), $key);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, [], true);
@@ -43,7 +43,7 @@ class ApiKey extends BaseClass
     public function renewSecondary(string $key)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', self::URI, $key));
+        $url = sprintf('%s/RenewSecondaryKey?OldSecondaryKey=%s', $this->getBaseUrl(), $key);
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, [], true);
@@ -68,12 +68,12 @@ class ApiKey extends BaseClass
     public function createPrimary(string $providerId, int $otpCode)
     {
         // make the URL for this request
-        $url = $this->transformUrl(sprintf(
+        $url = sprintf(
             '%s/OTP/RenewPrimaryKeyStep2/Provider/%s/OTPCode/%s',
-            self::URI,
+            $this->getBaseUrl(),
             $providerId,
             $otpCode
-        ));
+        );
 
         // get the headers for this request
         $headers = $this->headers->make('POST', $url, [], null);
@@ -112,7 +112,7 @@ class ApiKey extends BaseClass
         }
 
         // make the URL for this request
-        $url = $this->transformUrl(sprintf('%s/OTP/RenewPrimaryKeyStep1', self::URI));
+        $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', $this->getBaseUrl());
 
         // get the headers for this request
         $headers = $this->headers->make('PUT', $url, $body, false);
