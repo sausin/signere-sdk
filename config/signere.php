@@ -3,6 +3,20 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Signere API Mode of Operation
+    |--------------------------------------------------------------------------
+    |
+    | If the package is being used in test mode, set this to 'test'. If
+    | your laravel package is in local environment then this package
+    | automatically defaults to testing. In this mode all calls
+    | to signere api are made to the test urls.  This can be
+    | overridden by setting this variable to 'production'.
+    |
+    */
+    'mode'              => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Signere API Credentials
     |--------------------------------------------------------------------------
     |
