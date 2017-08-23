@@ -65,7 +65,7 @@ class EnvironmentTest extends IntegrationTest
     public function doc_provider_should_give_test_url_in_test_environment()
     {
         $docProvider = $this->app->make(DocumentProvider::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/DocumentProvider', $docProvider->getBaseUrl());
     }
 
@@ -73,7 +73,7 @@ class EnvironmentTest extends IntegrationTest
     public function events_should_give_test_url_in_test_environment()
     {
         $events = $this->app->make(Events::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/events/encryptionkey', $events->getBaseUrl());
     }
 
@@ -81,7 +81,7 @@ class EnvironmentTest extends IntegrationTest
     public function extern_loging_should_give_test_url_in_test_environment()
     {
         $exLogin = $this->app->make(ExternalLogin::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/ExternalLogin', $exLogin->getBaseUrl());
     }
 
@@ -89,7 +89,7 @@ class EnvironmentTest extends IntegrationTest
     public function extern_sign_should_give_test_url_in_test_environment()
     {
         $extSign = $this->app->make(ExternalSign::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/externalsign', $extSign->getBaseUrl());
     }
 
@@ -97,7 +97,7 @@ class EnvironmentTest extends IntegrationTest
     public function form_should_give_test_url_in_test_environment()
     {
         $form = $this->app->make(Form::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/Form', $form->getBaseUrl());
     }
 
@@ -105,7 +105,7 @@ class EnvironmentTest extends IntegrationTest
     public function invoice_should_give_test_url_in_test_environment()
     {
         $invoice = $this->app->make(Invoice::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/Invoice', $invoice->getBaseUrl());
     }
 
@@ -121,7 +121,7 @@ class EnvironmentTest extends IntegrationTest
     public function receiver_should_give_test_url_in_test_environment()
     {
         $receiver = $this->app->make(Receiver::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/Receiver', $receiver->getBaseUrl());
     }
 
@@ -129,7 +129,7 @@ class EnvironmentTest extends IntegrationTest
     public function request_id_should_give_test_url_in_test_environment()
     {
         $reqId = $this->app->make(RequestId::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/SignereId', $reqId->getBaseUrl());
     }
 
@@ -137,7 +137,7 @@ class EnvironmentTest extends IntegrationTest
     public function stats_should_give_test_url_in_test_environment()
     {
         $stats = $this->app->make(Statistics::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/Statistics', $stats->getBaseUrl());
     }
 
@@ -145,7 +145,7 @@ class EnvironmentTest extends IntegrationTest
     public function status_should_give_test_url_in_test_environment()
     {
         $status = $this->app->make(Status::class);
-    
+
         $this->assertEquals('https://testapi.signere.no/api/Status', $status->getBaseUrl());
     }
 }
