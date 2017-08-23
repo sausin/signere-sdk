@@ -97,7 +97,7 @@ class SignereServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings.
-     * 
+     *
      * @return void
      */
     protected function registerBindings()

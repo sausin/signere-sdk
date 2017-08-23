@@ -35,7 +35,7 @@ abstract class BaseClass
      * Get the base URL. This handles the correct
      * url generation based on production and
      * test environment.
-     * 
+     *
      * @return string
      */
     public function getBaseUrl()
