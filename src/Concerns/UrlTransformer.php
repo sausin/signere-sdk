@@ -1,6 +1,6 @@
 <?php
 
-namespace Sausin\Signere;
+namespace Sausin\Signere\Concerns;
 
 trait UrlTransformer
 {

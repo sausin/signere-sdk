@@ -2,8 +2,6 @@
 
 namespace Sausin\Signere;
 
-use BadMethodCallException;
-
 class DocumentJob extends BaseClass
 {
     /** The URI of the action */
@@ -45,11 +43,7 @@ class DocumentJob extends BaseClass
         $needKeys = ['Contact_Email', 'Contact_Phone'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = $this->getBaseUrl();

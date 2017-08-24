@@ -6,7 +6,8 @@ use GuzzleHttp\Client;
 
 abstract class BaseClass
 {
-    use UrlTransformer;
+    use Concerns\UrlTransformer,
+        Concerns\InputChecker;
 
     /** @var \GuzzleHttp\Client */
     protected $client;

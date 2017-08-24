@@ -46,11 +46,7 @@ class ExternalLogin extends BaseClass
         $needKeys = ['ExternalId', 'ReturnUrl'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/AppLogin', $this->getBaseUrl());
@@ -80,11 +76,7 @@ class ExternalLogin extends BaseClass
         $needKeys = ['DateOfBirth', 'Mobile'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/BankIDMobileLogin/Create', $this->getBaseUrl());

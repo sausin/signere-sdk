@@ -122,22 +122,18 @@ class ExternalSign extends BaseClass
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        } elseif (! is_array($body['SigneeRefs'])) {
+        $this->validateHasKeys($body, $needKeys);
+
+        if (! is_array($body['SigneeRefs'])) {
             throw new UnexpectedValueException('SigneeRefs key in input should be an array');
-        } else {
-            foreach ($body['SigneeRefs'] as $ref) {
-                if (! is_array($ref)) {
-                    throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
-                } elseif (! array_has_all_keys($ref, $needSubKeys)) {
-                    throw new BadMethodCallException(
-                        'Missing fields in SigneeRefs item. Need '.implode(', ', $needSubKeys)
-                    );
-                }
+        }
+
+        foreach ($body['SigneeRefs'] as $ref) {
+            if (! is_array($ref)) {
+                throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
             }
+
+            $this->validateHasKeys($ref, $needSubKeys);
         }
 
         // make the URL for this request
@@ -168,11 +164,7 @@ class ExternalSign extends BaseClass
         $needKeys = ['DocumentId', 'SigneeRefId', 'UserAgent'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/BankIDAppUrl', $this->getBaseUrl());
@@ -203,11 +195,7 @@ class ExternalSign extends BaseClass
         $needKeys = ['DateOfBirth', 'DocumentId', 'Mobile', 'SigneeRefId'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (array_intersect(array_keys($body), $needKeys) !== $needKeys) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/BankIDMobileSign', $this->getBaseUrl());

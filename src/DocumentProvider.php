@@ -2,7 +2,6 @@
 
 namespace Sausin\Signere;
 
-use BadMethodCallException;
 use UnexpectedValueException;
 
 class DocumentProvider extends BaseClass
@@ -109,11 +108,9 @@ class DocumentProvider extends BaseClass
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        } elseif (isset($body['BillingPlan'])) {
+        $this->validateHasKeys($body, $needKeys);
+
+        if (isset($body['BillingPlan'])) {
             $expected = ['Small', 'Medium', 'Large'];
             if (! in_array($body['BillingPlan'], $expected)) {
                 throw new UnexpectedValueException('BillingPlan should be one of '.implode(', ', $expected));
@@ -148,11 +145,9 @@ class DocumentProvider extends BaseClass
         $needKeys = ['Mobile', 'ProviderId'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        } elseif (isset($body['BillingPlan'])) {
+        $this->validateHasKeys($body, $needKeys);
+
+        if (isset($body['BillingPlan'])) {
             $expected = ['Small', 'Medium', 'Large'];
             if (! in_array($body['BillingPlan'], $expected)) {
                 throw new UnexpectedValueException('BillingPlan should be one of '.implode(', ', $expected));

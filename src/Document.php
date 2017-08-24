@@ -150,22 +150,19 @@ class Document extends BaseClass
         ];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        } elseif (! is_array($body['SigneeRefs'])) {
+        $this->validateHasKeys($body, $needKeys);
+
+        if (! is_array($body['SigneeRefs'])) {
             throw new UnexpectedValueException('SigneeRefs key in input should be an array');
-        } else {
-            foreach ($body['SigneeRefs'] as $ref) {
-                if (! is_array($ref)) {
-                    throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
-                } elseif (! array_has_all_keys($ref, $needSubKeys)) {
-                    throw new BadMethodCallException(
-                        'Missing fields in SigneeRefs item. Need '.implode(', ', $needSubKeys)
-                    );
-                }
+        }
+
+        foreach ($body['SigneeRefs'] as $ref) {
+            if (! is_array($ref)) {
+                throw new UnexpectedValueException('Each item in SigneeRefs should be an array');
             }
+
+            // the SignreeRefs should have some fields
+            $this->validateHasKeys($ref, $needSubKeys);
         }
 
         // make the URL for this request
@@ -197,11 +194,7 @@ class Document extends BaseClass
         $needKeys = ['CanceledDate', 'DocumentID', 'Signature'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/CancelDocument', $this->getBaseUrl());
@@ -232,11 +225,7 @@ class Document extends BaseClass
         $needKeys = ['DocumentID', 'NewDeadline', 'ProviderID'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        }
+        $this->validateHasKeys($body, $needKeys);
 
         // make the URL for this request
         $url = sprintf('%s/ChangeDeadline', $this->getBaseUrl());

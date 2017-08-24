@@ -2,7 +2,6 @@
 
 namespace Sausin\Signere;
 
-use BadMethodCallException;
 use InvalidArgumentException;
 
 class ApiKey extends BaseClass
@@ -101,11 +100,9 @@ class ApiKey extends BaseClass
         $needKeys = ['MobileNumber', 'ProviderID'];
 
         // if the body doesn't have needed fields, throw an exception
-        if (! array_has_all_keys($body, $needKeys)) {
-            throw new BadMethodCallException(
-                'Missing fields in input array. Need '.implode(', ', $needKeys)
-            );
-        } elseif (isset($body['SmsMessage'])) {
+        $this->validateHasKeys($body, $needKeys);
+
+        if (isset($body['SmsMessage'])) {
             if (! preg_match('/\{0\}/', $body['SmsMessage'])) {
                 throw new InvalidArgumentException('SmsMessage must contain a {0}');
             }
