@@ -3,7 +3,6 @@
 namespace Sausin\Signere\Http\Controllers\Admin;
 
 use Sausin\Signere\Events;
-use Illuminate\Http\Request;
 use Sausin\Signere\Http\Controllers\Controller;
 
 class EventsController extends Controller
