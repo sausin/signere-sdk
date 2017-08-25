@@ -26,7 +26,6 @@ class DocumentProviderCertificateController extends Controller
     /**
      * Gets the expires date for your BankID certificate.
      *
-     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke()

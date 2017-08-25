@@ -27,7 +27,6 @@ class EventsController extends Controller
      * Returns the EventsQueue encryptionKey
      * as a base64 encoded string.
      *
-     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke()
