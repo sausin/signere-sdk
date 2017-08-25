@@ -110,6 +110,29 @@ In the second method, Signere does the hard work for you. You basically setup a 
 ...
 ...
 
+### Tips
+
+Laravel supports [real time facades](https://mattstauffer.co/blog/real-time-automatic-facades-in-laravel-5-4) (since 5.4).
+
+This can be very useful when you want to use a class from this package with injected dependencies and be able to test your own app's code. Read more about Laravel facades [here](https://laravel.com/docs/5.4/facades).
+
+Further, this can also be useful in `tinker` to check if you are getting correct responses. For example on a `tinker` console:
+
+```php
+>>> $r = Facades\Sausin\Signere\Events::getEncryptionKey()
+=> GuzzleHttp\Psr7\Response {#1234}
+>>> $r->getBody()->getContents()
+=> ""fcbYIytltKmGrmd3lre71wpdBDn4D56dNjp8Bn1TROl=""
+```
+
+gets you an encryption key from Signere, corresponding to your setup! Also,
+
+```php
+>>> Facades\Sausin\Signere\Events::getBaseUrl();
+```
+
+will give you the URL being used by the package. If you're in test/local environment, this will return `https://testapi.signere.no/api/events/encryptionkey` and `https://api.signere.no/api/events/encryptionkey` if you're in production.
+
 ## Credits
 * Taylor Otwell and Mohamed Said for the awesome [Horizon](https://github.com/laravel/horizon) package which served as a template for this.
 * Signere for providing an amazing API service to use BankId
