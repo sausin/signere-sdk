@@ -34,8 +34,8 @@ class RequestIdControllerTest extends AbstractControllerTest
             'person_number' => false,
             'language' => 'EN',
             'page_title' => str_random(10),
-            'iframe' => false,
-            'web_messaging' => true,
+            'iframe' => 'false',
+            'web_messaging' => 'true',
         ];
 
         $this->json('POST', '/signere/guest/login', $data)
