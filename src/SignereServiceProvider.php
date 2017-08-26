@@ -48,7 +48,7 @@ class SignereServiceProvider extends ServiceProvider
         Route::group([
             'prefix' => 'signere',
             'namespace' => 'Sausin\Signere\Http\Controllers',
-            'middleware' => 'web',
+            'middleware' => 'api',
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });

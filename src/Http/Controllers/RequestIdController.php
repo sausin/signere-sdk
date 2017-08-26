@@ -49,20 +49,23 @@ class RequestIdController extends Controller
             'person_number' => 'required|boolean',
             'language' => 'required|string|size:2|in:EN,NO,SV,DA,FI',
             'page_title' => 'sometimes|string',
-            'iframe' => 'required|boolean',
-            'web_messaging' => 'required|boolean',
+            'iframe' => 'required|string|in:true,false',
+            'iframe_height' => 'sometimes|nullable|numeric',
+            'web_messaging' => 'required|string|in:true,false'
         ]);
 
         $body = [
             'CancelUrl' => Config::get('signere.cancel_url'),
+            'Domain' => Config::get('signere.domain'),
             'ErrorUrl' => Config::get('signere.error_url'),
+            'Height' => $request->iframe_height ?: Config::get('signere.iframe_height'),
             'SuccessUrl' => Config::get('signere.success_url'),
             'ExternalReference' => $request->session_id,
             'IdentityProvider' => Config::get('signere.identity_provider'),
             'Language' => $request->language,
             'PageTitle' => $request->page_title,
             'UseIframe' => $request->iframe,
-            'UseWebMessaging' => $request->web_messaging,
+            'UseWebMessaging' => $request->web_messaging
         ];
 
         return $this->signereRequest->create($body)

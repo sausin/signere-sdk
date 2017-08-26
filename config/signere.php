@@ -13,6 +13,7 @@ return [
     | overridden by setting this variable to 'production'.
     |
     */
+   
     'mode'              => null,
 
     /*
@@ -41,7 +42,7 @@ return [
     | which case. See:  http://bit.ly/2wU8ihX
     |
     */
-
+   
     'cancel_url'        => 'https://abc.com/auth/abort?requestid=[1]&externalid=[2]',
     'error_url'         => 'https://abc.com/auth/error?status=[0]',
     'success_url'       => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
@@ -85,4 +86,19 @@ return [
     */
 
     'hash_algorithm'    => 'sha256',
+
+    /*
+    |--------------------------------------------------------------------------
+    | iframe Parameters
+    |--------------------------------------------------------------------------
+    |
+    | The domain parameter is required when the remote login or sign is
+    | required to be displayed inside an iframe. The height parameter
+    | gives a default value to the iframe height. This is normally
+    | recommended to be sent into the request.
+    |
+    */
+   
+    'domain'            => 'domain.dev',
+    'iframe_height'     => 400
 ];
