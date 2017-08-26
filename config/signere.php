@@ -13,7 +13,7 @@ return [
     | overridden by setting this variable to 'production'.
     |
     */
-   
+
     'mode'              => null,
 
     /*
@@ -42,7 +42,7 @@ return [
     | which case. See:  http://bit.ly/2wU8ihX
     |
     */
-   
+
     'cancel_url'        => 'https://abc.com/auth/abort?requestid=[1]&externalid=[2]',
     'error_url'         => 'https://abc.com/auth/error?status=[0]',
     'success_url'       => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
@@ -98,7 +98,7 @@ return [
     | recommended to be sent into the request.
     |
     */
-   
+
     'domain'            => 'domain.dev',
-    'iframe_height'     => 400
+    'iframe_height'     => 400,
 ];
