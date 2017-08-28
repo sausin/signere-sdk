@@ -69,12 +69,12 @@ class RequestIdControllerTest extends AbstractControllerTest
         // this will fail a check as there is no
         // request id set on the request
         $this->actingAs(new Fakes\Bidder)
-            ->json('GET', '/signere/bidder/check/123_234')
+            ->json('GET', '/signere/guest/check/123_234')
             ->assertStatus(404);
 
         // and now this should go through
         $this->actingAs(new Fakes\Bidder)
-            ->json('GET', '/signere/bidder/check/'.$requestId)
+            ->json('GET', '/signere/guest/check/'.$requestId)
             ->assertStatus(200);
     }
 }

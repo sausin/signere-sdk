@@ -38,7 +38,7 @@ class ExternalLoginControllerTest extends AbstractControllerTest
         // this will fail a check as there is no
         // request id set on the request
         $this->actingAs(new Fakes\Bidder)
-            ->json('DELETE', '/signere/bidder/logout', $data)
+            ->json('DELETE', '/signere/guest/logout', $data)
             ->assertStatus(422)
             ->assertJsonFragment(['request_id']);
 
@@ -46,7 +46,7 @@ class ExternalLoginControllerTest extends AbstractControllerTest
 
         // and now this should go through
         $this->actingAs(new Fakes\Bidder)
-            ->json('DELETE', '/signere/bidder/logout', $data)
+            ->json('DELETE', '/signere/guest/logout', $data)
             ->assertStatus(200);
     }
 }
