@@ -54,19 +54,24 @@ The config file has the following keys setup for the package to function correct
 'sign_success_url'  => 'https://abc.com/auth/success?requestid=[1]&externalid=[2]',
 'identity_provider' => 'NO_BANKID_WEB',
 ```
+## Pre-requisites
+
+### Keys
 
 The `.env` file in the project this SDK is used in should have the following keys defined:
-
 ```
 SIGNERE_API_ID
 SIGNERE_KEY_PRIMARY
 SIGNERE_KEY_SECONDARY
 PINGTOKEN
 ```
-
 These keys are provided by Signere when you register yourself with them.
 
 If you're using this package without Laravel, then the these variables need to be provided by an implementation of `Illuminate\Contracts\Config\Repository`. This is injected to the respective classes where required.
+
+### SSL
+
+Your application needs to have an operational SSL configuration. This is required for bankID to work correctly, in iframe setups.
 
 ## Usage
 
@@ -132,6 +137,12 @@ gets you an encryption key from Signere, corresponding to your setup! Also,
 ```
 
 will give you the URL being used by the package. If you're in test/local environment, this will return `https://testapi.signere.no/api/events/encryptionkey` and `https://api.signere.no/api/events/encryptionkey` if you're in production.
+
+### Commands
+
+This package ships with the artisan command `signere:renew`. It accepts an optional argument `--key=` which is either `primary` or `secondary`.
+
+If nothing is specified, it uses `primary`. This is useful to renew your signere keys and can be combined with the powerful [scheduler](https://laravel.com/docs/5.4/scheduling#defining-schedules) that Laravel comes with so you don't have to worry about renewing your keys. Just set it up for renewal and forget about it :)
 
 ## Credits
 * Taylor Otwell and Mohamed Said for the awesome [Horizon](https://github.com/laravel/horizon) package which served as a template for this.
