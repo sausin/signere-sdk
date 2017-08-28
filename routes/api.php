@@ -78,9 +78,11 @@ Route::prefix('guest')->group(function () {
     // mobile signing status
     Route::get('/mobile/externalSign/status/{signeeRef}', 'MobileExternalSignController@show');
     Route::post('/mobile/externalSign/start', 'MobileExternalSignController@store');
+
+    // checking validity and logout
+    Route::get('/check/{request}', 'RequestIdController@show')->where(['request' => '[A-Za-z0-9]+']);
+    Route::delete('/logout', 'ExternalLoginController');
 });
 
 Route::prefix('bidder')->group(function () {
-    Route::get('/check/{request}', 'RequestIdController@show')->where(['request' => '[A-Za-z0-9]+']);
-    Route::delete('/logout', 'ExternalLoginController');
 });
