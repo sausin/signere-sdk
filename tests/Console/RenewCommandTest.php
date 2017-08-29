@@ -2,6 +2,7 @@
 
 namespace Sausin\Signere\Tests\Controllers;
 
+use Exception;
 use Mockery as m;
 use Sausin\Signere\ApiKey;
 use Illuminate\Support\Facades\Artisan;
@@ -53,5 +54,29 @@ class RenewCommandTest extends IntegrationTest
 
         $resultCode = Artisan::call('signere:renew', ['--key' => 'secondary']);
         $this->assertEquals(0, $resultCode);
+    }
+
+    /** @test */
+    public function it_should_renew_both_keys_if_all_is_specified()
+    {
+        $this->apiKey->shouldReceive('renewPrimary')->once()->andReturn('');
+        $this->apiKey->shouldReceive('renewSecondary')->once()->andReturn('');
+
+        $this->app->instance('Sausin\Signere\ApiKey', $this->apiKey);
+
+        $resultCode = Artisan::call('signere:renew', ['--all' => 'default']);
+        $this->assertEquals(0, $resultCode);
+    }
+
+    /** @test */
+    public function it_should_handle_errors()
+    {
+        $this->apiKey->shouldReceive('renewPrimary')->once()->andThrow(Exception::class);
+        $this->apiKey->shouldNotReceive('renewSecondary');
+
+        $this->app->instance('Sausin\Signere\ApiKey', $this->apiKey);
+
+        $resultCode = Artisan::call('signere:renew', ['--all' => 'default']);
+        $this->assertEquals(-1, $resultCode);
     }
 }

@@ -4,7 +4,6 @@ namespace Sausin\Signere;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Sausin\Signere\Console\RenewCommand;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class SignereServiceProvider extends ServiceProvider
@@ -78,11 +77,8 @@ class SignereServiceProvider extends ServiceProvider
             define('SIGNERE_PATH', realpath(__DIR__.'/../'));
         }
 
-        // register the console command
-        $this->app->bind('command.signere:renew', RenewCommand::class);
-        $this->commands(['command.signere:renew']);
-
         $this->configure();
+        $this->registerCommands();
         $this->registerBindings();
         $this->offerPublishing();
     }
@@ -98,6 +94,19 @@ class SignereServiceProvider extends ServiceProvider
             __DIR__.'/../config/signere.php',
             'signere'
         );
+    }
+
+    /**
+     * Registers the commands available with this package.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            // register the console command
+            $this->commands([Console\RenewCommand::class]);
+        }
     }
 
     /**

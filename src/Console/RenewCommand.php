@@ -13,7 +13,9 @@ class RenewCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'signere:renew {--key= : Specify the key to be renewed}';
+    protected $signature = 'signere:renew 
+                            {--key= : Specify the key to be renewed}
+                            {--all}';
 
     /**
      * The console command description.
@@ -23,25 +25,55 @@ class RenewCommand extends Command
     protected $description = 'Renews your primary or secondary signere key';
 
     /**
+     * The ApiKey instance.
+     *
+     * @var ApiKey
+     */
+    protected $apiKey;
+
+    /**
+     * Create a new command instance.
+     *
+     * @param ApiKey $apiKey
+     */
+    public function __construct(ApiKey $apiKey)
+    {
+        parent::__construct();
+
+        $this->apiKey = $apiKey;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        $key = $this->option('key') ?: 'primary';
-        $this->info("Trying to renew your {$key} key...");
+        $all = $this->option('all');
+
+        if ($all) {
+            $this->info("Trying to renew both your keys...");
+        } else {
+            $key = $this->option('key') ?: 'primary';
+            $this->info("Trying to renew your {$key} key...");
+        }
 
         try {
-            $apiKey = app()->make(ApiKey::class);
+            if ($all) {
+                $this->apiKey->renewPrimary(config('signere.primary_key'));
+                $this->apiKey->renewSecondary(config('signere.secondary_key'));
 
-            if ($this->option('key') === 'secondary') {
-                $apiKey->renewSecondary(config('signere.secondary_key'));
+                $this->info("Both your keys were renewed!");
             } else {
-                $apiKey->renewPrimary(config('signere.primary_key'));
+                if ($this->option('key') === 'secondary') {
+                    $this->apiKey->renewSecondary(config('signere.secondary_key'));
+                } else {
+                    $this->apiKey->renewPrimary(config('signere.primary_key'));
+                }
+                
+                $this->info("Your {$key} key was renewed!");
             }
-
-            $this->info("Your {$key} key was renewed!");
         } catch (Exception $e) {
             $this->error("Renewing failed because: {$e->getMessage()}.");
 
