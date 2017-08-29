@@ -53,7 +53,7 @@ class RenewCommand extends Command
         $all = $this->option('all');
 
         if ($all) {
-            $this->info("Trying to renew both your keys...");
+            $this->info('Trying to renew both your keys...');
         } else {
             $key = $this->option('key') ?: 'primary';
             $this->info("Trying to renew your {$key} key...");
@@ -64,14 +64,14 @@ class RenewCommand extends Command
                 $this->apiKey->renewPrimary(config('signere.primary_key'));
                 $this->apiKey->renewSecondary(config('signere.secondary_key'));
 
-                $this->info("Both your keys were renewed!");
+                $this->info('Both your keys were renewed!');
             } else {
                 if ($this->option('key') === 'secondary') {
                     $this->apiKey->renewSecondary(config('signere.secondary_key'));
                 } else {
                     $this->apiKey->renewPrimary(config('signere.primary_key'));
                 }
-                
+
                 $this->info("Your {$key} key was renewed!");
             }
         } catch (Exception $e) {
