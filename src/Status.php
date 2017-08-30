@@ -57,13 +57,9 @@ class Status extends BaseClass
         // make the URL for this request
         $url = sprintf('%s/Ping/%s', $this->getBaseUrl(), $request);
 
-        // get the headers for this request
-        $headers = $this->headers->make('GET', $url);
-
         // get the response
         $response = $this->client->get($url, [
             'headers' => array_merge(
-                $headers,
                 ['PingToken' => $this->config->get('signere.ping_token')]
             ),
         ]);

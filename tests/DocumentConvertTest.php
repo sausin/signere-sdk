@@ -29,7 +29,7 @@ class DocumentConvertTest extends TestCase
 
         $url = $this->uri;
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, []])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $dc = new DocumentConvert($this->makeClient($detail), $this->headers);
         $response = $dc->convert([]);

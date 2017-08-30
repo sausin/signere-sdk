@@ -120,12 +120,8 @@ class DocumentProvider extends BaseClass
         // make the URL for this request
         $url = $this->getBaseUrl();
 
-        // get the headers for this request
-        $headers = $this->headers->make('POST', $url, $body);
-
         // get the response
         $response = $this->client->post($url, [
-            'headers' => $headers,
             'json' => $body,
         ]);
 
@@ -158,7 +154,7 @@ class DocumentProvider extends BaseClass
         $url = $this->getBaseUrl();
 
         // get the headers for this request
-        $headers = $this->headers->make('PUT', $url, $body);
+        $headers = $this->headers->make('PUT', $url, $body, true);
 
         // get the response
         $response = $this->client->put($url, [

@@ -36,7 +36,7 @@ class StatusTest extends TestCase
         $status = new Status($this->makeClient($date), $this->headers, $this->config);
 
         // test
-        $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $response = $status->getServerTime();
 
@@ -55,7 +55,7 @@ class StatusTest extends TestCase
 
         // test
         $this->config->shouldReceive('get')->once()->andReturn('');
-        $this->headers->shouldReceive('make')->withArgs(['GET', $url])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $response = $status->getServerStatus($pingRequest);
 

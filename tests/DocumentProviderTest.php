@@ -106,7 +106,7 @@ class DocumentProviderTest extends TestCase
         ];
         $url = $this->uri;
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $dp = new DocumentProvider($this->makeClient($detail, 2), $this->headers);
         $response = $dp->create($body);
@@ -115,7 +115,7 @@ class DocumentProviderTest extends TestCase
 
         // test that it works without billing plan
         unset($body['BillingPlan']);
-        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, $body])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $response = $dp->create($body);
         $this->assertEquals($detail, $response->getBody()->getContents());
@@ -134,7 +134,7 @@ class DocumentProviderTest extends TestCase
         $body = ['Mobile' => '98000000', 'ProviderId' => '1D4C883ED2CE48C8B4A9A08A00D4D3A4'];
         $url = $this->uri;
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body])->andReturn([]);
+        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body, true])->andReturn([]);
 
         $dp = new DocumentProvider($this->makeClient($detail), $this->headers);
         $response = $dp->update($body);

@@ -68,7 +68,7 @@ class ApiKeyTest extends TestCase
             $otp
         );
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['POST', $url, [], false])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $ak = new ApiKey($this->makeClient($detail), $this->headers);
         $response = $ak->createPrimary($providerId, $otp);
@@ -88,7 +88,7 @@ class ApiKeyTest extends TestCase
         ];
         $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', $this->uri);
 
-        $this->headers->shouldReceive('make')->once()->withArgs(['PUT', $url, $body, false])->andReturn([]);
+        $this->headers->shouldNotReceive('make');
 
         $ak = new ApiKey($this->makeClient($detail), $this->headers);
         $response = $ak->recoverPrimary($body);

@@ -74,12 +74,8 @@ class ApiKey extends BaseClass
             $otpCode
         );
 
-        // get the headers for this request
-        $headers = $this->headers->make('POST', $url, [], null);
-
         // get the response
         $response = $this->client->post($url, [
-            'headers' => $headers,
             'json' => [],
         ]);
 
@@ -111,12 +107,8 @@ class ApiKey extends BaseClass
         // make the URL for this request
         $url = sprintf('%s/OTP/RenewPrimaryKeyStep1', $this->getBaseUrl());
 
-        // get the headers for this request
-        $headers = $this->headers->make('PUT', $url, $body, false);
-
         // get the response
         $response = $this->client->put($url, [
-            'headers' => $headers,
             'json' => $body,
         ]);
 
