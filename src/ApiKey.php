@@ -61,10 +61,10 @@ class ApiKey extends BaseClass
      * Generate a new primary key and return it.
      *
      * @param  string $providerId
-     * @param  int    $otpCode
+     * @param  string $otpCode
      * @return object
      */
-    public function createPrimary(string $providerId, int $otpCode)
+    public function createPrimary(string $providerId, string $otpCode)
     {
         // make the URL for this request
         $url = sprintf(
