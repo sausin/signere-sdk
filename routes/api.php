@@ -76,8 +76,8 @@ Route::prefix('guest')->group(function () {
     Route::post('/login', 'RequestIdController@store');
 
     // mobile signing status
-    Route::get('/mobile/externalSign/status/{signeeRef}', 'MobileExternalSignController@show');
-    Route::post('/mobile/externalSign/start', 'MobileExternalSignController@store');
+    // Route::get('/mobile/externalSign/status/{signeeRef}', 'MobileExternalSignController@show');
+    // Route::post('/mobile/externalSign/start', 'MobileExternalSignController@store');
 
     // checking validity and logout
     Route::get('/check/{request}', 'RequestIdController@show')->where(['request' => '[A-Za-z0-9]+']);
